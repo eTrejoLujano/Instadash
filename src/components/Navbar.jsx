@@ -28,7 +28,7 @@ function Navbar() {
   return (
     <div
       className="flex justify-between items-center w-full h-[4rem] px-20
-     text-black bg-white fixed border-solid border border-gray-200"
+     text-black bg-white fixed z-10 border-solid border border-gray-200"
     >
       <FaBars
         className="cursor-pointer h-5 left-[6.5rem] top-[1.6rem] absolute"

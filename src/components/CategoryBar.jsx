@@ -37,8 +37,6 @@ function CategoryBar() {
                 <div className="pt-1.5 text-base">{name}</div>
               </li>
             ))}
-            {/* <li className="rounded-full py-3.5 px-4 bg-white ">Pill shape</li>
-            <li className="rounded-full py-3.5 px-4 bg-white">Pill shape</li> */}
           </ul>
         </div>
       </div>
