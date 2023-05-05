@@ -9,3 +9,6 @@
     font-family: "Open Sans", sans-serif;
   }
 }
+.container-snap::-webkit-scrollbar {
+  display: none;
+}
