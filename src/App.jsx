@@ -2,6 +2,8 @@ import { useState } from "react";
 import Navbar from "./components/Navbar";
 import CategoryBar from "./components/CategoryBar";
 import FoodTypes from "./components/FoodTypes";
+import Filterbar from "./components/Filterbar";
+import Ads from "./components/Ads";
 
 function App() {
   return (
@@ -9,6 +11,8 @@ function App() {
       <Navbar />
       <CategoryBar />
       <FoodTypes />
+      <Filterbar />
+      <Ads />
     </div>
   );
 }
