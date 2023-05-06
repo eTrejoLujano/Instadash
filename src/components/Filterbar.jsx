@@ -29,10 +29,10 @@ const Filterbar = () => {
       className="h-[4.2rem] text-black border-solid border 
     border-gray-100"
     >
-      <div className="scroll-smooth pt-[.2rem] flex flex-row justify-center">
+      <div className="scroll-smooth pt-[.4rem] flex flex-row justify-center">
         <div
           className="flex flex-row
-        my-3 overflow-x-scroll overscroll-x-contain container-snap space-x-3"
+         overflow-x-scroll overscroll-x-contain container-snap space-x-3"
         >
           {filters.map(({ id, name, src, srcArrow }) => (
             <div
