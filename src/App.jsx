@@ -4,6 +4,7 @@ import CategoryBar from "./components/CategoryBar";
 import FoodTypes from "./components/FoodTypes";
 import Filterbar from "./components/Filterbar";
 import Ads from "./components/Ads";
+import Recomendation from "./components/Recomendation";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <FoodTypes />
       <Filterbar />
       <Ads />
+      <Recomendation />
     </div>
   );
 }

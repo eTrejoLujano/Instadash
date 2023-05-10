@@ -111,7 +111,7 @@ const FoodTypes = () => {
               className="flex mx-auto flex-col justify-center items-center 
              space-y-2 py-4 pr-[.5rem] cursor-pointer"
             >
-              <div className="w-9 h-9 ">
+              <div className="w-9 h-9">
                 <img className="relative" src={src} />
               </div>
               <div className="truncate text-sm top-[.5rem] relative items-center ">
