@@ -3,7 +3,7 @@ import Cvs from "../assets/convenience/cvs.jpeg";
 import Riteaid from "../assets/convenience/riteaid.webp";
 import Seven11 from "../assets/convenience/seven11.jpg";
 import Walgreens from "../assets/convenience/walgreens.jpeg";
-import { TbHeart } from "react-icons/Tb";
+import { TbHeart } from "/react-icons/Tb";
 import { AiOutlineStar } from "/react-icons/Ai";
 import { TbChevronLeft, TbChevronRight } from "/react-icons/Tb";
 
