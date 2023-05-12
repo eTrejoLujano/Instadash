@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Krispy from "../assets/ads/krispykreme.jpg";
 import Tacobell from "../assets/ads/tacobell.jpeg";
 import Coke from "../assets/ads/cokecola.png";
