@@ -27,7 +27,7 @@ function Navbar() {
   };
   return (
     <div
-      className="flex justify-between items-center w-full h-[4rem] px-20
+      className="flex flex-row items-center w-screen h-[4rem] px-20
      text-black bg-white fixed border-solid border border-gray-200 z-50"
     >
       <div className="flex flex-row justify-center">
