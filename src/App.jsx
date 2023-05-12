@@ -4,7 +4,11 @@ import CategoryBar from "./components/CategoryBar";
 import FoodTypes from "./components/FoodTypes";
 import Filterbar from "./components/Filterbar";
 import Ads from "./components/Ads";
-import Recomendation from "./components/Recomendation";
+import National from "./components/National";
+import Fastest from "./components/Fastest";
+import Breakfast from "./components/Breakfast";
+import Convenience from "./components/Convenience";
+import Grocery from "./components/Grocery";
 
 function App() {
   return (
@@ -14,7 +18,11 @@ function App() {
       <FoodTypes />
       <Filterbar />
       <Ads />
-      <Recomendation />
+      <National />
+      <Fastest />
+      <Breakfast />
+      <Convenience />
+      <Grocery />
     </div>
   );
 }
