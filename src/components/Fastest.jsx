@@ -6,9 +6,9 @@ import Chickfila from "../assets/restaurants/chickfila.png";
 import Wendys from "../assets/restaurants/wendys.jpeg";
 import Burgerking from "../assets/restaurants/burgerking.jpeg";
 import Jackinthebox from "../assets/restaurants/jackinthebox.jpeg";
-import { TbHeart } from "react-icons/Tb";
-import { AiOutlineStar } from "react-icons/Ai";
-import { TbChevronLeft, TbChevronRight } from "react-icons/Tb";
+import { TbHeart } from "/react-icons/Tb";
+import { AiOutlineStar } from "/react-icons/Ai";
+import { TbChevronLeft, TbChevronRight } from "/react-icons/Tb";
 
 const Fastest = () => {
   const ref = useRef(null);

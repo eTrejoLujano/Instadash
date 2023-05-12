@@ -4,8 +4,8 @@ import Dunkin from "../assets/restaurants/dunkin.jpeg";
 import Starbucks from "../assets/restaurants/starbucks.jpeg";
 import Panerabread from "../assets/restaurants/panerabread.jpeg";
 import { TbHeart } from "react-icons/Tb";
-import { AiOutlineStar } from "react-icons/Ai";
-import { TbChevronLeft, TbChevronRight } from "react-icons/Tb";
+import { AiOutlineStar } from "/react-icons/Ai";
+import { TbChevronLeft, TbChevronRight } from "/react-icons/Tb";
 
 const Breakfast = () => {
   const ref = useRef(null);

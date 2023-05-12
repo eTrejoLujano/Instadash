@@ -21,7 +21,7 @@ import Barbecue from "../assets/foodtype/barbeque.png";
 import Bakery from "../assets/foodtype/bakery.png";
 import Asian from "../assets/foodtype/asianfood.png";
 import Thai from "../assets/foodtype/thai.png";
-import { TbChevronLeft, TbChevronRight } from "react-icons/Tb";
+import { TbChevronLeft, TbChevronRight } from "/react-icons/Tb";
 
 const FoodTypes = () => {
   const ref = useRef(null);

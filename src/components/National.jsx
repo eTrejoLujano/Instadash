@@ -9,9 +9,9 @@ import Jackinthebox from "../assets/restaurants/jackinthebox.jpeg";
 import Panerabread from "../assets/restaurants/panerabread.jpeg";
 import Meltdown from "../assets/restaurants/themeltdown.jpeg";
 import DashIcon from "../assets/restaurants/doordashicon.png";
-import { TbHeart } from "react-icons/Tb";
-import { AiOutlineStar } from "react-icons/Ai";
-import { TbChevronLeft, TbChevronRight } from "react-icons/Tb";
+import { TbHeart } from "/react-icons/Tb";
+import { AiOutlineStar } from "/react-icons/Ai";
+import { TbChevronLeft, TbChevronRight } from "/react-icons/Tb";
 
 // INSTADASH
 

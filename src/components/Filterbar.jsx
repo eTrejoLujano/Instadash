@@ -1,5 +1,5 @@
 import React from "react";
-import { HiChevronDown } from "react-icons/Hi";
+import { HiChevronDown } from "/react-icons/Hi";
 import BlackDoor from "../assets/icons/blackDoor.png";
 import BlackTag from "../assets/icons/blackTag.png";
 import BlackStar from "../assets/icons/blackStar.png";
