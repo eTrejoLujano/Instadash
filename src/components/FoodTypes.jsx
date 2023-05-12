@@ -80,16 +80,16 @@ const FoodTypes = () => {
   };
   return (
     <div className="h-full text-black">
-      <div className="flex flex-row justify-center space-x-3">
+      <div className="flex flex-row justify-center space-x-5">
         <div>
           {disableButton !== "left" && (
             <div className="py-[2rem]">
               <div
-                className="rounded-full h-8 w-8 border-solid border-2
-                  border-gray-100"
+                className="rounded-full h-8 w-8 shadow shadow-gray-300 
+                  "
               >
                 <button
-                  className="pl-[.1rem] pt-[.2rem]"
+                  className="pl-[.2rem] pt-[.3rem]"
                   onClick={() => adjustView("left")}
                 >
                   <TbChevronLeft size={23} />
@@ -124,11 +124,11 @@ const FoodTypes = () => {
           {disableButton !== "right" && (
             <div className="py-[2rem] ">
               <div
-                className="rounded-full h-8 w-8 border-solid border-2
-                  border-gray-100"
+                className="rounded-full h-8 w-8 shadow
+                  shadow-gray-300"
               >
                 <button
-                  className="pl-[.2rem] pt-[.2rem]"
+                  className="pl-[.4rem] pt-[.3rem]"
                   onClick={() => adjustView("right")}
                 >
                   <TbChevronRight size={23} />
