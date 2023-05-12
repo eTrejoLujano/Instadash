@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   build: {
     rollupOptions: {
-      external: ["react", "react-dom"],
+      external: ["react", "react-dom", "react-icons"],
     },
   },
   plugins: [react()],
