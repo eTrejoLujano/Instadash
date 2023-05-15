@@ -41,7 +41,7 @@ function Navbar() {
             className="w-[2.5rem] h-[2.5rem] left-[9rem] bottom-[0rem] top-[.7rem] absolute"
           />
           <div className="left-[8rem] text-xl font-bold top-[.2rem] text-red-500 relative">
-            INSTACART
+            INSTADASH
           </div>
         </button>
         <ul className="hidden md:flex left-80 top-[1.2rem] absolute">
