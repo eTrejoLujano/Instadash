@@ -8,5 +8,5 @@ export default defineConfig({
       external: ["react", "react-dom", "react-icons"],
     },
   },
-  plugins: [react()],
+  plugins: [react],
 });
