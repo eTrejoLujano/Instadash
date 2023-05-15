@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { FaBars } from "/react-icons/fa";
-import { AiOutlineSearch } from "/react-icons/ai";
-import { FiArrowLeft } from "/react-icons/fi";
-import { IoMdCart } from "/react-icons/io";
+import { FaBars } from "./react-icons/fa";
+import { AiOutlineSearch } from "./react-icons/ai";
+import { FiArrowLeft } from "./react-icons/fi";
+import { IoMdCart } from "./react-icons/io";
 import Instacart from "../../public/instacart.png";
 
 function Navbar() {
