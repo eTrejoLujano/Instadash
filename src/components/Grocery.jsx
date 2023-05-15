@@ -6,8 +6,8 @@ import Smartfinal from "../assets/convenience/smartfinal.jpeg";
 import Sprouts from "../assets/convenience/sprouts.jpeg";
 import Target from "../assets/convenience/target.jpeg";
 import { TbHeart } from "react-icons/tb";
-import { AiOutlineStar } from "react-icons/ai";
-import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
+import { AiOutlineStar } from "/react-icons/ai";
+import { TbChevronLeft, TbChevronRight } from "/react-icons/tb";
 
 const Grocery = () => {
   const ref = useRef(null);
