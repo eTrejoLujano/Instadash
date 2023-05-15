@@ -3,7 +3,7 @@ import { FaBars } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FiArrowLeft } from "react-icons/fi";
 import { IoMdCart } from "react-icons/io";
-import Instacart from "../../public/instacart.png";
+import Instacart from "../../public/instadash.png";
 
 function Navbar() {
   // const [nav, setNav] = useState(false);
