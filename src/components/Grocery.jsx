@@ -5,9 +5,9 @@ import Safeway from "../assets/convenience/safeway.webp";
 import Smartfinal from "../assets/convenience/smartfinal.jpeg";
 import Sprouts from "../assets/convenience/sprouts.jpeg";
 import Target from "../assets/convenience/target.jpeg";
-import { TbHeart } from "./react-icons/Tb";
-import { AiOutlineStar } from "./react-icons/Ai";
-import { TbChevronLeft, TbChevronRight } from "./react-icons/Tb";
+import { TbHeart } from "/react-icons/Tb";
+import { AiOutlineStar } from "/react-icons/Ai";
+import { TbChevronLeft, TbChevronRight } from "/react-icons/Tb";
 
 const Grocery = () => {
   const ref = useRef(null);
