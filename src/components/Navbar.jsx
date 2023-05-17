@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
 import { FiArrowLeft } from "react-icons/fi";
 import { IoMdCart } from "react-icons/io";
-import Instacart from "../../public/instadash.png";
+import Instacart from "../assets/icons/instadash.png";
 
 function Navbar() {
   // const [nav, setNav] = useState(false);
@@ -26,38 +26,38 @@ function Navbar() {
   };
   return (
     <div
-      className="w-screen h-[4rem] overflow-auto xl:px-20
+      className="w-screen h-[4rem] xl:px-20
      text-black bg-white fixed border-solid border border-gray-200 z-50"
     >
       <div className="flex justify-between pt-2">
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center relative left-[1rem] space-x-5">
           <AiOutlineMenu
             className="cursor-pointer h-5 left-[6.5rem]"
             size={22}
           />
-          <div className="cursor-pointer flex items-center pl-6">
+          <div className="cursor-pointer flex items-center space-x-3">
             <img src={Instacart} className="w-[2.5rem] h-[2.5rem] top-2" />
-            <div className="text-xl font-bold text-red-500 hidden md:flex">
+            <div className="text-xl font-bold text-red-500 hidden lg:flex">
               INSTADASH
             </div>
           </div>
-          <ul className="hidden lg:flex items-center left-80">
-            <li className="px-4 cursor-pointer capitalize font-medium text-black hover:scale-105 duration-200">
+          <ul className="items-center left-80 flex space-x-[.8rem]">
+            <li className="cursor-pointer hidden md:flex capitalize font-medium text-black hover:scale-105 duration-200">
               <div>delivery</div>
             </li>
-            <li className="px-4 cursor-pointer capitalize font-medium text-black hover:scale-105 duration-200">
+            <li className="cursor-pointer capitalize hidden md:flex font-medium text-black hover:scale-105 duration-200">
               <div>pickup</div>
             </li>
-            <li className="left-44 hidden md:flex">
+            <li className="left-44 hidden lg:flex">
               <h3 className="text-3xl font-light text-gray-300">|</h3>
             </li>
-            <li className="pl-2 bottom-6 hidden xl:flex">
+            <li className="bottom-6 hidden lg:flex">
               <h3 className="text-black truncate">Enter Address</h3>
             </li>
           </ul>
         </div>
         <div className="flex justify-center items-center">
-          <div className="relative right-[8rem] w-[24rem]">
+          <div className="relative left-1 lg:w-[24rem] md:w-[26rem] sm:w-[26rem] w-[17rem]">
             {searchIcon ? (
               <div className="absolute text-gray-500 top-2 left-2">
                 <AiOutlineSearch size={24} />
@@ -76,12 +76,16 @@ function Navbar() {
               onClick={() => setSearchIcon(false)}
             />
           </div>
-          <div className="cursor-pointer group">
-            <button className="rounded-full  absolute top-[.6rem] right-[7.4rem] border-2 w-[4.6rem] h-[2.3rem] text-white border-gray-100 bg-red-500 group-hover:bg-red-600" />
-            <div className="absolute right-[9.5rem] top-[1rem] text-white">
-              <IoMdCart size={27} />
+          <div className="cursor-pointer group relative">
+            <div className="flex relative left-[1.5rem]">
+              <button className="rounded-full top-[.6rem] right-[7.4rem] border-2 w-[4.6rem] h-[2.3rem] text-white border-gray-100 bg-red-500 group-hover:bg-red-600" />
+              <div className="right-[4rem] relative top-[0.3rem] text-white">
+                <IoMdCart size={27} />
+              </div>
+              <h2 className="text-white top-[0.2rem] right-[3.3rem] text-lg relative">
+                0
+              </h2>
             </div>
-            <h2 className="text-white top-[1rem] right-[8.3rem] absolute">0</h2>
           </div>
         </div>
       </div>
