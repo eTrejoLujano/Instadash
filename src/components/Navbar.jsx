@@ -57,7 +57,7 @@ function Navbar() {
           </ul>
         </div>
         <div className="flex justify-center items-center">
-          <div className="relative left-1 lg:w-[24rem] md:w-[26rem] sm:w-[26rem] w-[17rem]">
+          <div className="relative left-1 lg:w-[24rem] md:w-[26rem] sm:w-[26rem] w-[12.4rem]">
             {searchIcon ? (
               <div className="absolute text-gray-500 top-2 left-2">
                 <AiOutlineSearch size={24} />
