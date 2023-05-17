@@ -100,7 +100,7 @@ const Breakfast = () => {
   };
   return (
     <div className="h-full flex flex-col">
-      <div className="top-[12rem] pr-[63rem] justify-center flex mx-auto">
+      <div className="bottom-[0rem] lg:left-[0rem] xl:left-[22.4rem] relative flex">
         <h2 className="font-semibold text-2xl truncate">Best of Breakfast</h2>
       </div>
       <div className="flex flex-row justify-center space-x-3 space-y-3">

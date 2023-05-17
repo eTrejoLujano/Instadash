@@ -101,7 +101,7 @@ const Convenience = () => {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="top-[12rem] pr-[56.3rem] justify-center flex mx-auto">
+      <div className="bottom-[0rem] lg:left-[0rem] xl:left-[22.4rem] relative flex">
         <h2 className="font-semibold text-2xl truncate">
           Convenience & Drugstores
         </h2>
