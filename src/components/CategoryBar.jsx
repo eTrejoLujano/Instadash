@@ -21,13 +21,13 @@ function CategoryBar() {
   ];
   return (
     <div
-      className="h-[8.8rem] text-black bg-gray-100 border-solid border 
+      className="lg:h-[8.8rem] h-[5rem] text-black bg-gray-100 border-solid border 
     border-gray-100"
     >
       <div className="scroll-smooth flex flex-row justify-center">
         <div
           className="flex flex-row items-center
-        h-[7rem] my-11 mx-auto overflow-x-scroll overscroll-x-contain 
+        lg:h-[7rem] h-[4.6rem] lg:my-11 mx-auto overflow-x-scroll overscroll-x-contain 
         container-snap space-x-3"
         >
           {categories.map(({ id, name, src }) => (

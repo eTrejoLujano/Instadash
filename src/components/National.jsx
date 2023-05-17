@@ -163,7 +163,7 @@ const Recomendation = () => {
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col pb-2">
       <div className="bottom-[0rem] lg:left-[0rem] xl:left-[22.4rem] relative flex">
         <h2 className="font-semibold text-2xl truncate">National Favorites</h2>
       </div>
@@ -212,7 +212,7 @@ const Recomendation = () => {
           )}
         </div>
       </div>
-      <div className="flex flex-row justify-center bottom-1">
+      <div className="flex-row justify-center bottom-1 hidden md:flex">
         {disableButton !== "left" && (
           <div className="bottom-[2.2rem] ">
             <div

@@ -80,8 +80,8 @@ const FoodTypes = () => {
   };
   return (
     <div className="h-full text-black">
-      <div className="flex flex-row justify-center space-x-5">
-        <div>
+      <div className="flex flex-row justify-center md:space-x-5">
+        <div className="hidden md:flex">
           {disableButton !== "left" && (
             <div className="py-[2rem]">
               <div
@@ -120,7 +120,7 @@ const FoodTypes = () => {
             </div>
           ))}
         </div>
-        <div>
+        <div className="hidden md:flex">
           {disableButton !== "right" && (
             <div className="py-[2rem] ">
               <div
