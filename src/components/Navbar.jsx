@@ -30,12 +30,24 @@ function Navbar() {
     ref.current.value = "";
     setSearchIcon(true);
   };
+
+  const menuOptions = [
+    { id: 1, name: "Home", icon: RxHome },
+    { id: 2, name: "Pickup", icon: SlBag },
+    { id: 3, name: "Orders", icon: TfiReceipt },
+    { id: 4, name: "Account", icon: CgProfile },
+    { id: 5, name: "Saved Stores", icon: TbHeart },
+    { id: 6, name: "Payment", icon: MdPayments },
+    { id: 7, name: "Help", icon: FiHelpCircle },
+    { id: 8, name: "Sign Out", icon: CgCloseO },
+  ];
+
   return (
     <div>
       <div className="flex">
         <div
-          className={`fixed bg-white h-screen z-50 shadow-gray-300 shadow  ${
-            menu ? "md:w-[22rem] w-screen" : "md:w-0"
+          className={`fixed bg-white h-screen z-50 shadow-gray-300 w-screen shadow  ${
+            menu ? "md:w-[22rem]" : "md:w-0"
           } duration-300`}
         >
           {menu && (
@@ -43,15 +55,18 @@ function Navbar() {
               <div className="relative top-[1.5rem] left-[1rem] cursor-pointer">
                 <CgClose size={22} onClick={() => setMenu(!menu)} />
               </div>
-              <div className="relative top-[4.5rem] space-y-[2rem]">
-                <RxHome size={22} />
-                <SlBag size={22} />
-                <TfiReceipt size={22} />
-                <CgProfile size={22} />
-                <TbHeart size={22} />
-                <MdPayments size={22} />
-                <FiHelpCircle size={22} />
-                <CgCloseO size={22} />
+              <div className="relative top-[4.2rem] left-[1.2rem] space-y-[1.8rem]">
+                {menuOptions.map(({ id, name }, index) => {
+                  const Icon = menuOptions[index].icon;
+                  return (
+                    <div key={id} className="flex items-center">
+                      <Icon size={23} />
+                      <div className="relative left-[1.4rem]  font-bold text-lg">
+                        {name}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
