@@ -46,8 +46,8 @@ function Navbar() {
     <div>
       <div className="flex">
         <div
-          className={`fixed bg-white h-screen z-50 shadow-gray-300 w-screen shadow  ${
-            menu ? "md:w-[22rem]" : "md:w-0"
+          className={`fixed bg-white h-screen z-50 shadow-gray-300 shadow  ${
+            menu ? "md:w-[22rem] w-screen " : "md:w-0"
           } duration-300`}
         >
           {menu && (
