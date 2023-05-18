@@ -9,9 +9,11 @@ import { TfiReceipt } from "react-icons/tfi";
 import { TbHeart } from "react-icons/tb";
 import { MdPayments } from "react-icons/md";
 import Instacart from "../assets/icons/instadash.png";
+import PlateIcon from "../assets/icons/plateicon.png";
 
 function Navbar() {
   const [menu, setMenu] = useState(false);
+  const [cart, setCart] = useState(false);
   const [searchIcon, setSearchIcon] = useState(true);
   const ref = useRef(null);
   useEffect(() => {
@@ -51,11 +53,14 @@ function Navbar() {
           } duration-300`}
         >
           {menu && (
-            <div>
+            <div className="scroll-smooth">
               <div className="relative top-[1.5rem] left-[1rem] cursor-pointer">
                 <CgClose size={22} onClick={() => setMenu(!menu)} />
               </div>
-              <div className="relative top-[4.2rem] left-[1.2rem] space-y-[1.8rem]">
+              <div
+                className="relative top-[4.2rem] left-[1.2rem] space-y-[1.8rem] flex flex-col
+              overscroll-y-contain overflow-y-scroll container-snap"
+              >
                 {menuOptions.map(({ id, name }, index) => {
                   const Icon = menuOptions[index].icon;
                   return (
@@ -67,6 +72,32 @@ function Navbar() {
                     </div>
                   );
                 })}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="flex justify-end">
+        <div
+          className={`fixed bg-white h-screen z-50 shadow-gray-300 shadow  ${
+            cart ? "md:w-[22rem] w-screen " : "md:w-0"
+          } duration-300`}
+        >
+          {cart && (
+            <div className="scroll-smooth">
+              <div className="relative top-[1.5rem] left-[1rem] cursor-pointer">
+                <CgClose size={22} onClick={() => setCart(!cart)} />
+              </div>
+              <div
+                className="relative top-[4.2rem] left-[1.2rem] space-y-[1.8rem] flex flex-col
+              overscroll-y-contain overflow-y-scroll container-snap"
+              >
+                <div className="items-center">
+                  <img src={PlateIcon} className="h-[17rem] w-[17rem]" />
+                  <div className="relative left-[1.4rem]  font-bold text-lg">
+                    Cart is Empty
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -125,7 +156,10 @@ function Navbar() {
               />
             </div>
             <div className="cursor-pointer group relative">
-              <div className="flex relative left-[1.5rem]">
+              <div
+                className="flex relative left-[1.5rem]"
+                onClick={() => setCart(!cart)}
+              >
                 <button className="rounded-full top-[.6rem] right-[7.4rem] border-2 w-[4.6rem] h-[2.3rem] text-white border-gray-100 bg-red-500 group-hover:bg-red-600" />
                 <div className="right-[4rem] relative top-[0.3rem] text-white">
                   <IoMdCart size={27} />
