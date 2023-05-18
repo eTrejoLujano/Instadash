@@ -1,11 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
-import { FiArrowLeft } from "react-icons/fi";
+import { FiArrowLeft, FiHelpCircle } from "react-icons/fi";
 import { IoMdCart } from "react-icons/io";
+import { CgClose, CgProfile, CgCloseO } from "react-icons/cg";
+import { RxHome } from "react-icons/rx";
+import { SlBag } from "react-icons/sl";
+import { TfiReceipt } from "react-icons/tfi";
+import { TbHeart } from "react-icons/tb";
+import { MdPayments } from "react-icons/md";
 import Instacart from "../assets/icons/instadash.png";
 
 function Navbar() {
-  // const [nav, setNav] = useState(false);
+  const [menu, setMenu] = useState(false);
   const [searchIcon, setSearchIcon] = useState(true);
   const ref = useRef(null);
   useEffect(() => {
@@ -26,15 +32,41 @@ function Navbar() {
   };
   return (
     <div>
+      <div className="flex">
+        <div
+          className={`fixed bg-white h-screen z-50 shadow-gray-300 shadow  ${
+            menu ? "md:w-[22rem] w-screen" : "md:w-0"
+          } duration-300`}
+        >
+          {menu && (
+            <div>
+              <div className="relative top-[1.5rem] left-[1rem] cursor-pointer">
+                <CgClose size={22} onClick={() => setMenu(!menu)} />
+              </div>
+              <div className="relative top-[4.5rem] space-y-[2rem]">
+                <RxHome size={22} />
+                <SlBag size={22} />
+                <TfiReceipt size={22} />
+                <CgProfile size={22} />
+                <TbHeart size={22} />
+                <MdPayments size={22} />
+                <FiHelpCircle size={22} />
+                <CgCloseO size={22} />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
       <div
         className="w-screen h-[4rem] xl:px-20
-     text-black bg-white fixed border-solid border border-gray-200 z-50"
+     text-black bg-white fixed border-solid border border-gray-200 z-40"
       >
         <div className="flex justify-between pt-2">
           <div className="flex justify-center items-center relative left-[1rem] space-x-5">
             <AiOutlineMenu
               className="cursor-pointer h-5 left-[6.5rem]"
               size={22}
+              onClick={() => setMenu(!menu)}
             />
             <div className="cursor-pointer flex items-center space-x-3">
               <img src={Instacart} className="w-[2.5rem] h-[2.5rem] top-2" />
@@ -58,7 +90,7 @@ function Navbar() {
             </ul>
           </div>
           <div className="flex justify-center items-center">
-            <div className="relative left-1 lg:w-[24rem] md:w-[26rem] sm:w-[26rem] w-[12.4rem]">
+            <div className="relative left-4 lg:w-[24rem] md:w-[26rem] sm:w-[26rem] w-[10.9rem]">
               {searchIcon ? (
                 <div className="absolute text-gray-500 top-2 left-2">
                   <AiOutlineSearch size={24} />
@@ -93,7 +125,7 @@ function Navbar() {
       </div>
       <div
         className="w-screen relative h-[7rem] pt-[4rem] justify-center
-     text-black bg-white border-solid border border-gray-200 z-40 flex lg:hidden"
+     text-black bg-white border-solid border border-gray-200 z-30 flex lg:hidden"
       >
         <div className="flex justify-center pt-2">
           <div className="cursor-pointer justify-center flex capitalize font-medium text-black hover:scale-105 duration-200">
