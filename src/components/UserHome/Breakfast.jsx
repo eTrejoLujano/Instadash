@@ -1,27 +1,30 @@
-import React, { useRef, useState } from "react";
-import Mcdonalds from "../assets/restaurants/mcdonalds.jpeg";
-import Tacobell from "../assets/restaurants/tacobell.jpeg";
-import Starbucks from "../assets/restaurants/starbucks.jpeg";
-import Chickfila from "../assets/restaurants/chickfila.png";
-import Wendys from "../assets/restaurants/wendys.jpeg";
-import Burgerking from "../assets/restaurants/burgerking.jpeg";
-import Jackinthebox from "../assets/restaurants/jackinthebox.jpeg";
-import Panerabread from "../assets/restaurants/panerabread.jpeg";
-import Meltdown from "../assets/restaurants/themeltdown.jpeg";
-import DashIcon from "../assets/restaurants/doordashicon.png";
+import { useRef, useState } from "react";
+import Petescoffee from "../../assets/restaurants/petescoffee.jpeg";
+import Dunkin from "../../assets/restaurants/dunkin.jpeg";
+import Starbucks from "../../assets/restaurants/starbucks.jpeg";
+import Panerabread from "../../assets/restaurants/panerabread.jpeg";
 import { TbHeart } from "react-icons/tb";
 import { AiOutlineStar } from "react-icons/ai";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 
-// INSTADASH
-
-const Recomendation = () => {
+const Breakfast = () => {
   const ref = useRef(null);
   const [disableButton, setDisableButton] = useState("left");
 
   const [favorites, setFavorites] = useState([
     {
-      id: 1,
+      id: 2,
+      name: "Peet's Coffee",
+      src: Petescoffee,
+      save: false,
+      distance: "1.0 mi",
+      time: "20 min",
+      fee: "$1.99 Delivery Fee",
+      rate: "4.7",
+      reviews: "(2,300+)",
+    },
+    {
+      id: 5,
       name: "Starbucks",
       src: Starbucks,
       save: false,
@@ -32,42 +35,9 @@ const Recomendation = () => {
       reviews: "(2,300+)",
     },
     {
-      id: 2,
-      name: "Mcdonald's",
-      src: Mcdonalds,
-      save: false,
-      distance: "1.0 mi",
-      time: "20 min",
-      fee: "$1.99 Delivery Fee",
-      rate: "4.7",
-      reviews: "(2,300+)",
-    },
-    {
       id: 3,
-      name: "Taco Bell",
-      src: Tacobell,
-      save: false,
-      distance: "1.0 mi",
-      time: "20 min",
-      fee: "$1.99 Delivery Fee",
-      rate: "4.7",
-      reviews: "(2,300+)",
-    },
-    {
-      id: 4,
-      name: "Chick-fil-A",
-      src: Chickfila,
-      save: false,
-      distance: "1.0 mi",
-      time: "20 min",
-      fee: "$1.99 Delivery Fee",
-      rate: "4.7",
-      reviews: "(2,300+)",
-    },
-    {
-      id: 5,
-      name: "Wendy's",
-      src: Wendys,
+      name: "Dunkin'",
+      src: Dunkin,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -77,41 +47,8 @@ const Recomendation = () => {
     },
     {
       id: 6,
-      name: "Burger King",
-      src: Burgerking,
-      save: false,
-      distance: "1.0 mi",
-      time: "20 min",
-      fee: "$1.99 Delivery Fee",
-      rate: "4.7",
-      reviews: "(2,300+)",
-    },
-    {
-      id: 7,
-      name: "Jack in the Box",
-      src: Jackinthebox,
-      save: false,
-      distance: "1.0 mi",
-      time: "20 min",
-      fee: "$1.99 Delivery Fee",
-      rate: "4.7",
-      reviews: "(2,300+)",
-    },
-    {
-      id: 8,
       name: "Panera Bread",
       src: Panerabread,
-      save: false,
-      distance: "1.0 mi",
-      time: "20 min",
-      fee: "$1.99 Delivery Fee",
-      rate: "4.7",
-      reviews: "(2,300+)",
-    },
-    {
-      id: 9,
-      name: "The Meltdown",
-      src: Meltdown,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -161,11 +98,10 @@ const Recomendation = () => {
       }
     }
   };
-
   return (
     <div className="h-full flex flex-col pb-2">
       <div className="bottom-[0rem] lg:left-[0rem] xl:left-[22.4rem] relative flex">
-        <h2 className="font-semibold text-2xl truncate">National Favorites</h2>
+        <h2 className="font-semibold text-2xl truncate">Best of Breakfast</h2>
       </div>
       <div className="flex flex-row justify-center space-x-3 space-y-3">
         <div
@@ -278,4 +214,4 @@ const Recomendation = () => {
   );
 };
 
-export default Recomendation;
+export default Breakfast;

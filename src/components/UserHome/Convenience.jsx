@@ -1,21 +1,21 @@
-import React, { useRef, useState } from "react";
-import Petescoffee from "../assets/restaurants/petescoffee.jpeg";
-import Dunkin from "../assets/restaurants/dunkin.jpeg";
-import Starbucks from "../assets/restaurants/starbucks.jpeg";
-import Panerabread from "../assets/restaurants/panerabread.jpeg";
+import { useRef, useState } from "react";
+import Cvs from "../../assets/convenience/cvs.jpeg";
+import Riteaid from "../../assets/convenience/riteaid.webp";
+import Seven11 from "../../assets/convenience/seven11.jpg";
+import Walgreens from "../../assets/convenience/walgreens.jpeg";
 import { TbHeart } from "react-icons/tb";
 import { AiOutlineStar } from "react-icons/ai";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 
-const Breakfast = () => {
+const Convenience = () => {
   const ref = useRef(null);
   const [disableButton, setDisableButton] = useState("left");
 
   const [favorites, setFavorites] = useState([
     {
-      id: 2,
-      name: "Peet's Coffee",
-      src: Petescoffee,
+      id: 1,
+      name: "7-Eleven",
+      src: Seven11,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -24,9 +24,9 @@ const Breakfast = () => {
       reviews: "(2,300+)",
     },
     {
-      id: 5,
-      name: "Starbucks",
-      src: Starbucks,
+      id: 2,
+      name: "CVS",
+      src: Cvs,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -36,8 +36,8 @@ const Breakfast = () => {
     },
     {
       id: 3,
-      name: "Dunkin'",
-      src: Dunkin,
+      name: "Rite Aid",
+      src: Riteaid,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -46,9 +46,9 @@ const Breakfast = () => {
       reviews: "(2,300+)",
     },
     {
-      id: 6,
-      name: "Panera Bread",
-      src: Panerabread,
+      id: 4,
+      name: "Walgreens",
+      src: Walgreens,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -98,10 +98,13 @@ const Breakfast = () => {
       }
     }
   };
+
   return (
     <div className="h-full flex flex-col pb-2">
       <div className="bottom-[0rem] lg:left-[0rem] xl:left-[22.4rem] relative flex">
-        <h2 className="font-semibold text-2xl truncate">Best of Breakfast</h2>
+        <h2 className="font-semibold text-2xl truncate">
+          Convenience & Drugstores
+        </h2>
       </div>
       <div className="flex flex-row justify-center space-x-3 space-y-3">
         <div
@@ -214,4 +217,4 @@ const Breakfast = () => {
   );
 };
 
-export default Breakfast;
+export default Convenience;

@@ -1,13 +1,12 @@
-import React from "react";
-import Convenience from "../assets/category/convenience.png";
-import Alcohol from "../assets/category/alcohol.png";
-import Flowers from "../assets/category/flowers.svg";
-import Shipping from "../assets/category/shipping.png";
-import Grocery from "../assets/category/grocery.png";
-import Gifts from "../assets/category/gifts.png";
-import Pets from "../assets/category/pets.png";
-import Packages from "../assets/category/packages.png";
-
+import Convenience from "../../assets/category/convenience.png";
+import Alcohol from "../../assets/category/alcohol.png";
+import Flowers from "../../assets/category/flowers.svg";
+import Shipping from "../../assets/category/shipping.png";
+import Grocery from "../../assets/category/grocery.png";
+import Gifts from "../../assets/category/gifts.png";
+import Pets from "../../assets/category/pets.png";
+import Packages from "../../assets/category/packages.png";
+//edits
 function CategoryBar() {
   const categories = [
     { id: 1, name: "Convenience", src: Convenience },

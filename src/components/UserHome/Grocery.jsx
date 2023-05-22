@@ -1,21 +1,23 @@
-import React, { useRef, useState } from "react";
-import Cvs from "../assets/convenience/cvs.jpeg";
-import Riteaid from "../assets/convenience/riteaid.webp";
-import Seven11 from "../assets/convenience/seven11.jpg";
-import Walgreens from "../assets/convenience/walgreens.jpeg";
+import { useRef, useState } from "react";
+import Cardenas from "../../assets/convenience/cardenas.jpeg";
+import Groceryoutlet from "../../assets/convenience/groceryoutlet.png";
+import Safeway from "../../assets/convenience/safeway.webp";
+import Smartfinal from "../../assets/convenience/smartfinal.jpeg";
+import Sprouts from "../../assets/convenience/sprouts.jpeg";
+import Target from "../../assets/convenience/target.jpeg";
 import { TbHeart } from "react-icons/tb";
 import { AiOutlineStar } from "react-icons/ai";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 
-const Convenience = () => {
+const Grocery = () => {
   const ref = useRef(null);
   const [disableButton, setDisableButton] = useState("left");
 
   const [favorites, setFavorites] = useState([
     {
       id: 1,
-      name: "7-Eleven",
-      src: Seven11,
+      name: "Cardenas",
+      src: Cardenas,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -25,8 +27,8 @@ const Convenience = () => {
     },
     {
       id: 2,
-      name: "CVS",
-      src: Cvs,
+      name: "Grocery Outlet",
+      src: Groceryoutlet,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -36,8 +38,8 @@ const Convenience = () => {
     },
     {
       id: 3,
-      name: "Rite Aid",
-      src: Riteaid,
+      name: "Safeway",
+      src: Safeway,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -47,8 +49,30 @@ const Convenience = () => {
     },
     {
       id: 4,
-      name: "Walgreens",
-      src: Walgreens,
+      name: "Target",
+      src: Target,
+      save: false,
+      distance: "1.0 mi",
+      time: "20 min",
+      fee: "$1.99 Delivery Fee",
+      rate: "4.7",
+      reviews: "(2,300+)",
+    },
+    {
+      id: 5,
+      name: "Smart & Final",
+      src: Smartfinal,
+      save: false,
+      distance: "1.0 mi",
+      time: "20 min",
+      fee: "$1.99 Delivery Fee",
+      rate: "4.7",
+      reviews: "(2,300+)",
+    },
+    {
+      id: 6,
+      name: "Sprouts",
+      src: Sprouts,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -102,9 +126,7 @@ const Convenience = () => {
   return (
     <div className="h-full flex flex-col pb-2">
       <div className="bottom-[0rem] lg:left-[0rem] xl:left-[22.4rem] relative flex">
-        <h2 className="font-semibold text-2xl truncate">
-          Convenience & Drugstores
-        </h2>
+        <h2 className="font-semibold text-2xl truncate">Grocery</h2>
       </div>
       <div className="flex flex-row justify-center space-x-3 space-y-3">
         <div
@@ -217,4 +239,4 @@ const Convenience = () => {
   );
 };
 
-export default Convenience;
+export default Grocery;

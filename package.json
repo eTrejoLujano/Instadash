@@ -10,7 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "indexof": "0.0.1"
+    "indexof": "0.0.1",
+    "react-router-dom": "^6.11.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

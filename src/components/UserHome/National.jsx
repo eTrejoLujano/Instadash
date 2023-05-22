@@ -1,23 +1,29 @@
-import React, { useRef, useState } from "react";
-import Cardenas from "../assets/convenience/cardenas.jpeg";
-import Groceryoutlet from "../assets/convenience/groceryoutlet.png";
-import Safeway from "../assets/convenience/safeway.webp";
-import Smartfinal from "../assets/convenience/smartfinal.jpeg";
-import Sprouts from "../assets/convenience/sprouts.jpeg";
-import Target from "../assets/convenience/target.jpeg";
+import { useRef, useState } from "react";
+import Mcdonalds from "../../assets/restaurants/mcdonalds.jpeg";
+import Tacobell from "../../assets/restaurants/tacobell.jpeg";
+import Starbucks from "../../assets/restaurants/starbucks.jpeg";
+import Chickfila from "../../assets/restaurants/chickfila.png";
+import Wendys from "../../assets/restaurants/wendys.jpeg";
+import Burgerking from "../../assets/restaurants/burgerking.jpeg";
+import Jackinthebox from "../../assets/restaurants/jackinthebox.jpeg";
+import Panerabread from "../../assets/restaurants/panerabread.jpeg";
+import Meltdown from "../../assets/restaurants/themeltdown.jpeg";
+import DashIcon from "../../assets/restaurants/doordashicon.png";
 import { TbHeart } from "react-icons/tb";
 import { AiOutlineStar } from "react-icons/ai";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 
-const Grocery = () => {
+// INSTADASH
+
+const Recomendation = () => {
   const ref = useRef(null);
   const [disableButton, setDisableButton] = useState("left");
 
   const [favorites, setFavorites] = useState([
     {
       id: 1,
-      name: "Cardenas",
-      src: Cardenas,
+      name: "Starbucks",
+      src: Starbucks,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -27,8 +33,8 @@ const Grocery = () => {
     },
     {
       id: 2,
-      name: "Grocery Outlet",
-      src: Groceryoutlet,
+      name: "Mcdonald's",
+      src: Mcdonalds,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -38,8 +44,8 @@ const Grocery = () => {
     },
     {
       id: 3,
-      name: "Safeway",
-      src: Safeway,
+      name: "Taco Bell",
+      src: Tacobell,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -49,8 +55,8 @@ const Grocery = () => {
     },
     {
       id: 4,
-      name: "Target",
-      src: Target,
+      name: "Chick-fil-A",
+      src: Chickfila,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -60,8 +66,8 @@ const Grocery = () => {
     },
     {
       id: 5,
-      name: "Smart & Final",
-      src: Smartfinal,
+      name: "Wendy's",
+      src: Wendys,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -71,8 +77,41 @@ const Grocery = () => {
     },
     {
       id: 6,
-      name: "Sprouts",
-      src: Sprouts,
+      name: "Burger King",
+      src: Burgerking,
+      save: false,
+      distance: "1.0 mi",
+      time: "20 min",
+      fee: "$1.99 Delivery Fee",
+      rate: "4.7",
+      reviews: "(2,300+)",
+    },
+    {
+      id: 7,
+      name: "Jack in the Box",
+      src: Jackinthebox,
+      save: false,
+      distance: "1.0 mi",
+      time: "20 min",
+      fee: "$1.99 Delivery Fee",
+      rate: "4.7",
+      reviews: "(2,300+)",
+    },
+    {
+      id: 8,
+      name: "Panera Bread",
+      src: Panerabread,
+      save: false,
+      distance: "1.0 mi",
+      time: "20 min",
+      fee: "$1.99 Delivery Fee",
+      rate: "4.7",
+      reviews: "(2,300+)",
+    },
+    {
+      id: 9,
+      name: "The Meltdown",
+      src: Meltdown,
       save: false,
       distance: "1.0 mi",
       time: "20 min",
@@ -126,7 +165,7 @@ const Grocery = () => {
   return (
     <div className="h-full flex flex-col pb-2">
       <div className="bottom-[0rem] lg:left-[0rem] xl:left-[22.4rem] relative flex">
-        <h2 className="font-semibold text-2xl truncate">Grocery</h2>
+        <h2 className="font-semibold text-2xl truncate">National Favorites</h2>
       </div>
       <div className="flex flex-row justify-center space-x-3 space-y-3">
         <div
@@ -239,4 +278,4 @@ const Grocery = () => {
   );
 };
 
-export default Grocery;
+export default Recomendation;
