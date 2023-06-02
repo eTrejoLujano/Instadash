@@ -1,12 +1,16 @@
-import { Route, Navigate } from "react-router-dom";
-import React from "react";
+import { useSelector } from "react-redux";
+import { Routes, Navigate } from "react-router-dom";
 
-const PrivateRoute = ({ children, ...rest }) => {
+const PrivateRoute = ({ user, redirectPath = "/", children }) => {
   console.log("Private Route Works");
-  const authenticated = false;
-  return (
-    <Route {...rest}>{authenticated ? <Navigate to="/" /> : children}</Route>
-  );
+
+  console.log("user", user);
+  // if (!user) {
+  //   return <Navigate to={redirectPath} replace />;
+  // }
+  if (user) {
+    return children;
+  }
 };
 
 export default PrivateRoute;

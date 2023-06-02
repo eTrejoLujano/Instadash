@@ -6,16 +6,12 @@ import jwt_decode from "jwt-decode";
 const URL = REQ_URL;
 
 export const me = createAsyncThunk("auth/me", async (_, thunkAPI) => {
-  const token = window.localStorage.getItem("token");
-
+  const token = JSON.parse(window.localStorage.getItem("token"));
   if (token) {
-    const res = await axios.get("/auth/me", {
-      headers: {
-        authorization: token,
-      },
-    });
-    return thunkAPI.dispatch(setToken(res.data));
+    thunkAPI.dispatch(setToken(token));
+    thunkAPI.dispatch(setUser(jwt_decode(token.access)));
   }
+  return;
 });
 
 export const authenticate = createAsyncThunk(
@@ -25,12 +21,13 @@ export const authenticate = createAsyncThunk(
       const response = await axios.post(`${URL}/api/token/`, formVals);
       console.log("response: ", response);
       if (response.status === 200) {
+        window.localStorage.setItem("token", JSON.stringify(response.data));
         thunkAPI.dispatch(setToken(response.data));
         thunkAPI.dispatch(setUser(jwt_decode(response.data.access)));
       } else {
         alert("Something went wrong");
       }
-      //   window.localStorage.setItem("token", data.access);
+      // window.localStorage.setItem("token", data.access);
       //   thunkAPI.dispatch(me());
     } catch (authError) {
       console.log(authError);
