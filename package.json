@@ -10,8 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.4.0",
     "indexof": "0.0.1",
-    "react-router-dom": "^6.11.2"
+    "jwt-decode": "^3.1.2",
+    "react-bootstrap": "^2.7.4",
+    "react-redux": "^8.0.7",
+    "react-router-dom": "^6.11.2",
+    "redux": "^4.2.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.4.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
