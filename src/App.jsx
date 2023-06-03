@@ -13,17 +13,18 @@ function App() {
   useEffect(() => {
     dispatch(me());
   }, []);
+  console.log("user", user);
 
   return (
     <div>
-      {/* <Navbar /> */}
+      {user && <Navbar />}
       <Routes>
         {/* <Navbar /> */}
-        <Route exact path="/" element={<Login />} />
+        {!user && <Route exact path="/" element={<Login />} />}
         <Route
-          path="/home"
+          path="/"
           element={
-            <PrivateRoute user={user}>
+            <PrivateRoute>
               <UserHome />
             </PrivateRoute>
           }
