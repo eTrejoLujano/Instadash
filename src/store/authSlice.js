@@ -27,8 +27,6 @@ export const authenticate = createAsyncThunk(
       } else {
         alert("Something went wrong");
       }
-      // window.localStorage.setItem("token", data.access);
-      //   thunkAPI.dispatch(me());
     } catch (authError) {
       console.log(authError);
       return thunkAPI.dispatch(setToken({ error: authError }));
@@ -49,7 +47,6 @@ const authSlice = createSlice({
     },
     logout: () => {
       window.localStorage.removeItem("token");
-      history.push("/login");
       return {};
     },
   },
