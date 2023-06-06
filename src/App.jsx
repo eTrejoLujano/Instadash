@@ -13,13 +13,11 @@ function App() {
   useEffect(() => {
     dispatch(me());
   }, []);
-  console.log("user", user);
 
   return (
     <div>
       {user && <Navbar />}
       <Routes>
-        {/* <Navbar /> */}
         {!user && <Route exact path="/" element={<Login />} />}
         <Route
           path="/"
