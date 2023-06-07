@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
-import { Routes, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ redirectPath = "/", children }) => {
   if (!window.localStorage.getItem("token")) {
