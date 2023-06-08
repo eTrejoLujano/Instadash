@@ -11,7 +11,7 @@ import { MdPayments } from "react-icons/md";
 import Instacart from "../assets/icons/instadash.png";
 import PlateIcon from "../assets/icons/plateicon.png";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logout } from "../store/authSlice";
 
 function Navbar() {
