@@ -13,7 +13,7 @@ import PlateIcon from "../assets/icons/plateicon.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../store/authSlice";
-//edits
+
 function Navbar() {
   const [menu, setMenu] = useState(false);
   const [cart, setCart] = useState(false);
