@@ -4,7 +4,6 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 const URL = REQ_URL;
-//edits
 export const me = createAsyncThunk("auth/me", async (_, thunkAPI) => {
   const token = JSON.parse(window.localStorage.getItem("token"));
   if (token) {
