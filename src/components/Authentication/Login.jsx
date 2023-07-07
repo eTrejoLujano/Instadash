@@ -11,9 +11,9 @@ const Login = () => {
   const dispatch = useDispatch();
   const loginUser = (e) => {
     e.preventDefault();
-    let username = e.target.username.value;
+    let email = e.target.email.value;
     let password = e.target.password.value;
-    dispatch(authenticate({ username, password }));
+    dispatch(authenticate({ email, password }));
   };
 
   return (
@@ -21,14 +21,14 @@ const Login = () => {
       <div>
         <Link to="/home">Home</Link>
       </div>
-      {auth.user && <>Hello {auth.user.username}</>}
+      {auth.user && <>Hello {auth.user.email}</>}
       <>{auth.user ? <p>Logout</p> : <Link to="/">login</Link>}</>
       <form onSubmit={loginUser}>
         <input
           className="border"
           type="text"
-          name="username"
-          placeholder="Enter Username"
+          name="email"
+          placeholder="Enter Email"
         />
         <input
           className="border"
