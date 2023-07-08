@@ -17,27 +17,32 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div>
-        <Link to="/home">Home</Link>
+    <div className="h-screen w-full">
+      <div className="flex flex-col h-full items-center justify-center relative">
+        {/* <div>
+          <Link to="/home">Home</Link>
+        </div> */}
+        <form onSubmit={loginUser} className="flex flex-col space-y-[2.5rem]">
+          <input
+            className="border h-[2.8rem] w-[26rem] rounded-md"
+            type="text"
+            name="email"
+            placeholder="Enter Email"
+          />
+          <input
+            className="border h-[2.8rem] rounded-md"
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+          />
+          <button
+            className="border rounded-full h-[3.4rem] bg-red-500 text-white text-xl"
+            type="submit"
+          >
+            Sign In
+          </button>
+        </form>
       </div>
-      {auth.user && <>Hello {auth.user.email}</>}
-      <>{auth.user ? <p>Logout</p> : <Link to="/">login</Link>}</>
-      <form onSubmit={loginUser}>
-        <input
-          className="border"
-          type="text"
-          name="email"
-          placeholder="Enter Email"
-        />
-        <input
-          className="border"
-          type="password"
-          name="password"
-          placeholder="Enter Password"
-        />
-        <input className="border" type="submit" />
-      </form>
     </div>
   );
 };
