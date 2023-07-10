@@ -1,7 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import UserHome from "./components/UserHome/UserHome";
 import Login from "./components/Authentication/Login";
+import SignUp from "./components/Authentication/SignUp";
 import Navbar from "./components/Navbar";
+import AuthBar from "./components/Authentication/AuthBar";
 import PrivateRoute from "./components/Util/PrivateRoute";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -16,9 +18,10 @@ function App() {
 
   return (
     <div>
-      {user && <Navbar />}
+      {user ? <Navbar /> : <AuthBar />}
       <Routes>
         {!user && <Route exact path="/" element={<Login />} />}
+        {!user && <Route path="/signup" element={<SignUp />} />}
         <Route
           path="/"
           element={

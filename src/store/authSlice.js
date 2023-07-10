@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { REQ_URL } from "../components/Util/constants";
 import axios from "axios";
@@ -27,7 +26,31 @@ export const authenticate = createAsyncThunk(
         alert("Something went wrong");
       }
     } catch (authError) {
-      console.log(authError);
+      console.error(authError);
+      return thunkAPI.dispatch(setToken({ error: authError }));
+    }
+  }
+);
+
+export const register = createAsyncThunk(
+  "auth/register",
+  async (formVals, thunkAPI) => {
+    try {
+      const register = await axios.post(`${URL}/api/register/`, formVals);
+      if (register.status === 201) {
+        const response = await axios.post(`${URL}/api/token/`, formVals);
+        if (response.status === 200) {
+          window.localStorage.setItem("token", JSON.stringify(response.data));
+          thunkAPI.dispatch(setToken(response.data));
+          thunkAPI.dispatch(setUser(jwt_decode(response.data.access)));
+        } else {
+          alert("Token Error");
+        }
+      } else {
+        alert("Registration Error");
+      }
+    } catch (authError) {
+      console.error(authError);
       return thunkAPI.dispatch(setToken({ error: authError }));
     }
   }
@@ -38,8 +61,6 @@ export const updateToken = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const token = JSON.parse(window.localStorage.getItem("token"));
-      console.log("token", token);
-
       const response = await axios.post(`${URL}/api/token/refresh/`, {
         refresh: token.refresh,
       });
@@ -52,7 +73,7 @@ export const updateToken = createAsyncThunk(
         alert("Something went wrong");
       }
     } catch (authError) {
-      console.log(authError);
+      console.error(authError);
     }
   }
 );

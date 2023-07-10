@@ -59,8 +59,6 @@ const Convenience = () => {
   ]);
 
   const handleSave = (id) => {
-    console.log(id);
-
     const newState = favorites.map((favorite) => {
       if (favorite.id === id) {
         favorite.save ? (favorite.save = false) : (favorite.save = true);
@@ -76,7 +74,6 @@ const Convenience = () => {
     });
   }
   function adjustView(position) {
-    console.log("adjust view", ref.current.scrollWidth);
     if (position === "left") {
       scrollTabbar(ref?.current, ref.current.scrollLeft - 1224);
     } else {
