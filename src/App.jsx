@@ -8,6 +8,7 @@ import PrivateRoute from "./components/Util/PrivateRoute";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { me } from "./store/authSlice";
+import StoreView from "./components/Business/StoreView";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -27,6 +28,14 @@ function App() {
           element={
             <PrivateRoute>
               <UserHome />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/store"
+          element={
+            <PrivateRoute>
+              <StoreView />
             </PrivateRoute>
           }
         />

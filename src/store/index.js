@@ -6,5 +6,7 @@ import auth from "./authSlice";
 export default configureStore({
   reducer: { auth },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(createLogger({ collapsed: true })),
+    getDefaultMiddleware({ serializableCheck: false }).concat(
+      createLogger({ collapsed: true })
+    ),
 });

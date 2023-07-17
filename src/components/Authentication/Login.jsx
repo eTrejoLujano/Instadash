@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticate } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
+import { register } from "../../store/authSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,33 @@ const Login = () => {
     let email = e.target.email.value;
     let password = e.target.password.value;
     dispatch(authenticate({ email, password }));
+    navigate("/");
+  };
+  function makeEmail() {
+    var strValues = "abcdefg12345";
+    var strEmail = "";
+    var strTmp;
+    for (var i = 0; i < 10; i++) {
+      strTmp = strValues.charAt(Math.round(strValues.length * Math.random()));
+      strEmail = strEmail + strTmp;
+    }
+    strTmp = "";
+    strEmail = strEmail + "@";
+    for (var j = 0; j < 8; j++) {
+      strTmp = strValues.charAt(Math.round(strValues.length * Math.random()));
+      strEmail = strEmail + strTmp;
+    }
+    strEmail = strEmail + ".com";
+    return strEmail;
+  }
+  const guestRegistration = () => {
+    // e.preventDefault();
+    let email = makeEmail();
+    let password = "guest123#";
+    let password2 = "guest123#";
+    let first_name = "guest";
+    let last_name = "login";
+    dispatch(register({ email, password, password2, first_name, last_name }));
     navigate("/");
   };
   let inputStyling =
@@ -37,7 +65,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <form onSubmit={loginUser} className="flex flex-col space-y-[2.5rem]">
+        <form onSubmit={loginUser} className="flex flex-col space-y-[2.3rem]">
           <div>
             <p>Email</p>
             <input className={inputStyling} type="text" name="email" />
@@ -53,6 +81,17 @@ const Login = () => {
             Sign In
           </button>
         </form>
+        <div className="flex items-center space-x-[1rem]">
+          <div className="w-[11.3rem] h-[.05rem] rounded bg-gray-500"></div>
+          <span className="text-sm text-gray-500">or</span>
+          <div className="w-[11.3rem] h-[.05rem] rounded bg-gray-500"></div>
+        </div>
+        <button
+          className="border rounded-full h-[3.4rem] w-[26rem] bg-red-500 text-white text-xl"
+          onClick={() => guestRegistration()}
+        >
+          Continue as guest (Demo)
+        </button>
       </div>
     </div>
   );

@@ -88,6 +88,17 @@ const SignUp = () => {
             Sign Up
           </button>
         </form>
+        <div className="flex items-center space-x-[1rem]">
+          <div className="w-[9.8rem] h-[.05rem] rounded bg-gray-500"></div>
+          <span className="text-sm text-gray-500">or</span>
+          <div className="w-[9.8rem] h-[.05rem] rounded bg-gray-500"></div>
+        </div>
+        <button
+          className="border rounded-full h-[3.4rem] w-[23rem] bg-red-500 text-white text-xl"
+          onClick={() => console.log("guest log in")}
+        >
+          Continue as guest (Demo)
+        </button>
       </div>
     </div>
   );
