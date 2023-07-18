@@ -187,7 +187,7 @@ function Navbar() {
         </div>
       </div>
       <div
-        className="w-screen relative h-[9rem] pt-[3rem] flex-col justify-center
+        className="w-screen relative h-[7.7rem] pt-[3rem] flex-col justify-center
      text-black bg-white = border-gray-200 z-30 flex lg:hidden"
       >
         <div className="flex justify-center pt-2">
