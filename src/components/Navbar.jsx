@@ -131,7 +131,7 @@ function Navbar() {
             <div className="cursor-pointer flex items-center space-x-3">
               <img src={Instacart} className="w-[2.5rem] h-[2.5rem] top-2" />
               <div className="text-xl font-bold text-red-500 hidden lg:flex">
-                INSTADASH
+                DASHED EATS
               </div>
             </div>
             <ul className="items-center left-80 flex space-x-[.8rem]">
@@ -150,7 +150,7 @@ function Navbar() {
             </ul>
           </div>
           <div className="flex justify-center items-center">
-            <div className="relative left-4 lg:w-[24rem] md:w-[26rem] sm:w-[26rem] w-[10.9rem]">
+            <div className="relative left-4  md:w-[26rem] sm:w-[26rem] w-[10.9rem]">
               {searchIcon ? (
                 <div className="absolute text-gray-500 top-2 left-2">
                   <AiOutlineSearch size={24} />
