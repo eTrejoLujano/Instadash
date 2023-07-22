@@ -24,6 +24,7 @@ function App() {
         {!user && <Route exact path="/" element={<Login />} />}
         {!user && <Route path="/signup" element={<SignUp />} />}
         <Route
+          exact
           path="/"
           element={
             <PrivateRoute>
