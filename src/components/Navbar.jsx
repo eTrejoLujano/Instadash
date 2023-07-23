@@ -39,6 +39,10 @@ function Navbar() {
     setSearchIcon(true);
   };
 
+  const homeClick = () => {
+    navigate("/");
+  };
+
   const signoutClick = () => {
     dispatch(logout());
     navigate("/");
@@ -118,7 +122,7 @@ function Navbar() {
         </div>
       </div>
       <div
-        className="w-screen h-[4rem] xl:px-20
+        className="w-full h-[4rem]
      text-black bg-white fixed border-solid border border-gray-200 z-40"
       >
         <div className="flex justify-between pt-2">
@@ -128,7 +132,10 @@ function Navbar() {
               size={22}
               onClick={() => setMenu(!menu)}
             />
-            <div className="cursor-pointer flex items-center space-x-3">
+            <div
+              className="cursor-pointer flex items-center space-x-3"
+              onClick={homeClick}
+            >
               <img src={Instacart} className="w-[2.5rem] h-[2.5rem] top-2" />
               <div className="text-xl font-bold text-red-500 hidden lg:flex">
                 DASHED EATS

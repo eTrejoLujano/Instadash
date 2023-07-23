@@ -61,7 +61,7 @@ const Ads = () => {
   // }, []);
 
   return (
-    <div className="h-[12rem] flex flex-col">
+    <div className="h-[12rem] flex flex-col ">
       <div className="flex flex-row justify-center">
         <div
           className="flex flex-row w-[75.5rem] overscroll-x-contain overflow-x-scroll
