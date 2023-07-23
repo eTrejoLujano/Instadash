@@ -162,7 +162,7 @@ const StoreOptions = ({ stores, name }) => {
   return (
     <div className="h-full flex flex-col pb-2 justify-center items-center space-y-4">
       <div className="flex flex-row w-full lg:w-[75.5rem]">
-        <div className="flex justify-between w-full">
+        <div className="flex justify-between w-full sm:px-0 px-4">
           <h2 className="font-semibold text-2xl truncate">{name}</h2>
           <div className="flex-row justify-center bottom-1 hidden md:flex">
             {disableButton !== "left" && (
