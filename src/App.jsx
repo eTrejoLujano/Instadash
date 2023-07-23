@@ -6,7 +6,8 @@ import Navbar from "./components/Navbar";
 import AuthBar from "./components/Authentication/AuthBar";
 import PrivateRoute from "./components/Util/PrivateRoute";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useLayoutEffect, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { me } from "./store/authSlice";
 import StoreView from "./components/Business/StoreView";
 import SeeAll from "./components/Dashboard/SeeAll";
@@ -18,8 +19,16 @@ function App() {
     dispatch(me());
   }, []);
 
+  const Wrapper = ({ children }) => {
+    const location = useLocation();
+    useLayoutEffect(() => {
+      document.documentElement.scrollTo(0, 0);
+    }, [location.pathname]);
+    return children;
+  };
+
   return (
-    <div>
+    <Wrapper>
       {user ? <Navbar /> : <AuthBar />}
       <Routes>
         {!user && <Route exact path="/" element={<Login />} />}
@@ -58,7 +67,7 @@ function App() {
           }
         />
       </Routes>
-    </div>
+    </Wrapper>
   );
 }
 
