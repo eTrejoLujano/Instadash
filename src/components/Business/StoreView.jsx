@@ -41,18 +41,20 @@ const StoreView = () => {
   let dotElement = <div className="text-2xl relative bottom-[.3rem]">·</div>;
   return (
     <div className="lg:pt-[5rem] w-screen sm:px-4">
-      <div className="flex flex-col items-center">
-        <div className="">
-          <img
-            src={store.src}
-            className="sm:rounded-[20px] object-cover h-[15.7rem] w-[56rem]"
-          />
-          <div className="relative bottom-6 sm:bottom-0">
-            <div className="bottom-[2.8rem] items-start relative pl-4">
-              <img
-                src={store.Logo}
-                className="h-[5.2rem] rounded-full border-1 border-white bg-white shadow-lg shadow-gray-400"
-              />
+      <div className="flex flex-row justify-center">
+        <div className="flex flex-col items-center">
+          <div className="">
+            <img
+              src={store.src}
+              className="sm:rounded-[20px] object-cover h-[15.7rem] w-[56rem]"
+            />
+            <div className="relative bottom-6 sm:bottom-0">
+              <div className="bottom-[2.8rem] items-start relative pl-4">
+                <img
+                  src={store.Logo}
+                  className="h-[5.2rem] rounded-full border-1 border-white bg-white shadow-lg shadow-gray-400"
+                />
+              </div>
             </div>
             <div className="px-4 sm:px-0 relative bottom-1">
               <div className="flex justify-between bottom-[1.8rem] relative">
