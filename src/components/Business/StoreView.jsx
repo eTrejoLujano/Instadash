@@ -6,6 +6,7 @@ import { BsFillXCircleFill } from "react-icons/bs";
 import { FiArrowLeft } from "react-icons/fi";
 
 import FoodItem from "./FoodItem";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const StoreView = () => {
   let store = {
@@ -22,8 +23,13 @@ const StoreView = () => {
   };
   const [searchIcon, setSearchIcon] = useState(true);
   const ref = useRef(null);
-
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.state);
   useEffect(() => {
+    if (!location.state) {
+      navigate("/");
+    }
     document.addEventListener("click", handleClickOutside, false);
     return () => {
       document.removeEventListener("click", handleClickOutside, false);

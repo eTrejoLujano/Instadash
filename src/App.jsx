@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { me } from "./store/authSlice";
 import StoreView from "./components/Business/StoreView";
+import SeeAll from "./components/Dashboard/SeeAll";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -45,6 +46,14 @@ function App() {
           element={
             <PrivateRoute>
               <StoreView />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <SeeAll />
             </PrivateRoute>
           }
         />

@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Mcdonalds from "../../assets/restaurants/mcdonalds.jpeg";
 import Tacobell from "../../assets/restaurants/tacobell.jpeg";
 import Starbucks from "../../assets/restaurants/starbucks.jpeg";
@@ -18,118 +19,7 @@ import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 const StoreOptions = ({ stores, name }) => {
   const ref = useRef(null);
   const [disableButton, setDisableButton] = useState("left");
-
-  //   const [favorites, setFavorites] = useState([
-  //     {
-  //       id: 1,
-  //       name: "Starbucks",
-  //       src: Starbucks,
-  //       save: false,
-  //       distance: "1.0 mi",
-  //       time: "20 min",
-  //       fee: "$1.99 Delivery Fee",
-  //       rate: "4.7",
-  //       reviews: "(2,300+)",
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "Mcdonald's",
-  //       src: Mcdonalds,
-  //       save: false,
-  //       distance: "1.0 mi",
-  //       time: "20 min",
-  //       fee: "$1.99 Delivery Fee",
-  //       rate: "4.7",
-  //       reviews: "(2,300+)",
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "Taco Bell",
-  //       src: Tacobell,
-  //       save: false,
-  //       distance: "1.0 mi",
-  //       time: "20 min",
-  //       fee: "$1.99 Delivery Fee",
-  //       rate: "4.7",
-  //       reviews: "(2,300+)",
-  //     },
-  //     {
-  //       id: 4,
-  //       name: "Chick-fil-A",
-  //       src: Chickfila,
-  //       save: false,
-  //       distance: "1.0 mi",
-  //       time: "20 min",
-  //       fee: "$1.99 Delivery Fee",
-  //       rate: "4.7",
-  //       reviews: "(2,300+)",
-  //     },
-  //     {
-  //       id: 5,
-  //       name: "Wendy's",
-  //       src: Wendys,
-  //       save: false,
-  //       distance: "1.0 mi",
-  //       time: "20 min",
-  //       fee: "$1.99 Delivery Fee",
-  //       rate: "4.7",
-  //       reviews: "(2,300+)",
-  //     },
-  //     {
-  //       id: 6,
-  //       name: "Burger King",
-  //       src: Burgerking,
-  //       save: false,
-  //       distance: "1.0 mi",
-  //       time: "20 min",
-  //       fee: "$1.99 Delivery Fee",
-  //       rate: "4.7",
-  //       reviews: "(2,300+)",
-  //     },
-  //     {
-  //       id: 7,
-  //       name: "Jack in the Box",
-  //       src: Jackinthebox,
-  //       save: false,
-  //       distance: "1.0 mi",
-  //       time: "20 min",
-  //       fee: "$1.99 Delivery Fee",
-  //       rate: "4.7",
-  //       reviews: "(2,300+)",
-  //     },
-  //     {
-  //       id: 8,
-  //       name: "Panera Bread",
-  //       src: Panerabread,
-  //       save: false,
-  //       distance: "1.0 mi",
-  //       time: "20 min",
-  //       fee: "$1.99 Delivery Fee",
-  //       rate: "4.7",
-  //       reviews: "(2,300+)",
-  //     },
-  //     {
-  //       id: 9,
-  //       name: "The Meltdown",
-  //       src: Meltdown,
-  //       save: false,
-  //       distance: "1.0 mi",
-  //       time: "20 min",
-  //       fee: "$1.99 Delivery Fee",
-  //       rate: "4.7",
-  //       reviews: "(2,300+)",
-  //     },
-  //   ]);
-
-  //   const handleSave = (id) => {
-  //     const newState = favorites.map((favorite) => {
-  //       if (favorite.id === id) {
-  //         favorite.save ? (favorite.save = false) : (favorite.save = true);
-  //       }
-  //       return favorite;
-  //     });
-  //     setFavorites(newState);
-  //   };
+  const navigate = useNavigate();
 
   function scrollTabbar(element, left) {
     element.scrollTo({
@@ -158,13 +48,30 @@ const StoreOptions = ({ stores, name }) => {
       }
     }
   };
+  const storeView = (id) => {
+    navigate("/store", { state: { id: id } });
+  };
+  const dashView = ({ stores, name }) => {
+    navigate("/dashboard", { state: { stores: stores, name: name } });
+  };
 
   return (
     <div className="h-full flex flex-col pb-2 justify-center items-center space-y-4">
       <div className="flex flex-row w-full lg:w-[75.5rem]">
         <div className="flex justify-between w-full sm:px-0 px-4">
-          <h2 className="font-semibold text-2xl truncate">{name}</h2>
-          <div className="flex-row justify-center bottom-1 hidden md:flex">
+          <h2
+            className="font-semibold text-2xl truncate cursor-pointer"
+            onClick={() => dashView({ stores: stores, name: name })}
+          >
+            {name}
+          </h2>
+          <div className="flex-row justify-center items-center bottom-1 hidden md:flex">
+            <div
+              className="relative right-6 hidden sm:flex font-semibold text-sm cursor-pointer"
+              onClick={() => dashView({ stores: stores, name: name })}
+            >
+              See All
+            </div>
             {disableButton !== "left" && (
               <div className="bottom-[2.2rem]">
                 <div
@@ -238,7 +145,8 @@ const StoreOptions = ({ stores, name }) => {
           {stores.map((store) => (
             <div
               key={store.id}
-              className="rounded-lg flex flex-col space-y-[-1rem]"
+              className="rounded-lg flex flex-col space-y-[-1rem] cursor-pointer"
+              onClick={() => storeView(store.id)}
             >
               <div className="h-[14rem] w-[24.5rem]">
                 <img
