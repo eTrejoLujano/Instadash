@@ -1,15 +1,5 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Mcdonalds from "../../assets/restaurants/mcdonalds.jpeg";
-import Tacobell from "../../assets/restaurants/tacobell.jpeg";
-import Starbucks from "../../assets/restaurants/starbucks.jpeg";
-import Chickfila from "../../assets/restaurants/chickfila.png";
-import Wendys from "../../assets/restaurants/wendys.jpeg";
-import Burgerking from "../../assets/restaurants/burgerking.jpeg";
-import Jackinthebox from "../../assets/restaurants/jackinthebox.jpeg";
-import Panerabread from "../../assets/restaurants/panerabread.jpeg";
-import Meltdown from "../../assets/restaurants/themeltdown.jpeg";
-import DashIcon from "../../assets/restaurants/doordashicon.png";
 import { TbHeart } from "react-icons/tb";
 import { AiOutlineStar } from "react-icons/ai";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";

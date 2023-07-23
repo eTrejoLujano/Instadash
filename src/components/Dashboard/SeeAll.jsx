@@ -1,11 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Chickfila from "../../assets/restaurants/chickfila.png";
-import Wendys from "../../assets/restaurants/wendys.jpeg";
-import Burgerking from "../../assets/restaurants/burgerking.jpeg";
-import Jackinthebox from "../../assets/restaurants/jackinthebox.jpeg";
-import Togos from "../../assets/restaurants/togos.png";
-import Dunkin from "../../assets/restaurants/dunkin.jpeg";
 import { AiOutlineStar } from "react-icons/ai";
 
 const SeeAll = () => {
@@ -16,76 +10,7 @@ const SeeAll = () => {
     if (!location.state) {
       navigate("/");
     }
-  }, [location.state, navigate]);
-
-  const [fastest, setFastest] = useState([
-    {
-      id: 2,
-      name: "Togo's",
-      src: Togos,
-      save: false,
-      distance: "1.0 mi",
-      time: "20 min",
-      fee: "$1.99 Delivery Fee",
-      rate: "4.7",
-      reviews: "(2,300+)",
-    },
-    {
-      id: 3,
-      name: "Dunkin'",
-      src: Dunkin,
-      save: false,
-      distance: "1.0 mi",
-      time: "20 min",
-      fee: "$1.99 Delivery Fee",
-      rate: "4.7",
-      reviews: "(2,300+)",
-    },
-    {
-      id: 5,
-      name: "Wendy's",
-      src: Wendys,
-      save: false,
-      distance: "1.0 mi",
-      time: "20 min",
-      fee: "$1.99 Delivery Fee",
-      rate: "4.7",
-      reviews: "(2,300+)",
-    },
-    {
-      id: 6,
-      name: "Burger King",
-      src: Burgerking,
-      save: false,
-      distance: "1.0 mi",
-      time: "20 min",
-      fee: "$1.99 Delivery Fee",
-      rate: "4.7",
-      reviews: "(2,300+)",
-    },
-    {
-      id: 4,
-      name: "Chick-fil-A",
-      src: Chickfila,
-      save: false,
-      distance: "1.0 mi",
-      time: "20 min",
-      fee: "$1.99 Delivery Fee",
-      rate: "4.7",
-      reviews: "(2,300+)",
-    },
-    {
-      id: 7,
-      name: "Jack in the Box",
-      src: Jackinthebox,
-      save: false,
-      distance: "1.0 mi",
-      time: "20 min",
-      fee: "$1.99 Delivery Fee",
-      rate: "4.7",
-      reviews: "(2,300+)",
-    },
-  ]);
+  }, []);
 
   const storeView = (id) => {
     navigate("/store", { state: { id: id } });
