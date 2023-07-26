@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authenticate } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../store/authSlice";
+import { makeEmail } from "../Util/helperFunctions";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -14,25 +15,7 @@ const Login = () => {
     dispatch(authenticate({ email, password }));
     navigate("/");
   };
-  function makeEmail() {
-    var strValues = "abcdefg12345";
-    var strEmail = "";
-    var strTmp;
-    for (var i = 0; i < 10; i++) {
-      strTmp = strValues.charAt(Math.round(strValues.length * Math.random()));
-      strEmail = strEmail + strTmp;
-    }
-    strTmp = "";
-    strEmail = strEmail + "@";
-    for (var j = 0; j < 8; j++) {
-      strTmp = strValues.charAt(Math.round(strValues.length * Math.random()));
-      strEmail = strEmail + strTmp;
-    }
-    strEmail = strEmail + ".com";
-    return strEmail;
-  }
   const guestRegistration = () => {
-    // e.preventDefault();
     let email = makeEmail();
     let password = "guest123#";
     let password2 = "guest123#";
@@ -45,7 +28,7 @@ const Login = () => {
     "border h-[2.8rem] w-[26rem] rounded-md bg-gray-50 border-none focus:border-solid focus:border-2 focus:border-black focus:outline-none px-4";
 
   return (
-    <div className="h-screen w-full">
+    <div className="h-full w-full pt-20">
       <div className="flex flex-col h-full items-center justify-center relative space-y-[1.8rem]">
         <div className="flex flex-col items-center space-y-[2rem]">
           <div className="font-bold text-2xl">Login</div>

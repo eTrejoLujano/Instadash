@@ -11,6 +11,10 @@ import { useLocation } from "react-router-dom";
 import { me } from "./store/authSlice";
 import StoreView from "./components/Business/StoreView";
 import SeeAll from "./components/Dashboard/SeeAll";
+import PickupView from "./components/Pickup/PickupView";
+import OrderHistory from "./components/Orders/OrderHistory";
+import AccountInfo from "./components/Account/AccountInfo";
+import SavedStores from "./components/Saved/SavedStores";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -63,6 +67,38 @@ function App() {
           element={
             <PrivateRoute>
               <SeeAll />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/pickup"
+          element={
+            <PrivateRoute>
+              <PickupView />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <PrivateRoute>
+              <OrderHistory />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/account"
+          element={
+            <PrivateRoute>
+              <AccountInfo />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/saved"
+          element={
+            <PrivateRoute>
+              <SavedStores />
             </PrivateRoute>
           }
         />

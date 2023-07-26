@@ -7,7 +7,6 @@ import { RxHome } from "react-icons/rx";
 import { SlBag } from "react-icons/sl";
 import { TfiReceipt } from "react-icons/tfi";
 import { TbHeart } from "react-icons/tb";
-import { MdPayments } from "react-icons/md";
 import Instacart from "../assets/icons/instadash.png";
 import PlateIcon from "../assets/icons/plateicon.png";
 import { useNavigate } from "react-router-dom";
@@ -38,23 +37,32 @@ function Navbar() {
     ref.current.value = "";
     setSearchIcon(true);
   };
-
   const homeClick = () => {
     navigate("/");
   };
-
+  const pickUpClick = () => {
+    navigate("/pickup");
+  };
+  const orderClick = () => {
+    navigate("/orders");
+  };
+  const accountClick = () => {
+    navigate("/account");
+  };
+  const savedClick = () => {
+    navigate("/saved");
+  };
   const signoutClick = () => {
     dispatch(logout());
     navigate("/");
   };
   const menuOptions = [
-    { id: 1, name: "Home", icon: RxHome, click: signoutClick },
-    { id: 2, name: "Pickup", icon: SlBag, click: signoutClick },
-    { id: 3, name: "Orders", icon: TfiReceipt, click: signoutClick },
-    { id: 4, name: "Account", icon: CgProfile, click: signoutClick },
-    { id: 5, name: "Saved Stores", icon: TbHeart, click: signoutClick },
-    { id: 6, name: "Payment", icon: MdPayments, click: signoutClick },
-    { id: 7, name: "Sign Out", icon: CgCloseO, click: signoutClick },
+    { id: 1, name: "Home", icon: RxHome, click: homeClick },
+    { id: 2, name: "Pickup", icon: SlBag, click: pickUpClick },
+    { id: 3, name: "Orders", icon: TfiReceipt, click: orderClick },
+    { id: 4, name: "Account", icon: CgProfile, click: accountClick },
+    { id: 5, name: "Saved Stores", icon: TbHeart, click: savedClick },
+    { id: 6, name: "Sign Out", icon: CgCloseO, click: signoutClick },
   ];
 
   return (
@@ -67,27 +75,34 @@ function Navbar() {
         >
           {menu && (
             <div className="scroll-smooth">
-              <div className="relative top-[1.5rem] left-[1rem] cursor-pointer">
+              <div className="relative pt-[1.5rem] pb-8 pl-[1rem] cursor-pointer">
                 <CgClose size={22} onClick={() => setMenu(!menu)} />
               </div>
               <div
-                className="relative top-[4.2rem] left-[1.2rem] space-y-[1.8rem] flex flex-col
+                className="flex flex-col
               overscroll-y-contain overflow-y-scroll container-snap"
               >
                 {menuOptions.map(({ id, name, click }, index) => {
                   const Icon = menuOptions[index].icon;
                   return (
-                    <div key={id} className="space-y-1 pt-3">
+                    <div key={id} className="hover:bg-gray-100 pl-4">
                       <div
-                        className="flex items-center cursor-pointe relative bottom-3"
+                        className="flex items-center 
+                        cursor-pointer h-[4rem] w-full"
                         onClick={click}
                       >
                         <Icon size={23} />
-                        <div className="relative left-[1.4rem]  font-bold text-lg">
+                        <div className="relative pl-[1.4rem] font-bold text-lg">
                           {name}
                         </div>
                       </div>
-                      <div className="flex w-full md:w-[20.6rem] h-[.05rem] rounded bg-gray-200" />
+                      <div>
+                        {" "}
+                        <div
+                          className="flex w-full md:w-[21rem] h-[.05rem] rounded 
+                      bg-gray-200"
+                        />
+                      </div>
                     </div>
                   );
                 })}
