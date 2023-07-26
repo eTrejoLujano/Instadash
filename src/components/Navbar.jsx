@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
-import { FiArrowLeft, FiHelpCircle } from "react-icons/fi";
+import { FiArrowLeft } from "react-icons/fi";
 import { IoMdCart } from "react-icons/io";
 import { CgClose, CgProfile, CgCloseO } from "react-icons/cg";
 import { RxHome } from "react-icons/rx";
@@ -54,8 +54,7 @@ function Navbar() {
     { id: 4, name: "Account", icon: CgProfile, click: signoutClick },
     { id: 5, name: "Saved Stores", icon: TbHeart, click: signoutClick },
     { id: 6, name: "Payment", icon: MdPayments, click: signoutClick },
-    { id: 7, name: "Help", icon: FiHelpCircle, click: signoutClick },
-    { id: 8, name: "Sign Out", icon: CgCloseO, click: signoutClick },
+    { id: 7, name: "Sign Out", icon: CgCloseO, click: signoutClick },
   ];
 
   return (
@@ -64,7 +63,7 @@ function Navbar() {
         <div
           className={`fixed bg-white h-screen z-50 shadow-gray-300 shadow  ${
             menu ? "md:w-[22rem] w-screen " : "md:w-0"
-          } duration-300`}
+          } duration-300 shadow-xl shadow-gray-400`}
         >
           {menu && (
             <div className="scroll-smooth">
@@ -78,15 +77,17 @@ function Navbar() {
                 {menuOptions.map(({ id, name, click }, index) => {
                   const Icon = menuOptions[index].icon;
                   return (
-                    <div
-                      key={id}
-                      className="flex items-center cursor-pointer"
-                      onClick={click}
-                    >
-                      <Icon size={23} />
-                      <div className="relative left-[1.4rem]  font-bold text-lg">
-                        {name}
+                    <div key={id} className="space-y-1 pt-3">
+                      <div
+                        className="flex items-center cursor-pointe relative bottom-3"
+                        onClick={click}
+                      >
+                        <Icon size={23} />
+                        <div className="relative left-[1.4rem]  font-bold text-lg">
+                          {name}
+                        </div>
                       </div>
+                      <div className="flex w-full md:w-[20.6rem] h-[.05rem] rounded bg-gray-200" />
                     </div>
                   );
                 })}
@@ -99,7 +100,7 @@ function Navbar() {
         <div
           className={`fixed bg-white h-screen z-50 shadow-gray-300 shadow  ${
             cart ? "md:w-[22rem] w-screen " : "md:w-0"
-          } duration-300`}
+          } duration-300 shadow-xl shadow-gray-400`}
         >
           {cart && (
             <div className="scroll-smooth">
