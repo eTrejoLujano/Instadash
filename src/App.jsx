@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLayoutEffect, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { me } from "./store/authSlice";
-import StoreView from "./components/Business/StoreView";
+import StoreView from "./components/Store/StoreView";
 import SeeAll from "./components/Dashboard/SeeAll";
 import PickupView from "./components/Pickup/PickupView";
 import OrderHistory from "./components/Orders/OrderHistory";

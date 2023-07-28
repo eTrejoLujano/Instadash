@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import Togos from "../../assets/restaurants/togos.png";
-import TogosLogo from "../../../files/logo/Togos_Logo.png";
+import Togos from "../../assets/store/togos.png";
+import TogosLogo from "../../assets/store/logo/Togos_Logo.png";
 import { AiOutlineClockCircle, AiOutlineSearch } from "react-icons/ai";
 import { BsFillXCircleFill } from "react-icons/bs";
 import { FiArrowLeft } from "react-icons/fi";
@@ -91,7 +91,10 @@ const StoreView = () => {
                     </div>
                   </div>
                   <div className="flex sm:flex-row flex-col items-center">
-                    <div className="rounded-full w-[10rem] h-[3rem] border-2" />
+                    <div className="rounded-full w-[10rem] h-[3rem] border-2 flex justify-between items-center px-3">
+                      <div className="text-sm">Delivery</div>
+                      <div className="text-sm">Pickup</div>
+                    </div>
                   </div>
                 </div>
               </div>
