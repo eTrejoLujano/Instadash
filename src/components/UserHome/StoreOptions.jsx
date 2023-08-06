@@ -44,7 +44,7 @@ const StoreOptions = ({ stores, name }) => {
   const dashView = ({ stores, name }) => {
     navigate("/dashboard", { state: { stores: stores, name: name } });
   };
-
+  console.log("stores", stores);
   return (
     <div className="h-full flex flex-col pb-2 justify-center items-center space-y-4">
       <div className="flex flex-row w-full lg:w-[75.5rem]">
@@ -132,21 +132,21 @@ const StoreOptions = ({ stores, name }) => {
           ref={ref}
           onScroll={handleScroll}
         >
-          {stores.map((store) => (
+          {stores?.map((store) => (
             <div
-              key={store.id}
+              key={store.stores_info.id}
               className="rounded-lg flex flex-col space-y-[-1rem] cursor-pointer"
-              onClick={() => storeView(store.id)}
+              onClick={() => storeView(store.stores_info.id)}
             >
               <div className="h-[14rem] w-[24.5rem]">
                 <img
                   alt=""
-                  src={store.src}
+                  src={`../../../${store.stores_info.image}`}
                   className="rounded-md relative w-[30rem] h-[12rem]"
                 />
               </div>
               <div className="font-semibold relative flex flex-row pb-1">
-                <div className="">{store.name}</div>
+                <div className="">{store.stores_info.name}</div>
                 <button
                   className="absolute right-[.6rem] z-20"
                   // onClick={async () => handleSave(store.id)}
@@ -157,16 +157,16 @@ const StoreOptions = ({ stores, name }) => {
                 /> */}
                 </button>
               </div>
-              <div className="text-sm pt-[1rem] text-gray-500 relative flex flex-row">
+              {/* <div className="text-sm pt-[1rem] text-gray-500 relative flex flex-row">
                 {store.distance} • {store.time} • {store.fee}
-              </div>
-              <div className="text-sm pt-[1rem] text-gray-500 relative flex flex-row">
+              </div> */}
+              {/* <div className="text-sm pt-[1rem] text-gray-500 relative flex flex-row">
                 {store.rate}
                 <div className="pr-[.4rem]">
                   <AiOutlineStar className="top-[.2rem] relative fill-gray-500" />
                 </div>
                 {store.reviews}
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
