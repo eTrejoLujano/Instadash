@@ -61,7 +61,7 @@ const StoreView = () => {
     return (
       <div className="lg:pt-[5rem] w-screen sm:px-4">
         <div className="flex flex-row justify-center">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center w-[56rem]">
             <div className="">
               <img
                 src={`../../../${store[0].image}`}
@@ -75,7 +75,7 @@ const StoreView = () => {
                   />
                 </div>
               </div>
-              <div className="px-4 sm:px-0 relative bottom-1">
+              <div className="px-4 sm:px-0 relative bottom-1 w-full">
                 <div className="flex justify-between bottom-[1.8rem] relative">
                   <div className=" space-y-3">
                     <span className="font-bold text-4xl relative  items-start">
@@ -136,12 +136,23 @@ const StoreView = () => {
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4 gap-1 px-4 md:px-0">
+                    {store[0].store_items.map(
+                      ({ id, name, description, image, prices }) => (
+                        <FoodItem
+                          key={id}
+                          name={name}
+                          description={description}
+                          image={image}
+                          price={prices}
+                        />
+                      )
+                    )}
+                    {/* <FoodItem />
                     <FoodItem />
                     <FoodItem />
                     <FoodItem />
                     <FoodItem />
-                    <FoodItem />
-                    <FoodItem />
+                    <FoodItem /> */}
                   </div>
                 </div>
               </div>
