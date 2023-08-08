@@ -147,12 +147,6 @@ const StoreView = () => {
                         />
                       )
                     )}
-                    {/* <FoodItem />
-                    <FoodItem />
-                    <FoodItem />
-                    <FoodItem />
-                    <FoodItem />
-                    <FoodItem /> */}
                   </div>
                 </div>
               </div>
