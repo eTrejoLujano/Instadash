@@ -10,6 +10,7 @@ import StoreOptions from "./StoreOptions";
 const UserHome = () => {
   const [category, setCategory] = useState();
   const [dashboard, setDashboard] = useState();
+  const [categorySearch, setCategorySearch] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -17,6 +18,9 @@ const UserHome = () => {
       const dashboards = await dashboardsAPI.getDashboards();
       setCategory(categories);
       setDashboard(dashboards);
+      if (categorySearch) {
+        const categoryPick = await categoriesAPI.getCategories();
+      }
     }
     fetchData();
   }, []);

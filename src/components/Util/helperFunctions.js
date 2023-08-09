@@ -15,3 +15,18 @@ export function makeEmail() {
   strEmail = strEmail + ".com";
   return strEmail;
 }
+
+export function currencyFormat(num) {
+  if (num < 0) {
+    return (
+      "(" +
+      "$" +
+      num
+        ?.toFixed(2)
+        .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+        .substring(1) +
+      ")"
+    );
+  }
+  return "$" + num?.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}

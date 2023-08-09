@@ -97,7 +97,6 @@ function Navbar() {
                         </div>
                       </div>
                       <div>
-                        {" "}
                         <div
                           className="flex w-full md:w-[21rem] h-[.05rem] rounded 
                       bg-gray-200"
