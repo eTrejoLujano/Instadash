@@ -10,3 +10,17 @@ export const getCategories = async () => {
   });
   return output;
 };
+
+export const getCategoryPick = async (query) => {
+  let output = [];
+  await axios
+    .get(`${URL}/api/storecategory/`, {
+      params: {
+        category_id: query.category_id,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
+  return output;
+};

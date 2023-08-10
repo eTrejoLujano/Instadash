@@ -69,7 +69,7 @@ function Navbar() {
     <div>
       <div className="flex">
         <div
-          className={`fixed bg-white h-screen z-50 shadow-gray-300 shadow  ${
+          className={`fixed bg-white h-screen z-50 shadow-gray-300 shadow ${
             menu ? "md:w-[22rem] w-screen " : "md:w-0"
           } duration-300 shadow-xl shadow-gray-400`}
         >
@@ -137,7 +137,7 @@ function Navbar() {
         </div>
       </div>
       <div
-        className="w-full h-[4rem]
+        className="w-full h-[4rem] lg:px-16
      text-black bg-white fixed border-solid border border-gray-200 z-40"
       >
         <div className="flex justify-between pt-2">
@@ -163,16 +163,16 @@ function Navbar() {
               <li className="cursor-pointer capitalize hidden md:flex font-medium text-black hover:scale-105 duration-200">
                 <div>pickup</div>
               </li>
-              <li className="left-44 hidden lg:flex">
+              <li className="left-44 hidden md:flex">
                 <h3 className="text-3xl font-light text-gray-300">|</h3>
               </li>
-              <li className="bottom-6 hidden lg:flex">
+              <li className="bottom-6 hidden md:flex">
                 <h3 className="text-black truncate">Enter Address</h3>
               </li>
             </ul>
           </div>
           <div className="flex justify-center items-center">
-            <div className="relative left-4  md:w-[26rem] sm:w-[26rem] w-[10.9rem]">
+            <div className="relative left-4 lg:w-[16rem] md:w-[16rem] sm:w-[26rem] w-[17rem]">
               {searchIcon ? (
                 <div className="absolute text-gray-500 top-2 left-2">
                   <AiOutlineSearch size={24} />
@@ -209,8 +209,8 @@ function Navbar() {
         </div>
       </div>
       <div
-        className="w-screen relative h-[7.7rem] pt-[3rem] flex-col justify-center
-     text-black bg-white = border-gray-200 z-30 flex lg:hidden"
+        className="w-screen relative h-[7rem] pt-[3rem] flex-col justify-center
+     text-black bg-white border border-gray-200 z-30 flex md:hidden"
       >
         <div className="flex justify-center pt-2">
           <div className="cursor-pointer justify-center flex capitalize font-medium text-black hover:scale-105 duration-200">

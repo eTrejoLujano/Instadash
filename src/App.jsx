@@ -15,6 +15,7 @@ import PickupView from "./components/Pickup/PickupView";
 import OrderHistory from "./components/Orders/OrderHistory";
 import AccountInfo from "./components/Account/AccountInfo";
 import SavedStores from "./components/Saved/SavedStores";
+import CategoryView from "./components/Category/CategoryView";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -99,6 +100,14 @@ function App() {
           element={
             <PrivateRoute>
               <SavedStores />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/category"
+          element={
+            <PrivateRoute>
+              <CategoryView />
             </PrivateRoute>
           }
         />
