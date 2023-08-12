@@ -4,13 +4,10 @@ import { TbHeart } from "react-icons/tb";
 import { AiOutlineStar } from "react-icons/ai";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 
-// INSTADASH
-
 const StoreOptions = ({ stores, name }) => {
   const ref = useRef(null);
   const [disableButton, setDisableButton] = useState("left");
   const navigate = useNavigate();
-
   function scrollTabbar(element, left) {
     element.scrollTo({
       left,
@@ -44,7 +41,6 @@ const StoreOptions = ({ stores, name }) => {
   const dashView = ({ stores, name }) => {
     navigate("/dashboard", { state: { stores: stores, name: name } });
   };
-  console.log("stores", stores);
   return (
     <div className="h-full flex flex-col pb-2 justify-center items-center space-y-4">
       <div className="flex flex-row w-full lg:w-[75.5rem]">

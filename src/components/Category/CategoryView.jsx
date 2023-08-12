@@ -4,6 +4,7 @@ import { TbHeart } from "react-icons/tb";
 import * as categoriesAPI from "../../Api/categories";
 import Filterbar from "../UserHome/Filterbar";
 
+//e.preventDefault for heart saving functionality to prevent navigation to store page
 const CategoryView = () => {
   const [categorySearch, setCategorySearch] = useState(null);
   const [category, setCategory] = useState();

@@ -10,3 +10,17 @@ export const getFoodType = async () => {
   });
   return output;
 };
+
+export const getFoodPick = async (query) => {
+  let output = [];
+  await axios
+    .get(`${URL}/api/storetype/`, {
+      params: {
+        foodtype_name: query.foodtype_name,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
+  return output;
+};
