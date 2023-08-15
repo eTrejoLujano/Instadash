@@ -5,24 +5,10 @@ import Togos from "../../assets/store/togos.png";
 import TogosLogo from "../../assets/store/logo/togoslogo.png";
 import { AiOutlineClockCircle, AiOutlineSearch } from "react-icons/ai";
 import { BsFillXCircleFill } from "react-icons/bs";
-import { FiArrowLeft } from "react-icons/fi";
-
 import FoodItem from "./FoodItem";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const StoreView = () => {
-  // let store = {
-  //   id: 2,
-  //   name: "Togo's",
-  //   src: Togos,
-  //   Logo: TogosLogo,
-  //   save: false,
-  //   distance: "1.0 mi",
-  //   time: "20 min",
-  //   fee: "$1.99 Delivery Fee",
-  //   rate: "4.7",
-  //   reviews: "(2,300+)",
-  // };
   const [searchIcon, setSearchIcon] = useState(true);
   const [store, setStore] = useState();
   const ref = useRef(null);

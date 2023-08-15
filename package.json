@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-google-maps/api": "^2.19.2",
+    "@googlemaps/react-wrapper": "^1.1.35",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "indexof": "0.0.1",

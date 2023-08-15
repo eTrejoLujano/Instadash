@@ -12,7 +12,6 @@ import PlateIcon from "../assets/icons/plateicon.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../store/authSlice";
-
 function Navbar() {
   const [menu, setMenu] = useState(false);
   const [cart, setCart] = useState(false);
@@ -64,6 +63,8 @@ function Navbar() {
     { id: 5, name: "Saved Stores", icon: TbHeart, click: savedClick },
     { id: 6, name: "Sign Out", icon: CgCloseO, click: signoutClick },
   ];
+  let inputStyling =
+    "border h-[2.8rem] w-[20rem] rounded-md bg-gray-50 border-none focus:border-solid focus:border-2 focus:border-black focus:outline-none px-4";
 
   return (
     <div>
@@ -166,8 +167,10 @@ function Navbar() {
               <li className="left-44 hidden md:flex">
                 <h3 className="text-3xl font-light text-gray-300">|</h3>
               </li>
-              <li className="bottom-6 hidden md:flex">
-                <h3 className="text-black truncate">Enter Address</h3>
+              <li className="hidden md:flex">
+                {/* <Autocomplete>
+                  <input className={inputStyling} type="text" name="address" />
+                </Autocomplete> */}
               </li>
             </ul>
           </div>
@@ -214,7 +217,7 @@ function Navbar() {
       >
         <div className="flex justify-center pt-2">
           <div className="cursor-pointer justify-center flex capitalize font-medium text-black hover:scale-105 duration-200">
-            <div className="">Address</div>
+            <input className={inputStyling} type="text" name="email" />
           </div>
         </div>
       </div>
