@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../../store/authSlice";
+import { register } from "../../redux-store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { makeEmail } from "../Util/helperFunctions";
 

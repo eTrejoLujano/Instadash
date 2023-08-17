@@ -9,9 +9,35 @@ export const me = createAsyncThunk("auth/me", async (_, thunkAPI) => {
   if (token) {
     thunkAPI.dispatch(setToken(token));
     thunkAPI.dispatch(setUser(jwt_decode(token.access)));
+    console.log("meeee", jwt_decode(token.access));
+    const response = await axios.get(`${URL}/api/latestaddress/`, {
+      params: {
+        user_id: jwt_decode(token.access).user_id,
+      },
+    });
+    return await thunkAPI.dispatch(setLocate(response.data));
   }
   return;
 });
+
+export const locate = createAsyncThunk(
+  "auth/locate",
+  async (query, thunkAPI) => {
+    try {
+      const response = await axios.get(`${URL}/api/address/`, {
+        params: {
+          address: query.address,
+          latitude: query.latitude,
+          longitude: query.longitude,
+          user_id: query.user_id,
+        },
+      });
+      thunkAPI.dispatch(setLocate(response.data));
+    } catch (authError) {
+      console.error(authError);
+    }
+  }
+);
 
 export const authenticate = createAsyncThunk(
   "auth/authenticate",
@@ -78,7 +104,7 @@ export const updateToken = createAsyncThunk(
   }
 );
 
-const initialState = { token: null, user: null };
+const initialState = { token: null, user: null, location: null };
 
 const authSlice = createSlice({
   name: "auth",
@@ -90,6 +116,9 @@ const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    setLocate: (state, action) => {
+      state.location = action.payload;
+    },
     logout: () => {
       window.localStorage.removeItem("token");
       return {};
@@ -97,5 +126,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setToken, setUser, logout } = authSlice.actions;
+export const { setToken, setUser, setLocate, logout } = authSlice.actions;
 export default authSlice.reducer;

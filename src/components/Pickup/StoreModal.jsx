@@ -14,29 +14,29 @@ const Modal = ({ name, open, rating, totalRatings }) => {
   }, []);
 
   const buttonStyling =
-    "w-[9rem] h-[2.5rem] rounded-full flex justify-center items-center border border-gray-300";
+    "w-[9.5rem] h-[2.9rem] font-medium text-sm rounded-full flex justify-center items-center border border-gray-300";
 
   if (!menu) {
     return;
   } else {
     return (
-      <div className="overflow-x w-[22rem] max-h-fit bg-white shadow-sm shadow-gray-400 px-3 pt-4 pb-3 rounded-xl">
-        <div className="flex">
+      <div className="overflow-x w-[22rem] max-h-fit bg-white shadow-sm shadow-gray-400 pt-4 pb-3 rounded-xl">
+        <div className="flex px-5">
           <div className="text-black text-base font-medium">{name}</div>
           <div>Heart</div>
         </div>
-        <div className="text-gray-500 text-xs">
+        <div className="text-gray-500 text-xs px-5">
           {rating} ({totalRatings}) •
         </div>
         <div className="space-y-5">
           {open && open.open_now ? (
-            <div className="text-green-500 text-sm">open</div>
+            <div className="text-green-500 text-sm px-5">open</div>
           ) : (
-            <div className="text-red-500 text-sm">closed</div>
+            <div className="text-red-500 text-sm px-5">closed</div>
           )}
           <div
             className="flex flex-row w-full h-full overscroll-x-contain overflow-x-scroll
-           container-snap scroll-smooth space-x-[1rem] overflow-y-contain"
+           container-snap scroll-smooth space-x-[1rem] overflow-y-contain pl-5"
           >
             {menu[0].store_items.map(({ id, name, image, prices }) => (
               <div key={id}>
@@ -54,7 +54,7 @@ const Modal = ({ name, open, rating, totalRatings }) => {
             ))}
           </div>
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between px-5 pt-3">
           <button className={buttonStyling}>Delivery</button>
           <button className={buttonStyling}>Pickup</button>
         </div>

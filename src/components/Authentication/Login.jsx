@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { authenticate } from "../../store/authSlice";
+import { authenticate } from "../../redux-store/authSlice";
 import { useNavigate } from "react-router-dom";
-import { register } from "../../store/authSlice";
+import { register } from "../../redux-store/authSlice";
 import { makeEmail } from "../Util/helperFunctions";
 
 const Login = () => {

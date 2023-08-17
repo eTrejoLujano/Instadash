@@ -3,19 +3,33 @@ import { REQ_URL } from "../components/Util/constants";
 
 const URL = REQ_URL;
 
-export const getRestaurants = async () => {
+export const getRestaurants = async (query) => {
   let output = [];
-  await axios.get(`${URL}/api/restaurants/`).then((res) => {
-    output = res.data;
-  });
+  await axios
+    .get(`${URL}/api/restaurants/`, {
+      params: {
+        latitude: query.lat,
+        longitude: query.lng,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
   return output;
 };
 
-export const getFastFood = async () => {
+export const getFastFood = async (query) => {
   let output = [];
-  await axios.get(`${URL}/api/fastfood/`).then((res) => {
-    output = res.data;
-  });
+  await axios
+    .get(`${URL}/api/fastfood/`, {
+      params: {
+        latitude: query.lat,
+        longitude: query.lng,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
   return output;
 };
 

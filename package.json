@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@googlemaps/react-wrapper": "^1.1.35",
+    "@reach/combobox": "^0.18.0",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "indexof": "0.0.1",

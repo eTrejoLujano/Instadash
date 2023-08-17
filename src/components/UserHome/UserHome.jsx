@@ -8,6 +8,7 @@ import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 import StoreOptions from "./StoreOptions";
 import Categories from "../Category/Catogories";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import FoodTypePick from "../FoodType/FoodTypePick";
 
 const UserHome = () => {

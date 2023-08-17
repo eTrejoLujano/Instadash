@@ -30,3 +30,20 @@ export function currencyFormat(num) {
   }
   return "$" + num?.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
+
+export function formatAddress(address) {
+  let addressStr = "";
+  for (let i of address) {
+    if (i === " ") {
+      i = "%20";
+    }
+    if (i === ",") {
+      i = "%2C";
+    }
+    addressStr += i;
+    // console.log(i);
+    // console.log(address[i]);
+    // console.log(addressStr);
+  }
+  return addressStr;
+}

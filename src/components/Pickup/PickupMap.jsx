@@ -2,37 +2,39 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import * as pickupAPI from "../../Api/pickup";
 import Restaurants from "./Restaurants";
+import { useSelector } from "react-redux";
 
 const PickupMap = () => {
   const [map, setMap] = useState();
-  // const [disableScroll, setDisableScroll] = useState(null);
   const ref = useRef();
-
+  const geometry = useSelector((state) => state.auth.location);
   const mapOptions = {
     mapId: import.meta.env.VITE_MAP_ID,
-    center: {},
+    center: {
+      lat: geometry && +geometry.latitude,
+      lng: geometry && +geometry.longitude,
+    },
     zoom: 14,
     disableDefaultUI: true,
     clickableIcons: false,
-    // disableAutoPan: true,
-    draggable: true,
     gestureHandling: "cooperative",
-    zoomControl: false,
   };
-  // const disableScroll = () => {
-  // setScroll
-  // }
-
   useEffect(() => {
     console.log(ref.current);
     setMap(new window.google.maps.Map(ref.current, mapOptions));
-  }, []);
+  }, [geometry]);
 
   return (
     <>
       <div ref={ref} id="map" className="w-screen h-screen" />
 
-      {map && <Restaurants map={map} />}
+      {map && (
+        <Restaurants
+          map={map}
+          lat={mapOptions.center.lat}
+          lng={mapOptions.center.lng}
+        />
+      )}
     </>
   );
 };

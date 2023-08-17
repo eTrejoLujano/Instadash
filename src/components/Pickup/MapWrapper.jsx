@@ -6,7 +6,7 @@ const MapWrapper = () => {
     <Wrapper
       apiKey={import.meta.env.VITE_GOOGLE_KEY}
       version="beta"
-      libraries={["marker"]}
+      libraries={["marker", "places"]}
     >
       <PickupMap />
     </Wrapper>

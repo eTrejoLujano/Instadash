@@ -8,7 +8,7 @@ import PrivateRoute from "./components/Util/PrivateRoute";
 import { useSelector, useDispatch } from "react-redux";
 import { useLayoutEffect, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { me } from "./store/authSlice";
+import { me } from "./redux-store/authSlice";
 import StoreView from "./components/Store/StoreView";
 import SeeAll from "./components/Dashboard/SeeAll";
 import MapWrapper from "./components/Pickup/MapWrapper";
@@ -16,12 +16,18 @@ import OrderHistory from "./components/Orders/OrderHistory";
 import AccountInfo from "./components/Account/AccountInfo";
 import SavedStores from "./components/Saved/SavedStores";
 import CategoryView from "./components/Category/CategoryView";
+import { Wrapper } from "@googlemaps/react-wrapper";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
+  // const location = useSelector((state) => state.auth.location);
   const dispatch = useDispatch();
   useEffect(() => {
+    // async function fetchData() {
     dispatch(me());
+    // user?.user_id && dispatch(currentAddress({ user_id: user.user_id }));
+    // }
+    // fetchData();
   }, []);
 
   const ScrollWrapper = ({ children }) => {
@@ -34,7 +40,17 @@ function App() {
 
   return (
     <ScrollWrapper>
-      {user ? <Navbar /> : <AuthBar />}
+      {user ? (
+        <Wrapper
+          apiKey={import.meta.env.VITE_GOOGLE_KEY}
+          version="beta"
+          libraries={["marker", "places"]}
+        >
+          <Navbar />{" "}
+        </Wrapper>
+      ) : (
+        <AuthBar />
+      )}
       <Routes>
         {!user && <Route exact path="/" element={<Login />} />}
         {!user && <Route path="/signup" element={<SignUp />} />}

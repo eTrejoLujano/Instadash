@@ -10,15 +10,43 @@ import { TbHeart } from "react-icons/tb";
 import Instacart from "../assets/icons/instadash.png";
 import PlateIcon from "../assets/icons/plateicon.png";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { logout } from "../store/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { locate, logout } from "../redux-store/authSlice";
+
 function Navbar() {
   const [menu, setMenu] = useState(false);
   const [cart, setCart] = useState(false);
   const [searchIcon, setSearchIcon] = useState(true);
+  const [address, setAddress] = useState();
   const ref = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user_id = useSelector((state) => state.auth.user.user_id);
+
+  useEffect(() => {
+    const options = {
+      fields: ["formatted_address", "geometry", "name"],
+      strictBounds: false,
+    };
+    const autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById("address"),
+      options
+    );
+    autocomplete.setFields(["place_id", "geometry", "name"]);
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      console.log("PLACE>>>>", place.geometry.viewport);
+      dispatch(
+        locate({
+          address: place.formatted_address,
+          latitude: place.geometry.viewport.eb.lo,
+          longitude: place.geometry.viewport.La.lo,
+          user_id: user_id,
+        })
+      );
+      setAddress(place.formatted_address);
+    });
+  }, [address, dispatch, user_id]);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, false);
@@ -168,9 +196,14 @@ function Navbar() {
                 <h3 className="text-3xl font-light text-gray-300">|</h3>
               </li>
               <li className="hidden md:flex">
-                {/* <Autocomplete>
-                  <input className={inputStyling} type="text" name="address" />
-                </Autocomplete> */}
+                <input
+                  className={inputStyling}
+                  type="text"
+                  name="address"
+                  id="address"
+                  // value={currentAddress && currentAddress.address}
+                  // onChange={(e) => console.log(e.target.value)}
+                />
               </li>
             </ul>
           </div>
