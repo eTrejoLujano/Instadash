@@ -15,7 +15,7 @@ const Marker = ({ map, children, position, onClick }) => {
       });
     }
     return () => (markerRef.current.map = null);
-  }, []);
+  }, [position]);
   useEffect(() => {
     rootRef.current.render(children);
     markerRef.current.postition = position;

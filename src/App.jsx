@@ -19,15 +19,10 @@ import CategoryView from "./components/Category/CategoryView";
 import { Wrapper } from "@googlemaps/react-wrapper";
 
 function App() {
-  const user = useSelector((state) => state.auth.user);
-  // const location = useSelector((state) => state.auth.location);
+  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
-    // async function fetchData() {
     dispatch(me());
-    // user?.user_id && dispatch(currentAddress({ user_id: user.user_id }));
-    // }
-    // fetchData();
   }, []);
 
   const ScrollWrapper = ({ children }) => {
@@ -40,7 +35,7 @@ function App() {
 
   return (
     <ScrollWrapper>
-      {user ? (
+      {auth.user ? (
         <Wrapper
           apiKey={import.meta.env.VITE_GOOGLE_KEY}
           version="beta"
@@ -52,8 +47,8 @@ function App() {
         <AuthBar />
       )}
       <Routes>
-        {!user && <Route exact path="/" element={<Login />} />}
-        {!user && <Route path="/signup" element={<SignUp />} />}
+        {!auth.user && <Route exact path="/" element={<Login />} />}
+        {!auth.user && <Route path="/signup" element={<SignUp />} />}
         <Route
           path="*"
           element={

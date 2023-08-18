@@ -9,16 +9,32 @@ export const me = createAsyncThunk("auth/me", async (_, thunkAPI) => {
   if (token) {
     thunkAPI.dispatch(setToken(token));
     thunkAPI.dispatch(setUser(jwt_decode(token.access)));
-    console.log("meeee", jwt_decode(token.access));
-    const response = await axios.get(`${URL}/api/latestaddress/`, {
-      params: {
-        user_id: jwt_decode(token.access).user_id,
-      },
-    });
-    return await thunkAPI.dispatch(setLocate(response.data));
+    // const response = await axios.get(`${URL}/api/latestaddress/`, {
+    //   params: {
+    //     user_id: jwt_decode(token.access).user_id,
+    //   },
+    // });
+    // return await thunkAPI.dispatch(setLocate(response.data));
   }
   return;
 });
+
+export const currentAddress = createAsyncThunk(
+  "auth/currentAddress",
+  async (query, thunkAPI) => {
+    try {
+      const response = await axios.get(`${URL}/api/latestaddress/`, {
+        params: {
+          user_id: query.user_id,
+        },
+      });
+      console.log("reponse data", response.data);
+      return thunkAPI.dispatch(setLocate(response.data));
+    } catch (authError) {
+      console.error(authError);
+    }
+  }
+);
 
 export const locate = createAsyncThunk(
   "auth/locate",

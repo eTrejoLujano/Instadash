@@ -19,11 +19,14 @@ function Navbar() {
   const [searchIcon, setSearchIcon] = useState(true);
   const [address, setAddress] = useState();
   const ref = useRef(null);
+  const inputRef = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const currentAddress = useSelector((state) => state.auth.location);
   const user_id = useSelector((state) => state.auth.user.user_id);
 
   useEffect(() => {
+    setAddress(currentAddress && currentAddress.address);
     const options = {
       fields: ["formatted_address", "geometry", "name"],
       strictBounds: false,
@@ -39,8 +42,10 @@ function Navbar() {
       dispatch(
         locate({
           address: place.formatted_address,
-          latitude: place.geometry.viewport.eb.lo,
-          longitude: place.geometry.viewport.La.lo,
+          latitude:
+            (place.geometry.viewport.eb.lo + place.geometry.viewport.eb.hi) / 2,
+          longitude:
+            (place.geometry.viewport.La.lo + place.geometry.viewport.La.hi) / 2,
           user_id: user_id,
         })
       );
@@ -93,7 +98,9 @@ function Navbar() {
   ];
   let inputStyling =
     "border h-[2.8rem] w-[20rem] rounded-md bg-gray-50 border-none focus:border-solid focus:border-2 focus:border-black focus:outline-none px-4";
-
+  const onTextChange = (e) => {
+    setAddress(e.target.value);
+  };
   return (
     <div>
       <div className="flex">
@@ -201,8 +208,13 @@ function Navbar() {
                   type="text"
                   name="address"
                   id="address"
-                  // value={currentAddress && currentAddress.address}
-                  // onChange={(e) => console.log(e.target.value)}
+                  value={
+                    inputRef.current && inputRef.current.value
+                      ? inputRef.current.value
+                      : address
+                  }
+                  onChange={(e) => onTextChange(e)}
+                  ref={inputRef}
                 />
               </li>
             </ul>

@@ -28,13 +28,7 @@ const PickupMap = () => {
     <>
       <div ref={ref} id="map" className="w-screen h-screen" />
 
-      {map && (
-        <Restaurants
-          map={map}
-          lat={mapOptions.center.lat}
-          lng={mapOptions.center.lng}
-        />
-      )}
+      {map && <Restaurants map={map} />}
     </>
   );
 };
