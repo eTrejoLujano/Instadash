@@ -61,7 +61,7 @@ const Ads = () => {
   // }, []);
 
   return (
-    <div className="h-[12rem] flex flex-col ">
+    <div className="h-[12rem] flex flex-col z-0">
       <div className="flex flex-row justify-center">
         <div
           className="flex flex-row w-[75.5rem] overscroll-x-contain overflow-x-scroll
@@ -73,7 +73,7 @@ const Ads = () => {
             <div key={ad.id} className="rounded-lg flex flex-col">
               <div
                 className={
-                  "rounded-md box-content h-38 w-[24.2rem] relative z-20" +
+                  "rounded-md box-content h-38 w-[24.2rem] relative z-10" +
                   " " +
                   ad.style
                 }

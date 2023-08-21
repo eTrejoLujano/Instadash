@@ -101,7 +101,6 @@ const StoreView = () => {
                 <div className="space-y-4">
                   <div className="flex flex-col md:flex-row md:justify-between items-center space-y-4">
                     <div className="">Full Menu</div>
-                    {/* <div className="flex justify-center items-center w-full px-4"> */}
                     <div className="relative md:w-[20rem] w-full bottom-2">
                       <div className="absolute text-gray-500 top-2 left-2">
                         <AiOutlineSearch size={24} />
@@ -118,7 +117,6 @@ const StoreView = () => {
                         placeholder="Search store menu"
                         onClick={() => setSearchIcon(false)}
                       />
-                      {/* </div> */}
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4 gap-1 px-4 md:px-0">

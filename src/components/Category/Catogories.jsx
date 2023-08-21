@@ -18,7 +18,7 @@ const Categories = () => {
   return (
     <div
       className="md:h-[8.8rem] relative h-[5rem] text-black bg-gray-100 border-solid border 
-    border-gray-100"
+    border-gray-100 w-screen"
     >
       <div className="scroll-smooth flex flex-row justify-center">
         <div

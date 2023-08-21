@@ -28,8 +28,45 @@ export const currentAddress = createAsyncThunk(
           user_id: query.user_id,
         },
       });
-      console.log("reponse data", response.data);
-      return thunkAPI.dispatch(setLocate(response.data));
+      console.log("response status: " + response.status);
+      if (response.status === 200) {
+        return thunkAPI.dispatch(setLocate(response.data));
+      } else {
+        return;
+      }
+    } catch (authError) {
+      console.error(authError);
+    }
+  }
+);
+
+export const changeAddress = createAsyncThunk(
+  "auth/changeAddress",
+  async (query, thunkAPI) => {
+    try {
+      const response = await axios.get(`${URL}/api/changeaddress/`, {
+        params: {
+          address_id: query.address_id,
+        },
+      });
+      return thunkAPI.dispatch(setLocate(response.data[0]));
+    } catch (authError) {
+      console.error(authError);
+    }
+  }
+);
+
+export const deleteAddress = createAsyncThunk(
+  "auth/deleteAddress",
+  async (query, thunkAPI) => {
+    try {
+      const response = await axios.get(`${URL}/api/deleteaddress/`, {
+        params: {
+          user_id: query.user_id,
+          address_id: query.address_id,
+        },
+      });
+      return thunkAPI.dispatch(setLocate(response.data[0]));
     } catch (authError) {
       console.error(authError);
     }

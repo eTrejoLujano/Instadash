@@ -1,20 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as pickupAPI from "../../Api/pickup";
 import Marker from "./Marker";
 import { FaUtensils, FaHome } from "react-icons/fa";
 import StoreModal from "./StoreModal";
 import { useSelector } from "react-redux";
 
-const Restaurants = ({ map, lat, lng }) => {
+const Restaurants = ({ map }) => {
   const [restuarants, setRestaurants] = useState();
   const [hover, setHover] = useState();
-  const [pick, setPick] = useState();
+  const [pick, setPick] = useState(null);
   const geometry2 = useSelector((state) => state.auth.location);
-  // const [center, setCenter]  = useState();
   useEffect(() => {
-    console.log("trigger use effect");
     async function fetchData() {
-      // setCenter({ lat: +geometry.latitude, lng: +geometry.longitude });
       const restaurantsOptions = await pickupAPI.getRestaurants({
         lat: +geometry2.latitude,
         lng: +geometry2.longitude,
@@ -23,40 +20,36 @@ const Restaurants = ({ map, lat, lng }) => {
         lat: +geometry2.latitude,
         lng: +geometry2.longitude,
       });
-      console.log([...restaurantsOptions.results, ...fastfoodOptions.results]);
+      const coffeeOptions = await pickupAPI.getCoffee({
+        lat: +geometry2.latitude,
+        lng: +geometry2.longitude,
+      });
+      const pizzaOptions = await pickupAPI.getPizza({
+        lat: +geometry2.latitude,
+        lng: +geometry2.longitude,
+      });
+      console.log([
+        ...restaurantsOptions.results,
+        ...fastfoodOptions.results,
+        ...coffeeOptions.results,
+        ...pizzaOptions.results,
+      ]);
       setRestaurants([
         ...restaurantsOptions.results,
         ...fastfoodOptions.results,
+        ...coffeeOptions.results,
+        ...pizzaOptions.results,
       ]);
     }
     fetchData();
-  }, [geometry2]);
-
-  const homeMarker = () => {
-    return (
-      <Marker
-        map={map}
-        position={{
-          lat: +geometry2.latitude,
-          lng: +geometry2.longitude,
-        }}
-      >
-        <div
-          className="w-7 h-7 bg-black rounded-full flex justify-center items-center
-          shadow-sm shadow-gray-400"
-        >
-          <FaHome size={17} className="text-white" />
-        </div>
-      </Marker>
-    );
-  };
+  }, []);
+  console.log("marker ref", pick);
   console.log("geometry", geometry2);
   if (!restuarants) {
     return;
   } else {
     return (
-      <div className="">
-        {/* {homeMarker} */}
+      <div>
         <Marker
           map={map}
           position={{
@@ -85,7 +78,7 @@ const Restaurants = ({ map, lat, lng }) => {
               map={map}
               key={reference}
               position={geometry.location}
-              onClick={() => setPick(place_id)}
+              onClick={() => setPick(!pick ? place_id : null)}
             >
               <div
                 className="w-full flex flex-col items-center relative z-0"

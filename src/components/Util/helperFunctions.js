@@ -32,18 +32,19 @@ export function currencyFormat(num) {
 }
 
 export function formatAddress(address) {
-  let addressStr = "";
+  let streetAddress = "";
+  let cityStateZip = "";
+  let comaSearch = false;
   for (let i of address) {
-    if (i === " ") {
-      i = "%20";
+    if (!comaSearch) {
+      if (i === ",") {
+        comaSearch = true;
+      } else {
+        streetAddress += i;
+      }
+    } else {
+      cityStateZip += i;
     }
-    if (i === ",") {
-      i = "%2C";
-    }
-    addressStr += i;
-    // console.log(i);
-    // console.log(address[i]);
-    // console.log(addressStr);
   }
-  return addressStr;
+  return [streetAddress, cityStateZip.slice(1)];
 }

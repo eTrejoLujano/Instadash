@@ -33,6 +33,36 @@ export const getFastFood = async (query) => {
   return output;
 };
 
+export const getCoffee = async (query) => {
+  let output = [];
+  await axios
+    .get(`${URL}/api/coffee/`, {
+      params: {
+        latitude: query.lat,
+        longitude: query.lng,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
+  return output;
+};
+
+export const getPizza = async (query) => {
+  let output = [];
+  await axios
+    .get(`${URL}/api/pizza/`, {
+      params: {
+        latitude: query.lat,
+        longitude: query.lng,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
+  return output;
+};
+
 export const getStorePickup = async (query) => {
   let output = [];
   await axios
