@@ -4,7 +4,7 @@ import * as pickupAPI from "../../Api/pickup";
 import Restaurants from "./Restaurants";
 import { useSelector } from "react-redux";
 
-const PickupMap = () => {
+const PickupMap = ({ storeView }) => {
   const [map, setMap] = useState();
   const ref = useRef();
   const geometry = useSelector((state) => state.auth.location);
@@ -27,8 +27,7 @@ const PickupMap = () => {
   return (
     <>
       <div ref={ref} id="map" className="w-screen h-screen" />
-
-      {map && <Restaurants map={map} />}
+      {map && <Restaurants storeView={storeView} map={map} />}
     </>
   );
 };

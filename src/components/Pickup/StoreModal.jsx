@@ -1,14 +1,31 @@
 import { useEffect, useState } from "react";
 import * as pickupAPI from "../../Api/pickup";
 import { currencyFormat } from "../Util/helperFunctions";
-const Modal = ({ name, open, rating, totalRatings }) => {
+const StoreModal = ({
+  place_id,
+  name,
+  open,
+  rating,
+  totalRatings,
+  destinations,
+  origins,
+  storeView,
+}) => {
   const [menu, setMenu] = useState();
+  const [distance, setDistance] = useState();
+  const [placeDetails, setPlaceDetails] = useState();
   useEffect(() => {
     async function fetchData() {
       console.log("NAMES", name);
       const items = await pickupAPI.getStorePickup({ store_name: name });
+      const travel = await pickupAPI.getDistance({ destinations, origins });
+      const placeDetails = await pickupAPI.getPlaceDetails({ place_id });
+      console.log("distance>>>>", travel);
+      console.log("place details>>>>", placeDetails);
       setMenu(items);
-      console.log(items);
+      setDistance(travel);
+      setPlaceDetails(placeDetails);
+      // console.log(items);
     }
     fetchData();
   }, []);
@@ -20,13 +37,26 @@ const Modal = ({ name, open, rating, totalRatings }) => {
     return;
   } else {
     return (
-      <div className="overflow-x w-[22rem] max-h-fit bg-white shadow-sm shadow-gray-400 pt-4 pb-3 rounded-xl">
+      <div
+        className="overflow-x w-[22rem] max-h-fit bg-white shadow-sm shadow-gray-400 pt-4 pb-3 rounded-xl"
+        onClick={() =>
+          storeView(
+            name,
+            placeDetails.result,
+            distance.rows[0].elements[0],
+            totalRatings,
+            true
+          )
+        }
+      >
         <div className="flex px-5">
           <div className="text-black text-base font-medium">{name}</div>
           <div>Heart</div>
         </div>
         <div className="text-gray-500 text-xs px-5">
-          {rating} ({totalRatings}) •
+          {rating} ({totalRatings}) •{" "}
+          {/* {distance.rows[0].elements[0].distance.text} • */}
+          {distance.rows[0].elements[0].duration.text}
         </div>
         <div className="space-y-5">
           {open && open.open_now ? (
@@ -63,4 +93,4 @@ const Modal = ({ name, open, rating, totalRatings }) => {
   }
 };
 
-export default Modal;
+export default StoreModal;

@@ -1,17 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import * as pickupAPI from "../../Api/pickup";
+import * as storeAPI from "../../Api/store";
 import Marker from "./Marker";
 import { FaUtensils, FaHome } from "react-icons/fa";
 import StoreModal from "./StoreModal";
 import { useSelector } from "react-redux";
 
-const Restaurants = ({ map }) => {
+const Restaurants = ({ map, storeView }) => {
   const [restuarants, setRestaurants] = useState();
   const [hover, setHover] = useState();
   const [pick, setPick] = useState(null);
   const geometry2 = useSelector((state) => state.auth.location);
   useEffect(() => {
     async function fetchData() {
+      let availableStores = await storeAPI.getAllStores();
       const restaurantsOptions = await pickupAPI.getRestaurants({
         lat: +geometry2.latitude,
         lng: +geometry2.longitude,
@@ -28,18 +30,54 @@ const Restaurants = ({ map }) => {
         lat: +geometry2.latitude,
         lng: +geometry2.longitude,
       });
-      console.log([
+      availableStores = availableStores.sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      let allRestaurants = [
         ...restaurantsOptions.results,
         ...fastfoodOptions.results,
         ...coffeeOptions.results,
         ...pizzaOptions.results,
-      ]);
-      setRestaurants([
-        ...restaurantsOptions.results,
-        ...fastfoodOptions.results,
-        ...coffeeOptions.results,
-        ...pizzaOptions.results,
-      ]);
+      ];
+      allRestaurants = allRestaurants.sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      console.log(
+        "available stores, restaurants",
+        availableStores,
+        allRestaurants
+      );
+      let mappedStores = [];
+      let storeIndex = 0;
+      let restaurantIndex = 0;
+      while (
+        (storeIndex < availableStores.length &&
+          restaurantIndex < allRestaurants.length) ||
+        restaurantIndex == allRestaurants.length
+      ) {
+        if (
+          availableStores[storeIndex].name ==
+          allRestaurants[restaurantIndex].name
+        ) {
+          mappedStores.push(allRestaurants[restaurantIndex]);
+          restaurantIndex += 1;
+        }
+        if (
+          availableStores[storeIndex].name !==
+          allRestaurants[restaurantIndex].name
+        ) {
+          const compare = availableStores[storeIndex].name.localeCompare(
+            allRestaurants[restaurantIndex].name
+          );
+          if (compare == -1) {
+            storeIndex += 1;
+          } else {
+            restaurantIndex += 1;
+          }
+        }
+      }
+      console.log("mapped stores", mappedStores);
+      setRestaurants(mappedStores);
     }
     fetchData();
   }, []);
@@ -72,6 +110,7 @@ const Restaurants = ({ map }) => {
             opening_hours,
             rating,
             reference,
+            formatted_address,
             user_ratings_total,
           }) => (
             <Marker
@@ -106,10 +145,14 @@ const Restaurants = ({ map }) => {
                 <div className="absolute top-[2rem] z-50">
                   {place_id === pick && (
                     <StoreModal
+                      place_id={place_id}
                       name={name}
                       open={opening_hours}
                       rating={rating}
+                      origins={geometry2.address}
+                      destinations={formatted_address}
                       totalRatings={user_ratings_total}
+                      storeView={storeView}
                     />
                   )}
                 </div>

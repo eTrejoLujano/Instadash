@@ -17,6 +17,7 @@ import AccountInfo from "./components/Account/AccountInfo";
 import SavedStores from "./components/Saved/SavedStores";
 import CategoryView from "./components/Category/CategoryView";
 import { Wrapper } from "@googlemaps/react-wrapper";
+import StoreModal from "./components/Pickup/StoreModal";
 
 function App() {
   const auth = useSelector((state) => state.auth);

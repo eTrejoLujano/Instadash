@@ -48,3 +48,17 @@ export function formatAddress(address) {
   }
   return [streetAddress, cityStateZip.slice(1)];
 }
+
+export function gmapsAddress(address) {
+  let formattedAddress = "";
+  for (let i of address) {
+    if (i == " ") {
+      formattedAddress += "%20";
+    } else if (i == ",") {
+      formattedAddress += "%2C";
+    } else {
+      formattedAddress += i;
+    }
+  }
+  return formattedAddress;
+}

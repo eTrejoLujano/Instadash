@@ -76,3 +76,32 @@ export const getStorePickup = async (query) => {
     });
   return output;
 };
+
+export const getDistance = async (query) => {
+  let output = [];
+  await axios
+    .get(`${URL}/api/distance/`, {
+      params: {
+        destinations: query.destinations,
+        origins: query.origins,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
+  return output;
+};
+
+export const getPlaceDetails = async ({ place_id }) => {
+  let output = [];
+  await axios
+    .get(`${URL}/api/placedetails/`, {
+      params: {
+        place_id,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
+  return output;
+};
