@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { TbHeart } from "react-icons/tb";
 import { AiOutlineStar } from "react-icons/ai";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
@@ -8,6 +9,19 @@ const StoreOptions = ({ stores, name }) => {
   const ref = useRef(null);
   const [disableButton, setDisableButton] = useState("left");
   const navigate = useNavigate();
+  let availableStores = useSelector((state) => state.store.store);
+  // useEffect(() => {
+  //   if (availableStores) {
+  //     availableStores = availableStores.sort((a, b) =>
+  //       a.name.localeCompare(b.name)
+  //     );
+
+  //     // stores = stores.sort((a, b) => a.name.localeCompare(b.name));
+  //     console.log("availableStores", availableStores);
+  //     console.log("dashboard stores", stores);
+  //   }
+  // }, []);
+
   function scrollTabbar(element, left) {
     element.scrollTo({
       left,

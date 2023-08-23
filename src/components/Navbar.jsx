@@ -23,6 +23,7 @@ import { BsFillXCircleFill } from "react-icons/bs";
 import { formatAddress } from "./Util/helperFunctions";
 import * as locationAPI from "../Api/location";
 import AddressList from "./UserHome/AddressList";
+import { availableStores } from "../redux-store/storeSlice";
 
 function Navbar() {
   const searchRef = useRef(null);
@@ -53,6 +54,13 @@ function Navbar() {
           id: location.id,
         };
       });
+      dispatch(
+        availableStores({
+          latitude: currentAddress.latitude,
+          longitude: currentAddress.longitude,
+        })
+      );
+      console.log("current addrtess information", currentAddress);
       setAllAddresses(formattedAddresses);
     }
     fetchData();

@@ -2,10 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import { createLogger } from "redux-logger";
 
 import auth from "./authSlice";
-import location from "./locationSlice";
+import store from "./storeSlice";
 
 export default configureStore({
-  reducer: { auth, location },
+  reducer: { auth, store },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(
       createLogger({ collapsed: true })
