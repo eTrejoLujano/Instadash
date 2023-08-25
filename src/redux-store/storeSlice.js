@@ -3,7 +3,6 @@ import { REQ_URL } from "../components/Util/constants";
 import axios from "axios";
 import * as storeAPI from "../Api/store";
 import * as pickupAPI from "../Api/pickup";
-
 const URL = REQ_URL;
 
 export const availableStores = createAsyncThunk(
@@ -74,28 +73,7 @@ export const availableStores = createAsyncThunk(
     }
   }
 );
-
-// export const locate = createAsyncThunk(
-//   "store/locate",
-//   async (query, thunkAPI) => {
-//     try {
-//       const response = await axios.get(`${URL}/api/address/`, {
-//         params: {
-//           address: query.address,
-//           latitude: query.latitude,
-//           longitude: query.longitude,
-//           user_id: query.user_id,
-//         },
-//       });
-//       thunkAPI.dispatch(setStore(response.data));
-//     } catch (authError) {
-//       console.error(authError);
-//     }
-//   }
-// );
-
 const initialState = {};
-
 const storeSlice = createSlice({
   name: "store",
   initialState,

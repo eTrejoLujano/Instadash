@@ -15,7 +15,6 @@ const StoreOptions = ({ stores, name }) => {
   //     availableStores = availableStores.sort((a, b) =>
   //       a.name.localeCompare(b.name)
   //     );
-
   //     // stores = stores.sort((a, b) => a.name.localeCompare(b.name));
   //     console.log("availableStores", availableStores);
   //     console.log("dashboard stores", stores);
