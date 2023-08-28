@@ -28,7 +28,6 @@ export const currentAddress = createAsyncThunk(
           user_id: query.user_id,
         },
       });
-      console.log("response status: " + response.status);
       if (response.status === 200) {
         return thunkAPI.dispatch(setLocate(response.data));
       } else {
@@ -179,5 +178,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setToken, setUser, setLocate, logout } = authSlice.actions;
+export const { setToken, setUser, setCart, setLocate, logout } =
+  authSlice.actions;
 export default authSlice.reducer;

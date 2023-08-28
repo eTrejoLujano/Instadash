@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import * as storeAPI from "../../Api/store";
+import * as pickupAPI from "../../Api/pickup";
 import FoodItem from "./FoodItem";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineClockCircle, AiOutlineSearch } from "react-icons/ai";
@@ -18,7 +19,6 @@ const StoreView = () => {
   const [isDelivery, setIsDelivery] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.state);
   useEffect(() => {
     if (!location.state) {
       navigate("/");
@@ -28,7 +28,18 @@ const StoreView = () => {
         const fetchStore = await storeAPI.getStoreById({
           store_id: location.state.id,
         });
+        const travel = await pickupAPI.getDistance({
+          destinations: location.state.destinations,
+          origins: location.state.origins,
+        });
+        const placeDetails = await pickupAPI.getPlaceDetails({
+          place_id: location.state.place_id,
+        });
         setStore(fetchStore);
+        setTotalRatings(totalRatings);
+        setDistance(travel.rows[0].elements[0]);
+        setPlaceDetails(placeDetails.result);
+        setIsDelivery(false);
       }
       if (location.state.name) {
         const fetchStore = await storeAPI.getStoreByName({
@@ -56,10 +67,9 @@ const StoreView = () => {
     ref.current.value = "";
     setSearchIcon(true);
   };
-  console.log("stores", store);
-  if (!store) {
-    return;
-  } else {
+  console.log("place details", placeDetails);
+  if (!store) return;
+  else
     return (
       <div className="lg:pt-[5rem] w-screen sm:px-4">
         <div className="flex flex-row justify-center">
@@ -133,11 +143,11 @@ const StoreView = () => {
                       <div className="rounded-full w-[10rem] h-[3rem] border-2 bg-gray-300 flex justify-between items-center">
                         <div
                           className={`flex flex-col items-center justify-center h-full rounded-full cursor-pointer ${
-                            !isDelivery
+                            isDelivery
                               ? "bg-gray text-black w-3/5"
                               : "bg-black text-white w-3/4"
                           } `}
-                          onClick={() => setIsDelivery(true)}
+                          onClick={() => setIsDelivery(false)}
                         >
                           <div className="text-sm font-semibold">Delivery</div>
                           <div className="text-xs">
@@ -150,11 +160,11 @@ const StoreView = () => {
                         </div>
                         <div
                           className={`flex flex-col items-center justify-center text-sm h-full rounded-full cursor-pointer ${
-                            !isDelivery
+                            isDelivery
                               ? "bg-black text-white w-3/4"
                               : "bg-gray text-black w-3/5"
                           }`}
-                          onClick={() => setIsDelivery(false)}
+                          onClick={() => setIsDelivery(true)}
                         >
                           <div className="text-sm font-semibold">Pickup</div>
                           <div className="text-xs">
@@ -166,26 +176,29 @@ const StoreView = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-full flex pb-5">
-                  <StoreMapWrapper
-                    lat={placeDetails.geometry.location.lat}
-                    lng={placeDetails.geometry.location.lng}
-                  />
-                  <div className="w-[14rem] h-[8rem] flex flex-col items-center justify-center">
-                    <div className="text-base font-semibold">
-                      Pick up this order at:
-                    </div>
-                    <div className="text-base underline">
-                      {formatAddress(placeDetails.formatted_address)[0]}
-                    </div>
-                    <div className="text-sm flex items-center space-x-1">
-                      <div>
-                        <AiFillCar size={15} />
+                {isDelivery && (
+                  <div className="w-full flex pb-5">
+                    <StoreMapWrapper
+                      lat={placeDetails.geometry.location.lat}
+                      lng={placeDetails.geometry.location.lng}
+                    />
+                    <div className="w-[14rem] h-[8rem] flex flex-col items-center justify-center">
+                      <div className="text-base font-semibold">
+                        Pick up this order at:
                       </div>
-                      <div>{distance.duration.text}</div>
+                      <div className="text-base underline">
+                        {formatAddress(placeDetails.formatted_address)[0]}
+                      </div>
+                      <div className="text-sm flex items-center space-x-1">
+                        <div>
+                          <AiFillCar size={15} />
+                        </div>
+                        <div>{distance.duration.text}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
+
                 <div className="w-full h-[.05rem] rounded bg-gray-200" />
                 <div className="space-y-4">
                   <div className="flex flex-col md:flex-row md:justify-between items-center space-y-4">
@@ -213,6 +226,7 @@ const StoreView = () => {
                       ({ id, name, description, image, prices }) => (
                         <FoodItem
                           key={id}
+                          itemId={id}
                           name={name}
                           description={description}
                           image={image}
@@ -228,7 +242,6 @@ const StoreView = () => {
         </div>
       </div>
     );
-  }
 };
 
 export default StoreView;

@@ -42,7 +42,6 @@ const FoodTypes = () => {
       }
     }
   };
-  console.log("foodtypes", foodType);
   return (
     <div className="h-full text-black">
       <div className="flex flex-row justify-center md:space-x-5">

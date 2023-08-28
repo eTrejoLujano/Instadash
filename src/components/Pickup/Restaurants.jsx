@@ -11,28 +11,24 @@ const Restaurants = ({ map, storeView }) => {
   const [pick, setPick] = useState(null);
   const location = useSelector((state) => state.auth.location);
   const restaurants = useSelector((state) => state.store.store);
-  console.log("marker ref", pick);
-  console.log("geometry", location);
-  if (!restaurants) {
-    return;
-  } else {
-    return (
-      <div>
-        <Marker
-          map={map}
-          position={{
-            lat: +location.latitude,
-            lng: +location.longitude,
-          }}
-        >
-          <div
-            className="w-7 h-7 bg-black rounded-full flex justify-center items-center
+  return (
+    <div>
+      <Marker
+        map={map}
+        position={{
+          lat: +location.latitude,
+          lng: +location.longitude,
+        }}
+      >
+        <div
+          className="w-7 h-7 bg-black rounded-full flex justify-center items-center
           shadow-sm shadow-gray-400"
-          >
-            <FaHome size={17} className="text-white" />
-          </div>
-        </Marker>
-        {restaurants.map(
+        >
+          <FaHome size={17} className="text-white" />
+        </div>
+      </Marker>
+      {restaurants &&
+        restaurants.map(
           ({
             place_id,
             name,
@@ -90,9 +86,8 @@ const Restaurants = ({ map, storeView }) => {
             </Marker>
           )
         )}
-      </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default Restaurants;

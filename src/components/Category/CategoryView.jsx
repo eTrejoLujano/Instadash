@@ -19,7 +19,6 @@ const CategoryView = () => {
         category_id: location.state.id,
       });
       setCategory(categoryPick);
-      console.log("categoryPick", categoryPick);
     }
     fetchData();
   }, []);

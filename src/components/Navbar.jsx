@@ -19,6 +19,7 @@ import {
   locate,
   logout,
 } from "../redux-store/authSlice";
+import { getCart } from "../redux-store/cartSlice";
 import { BsFillXCircleFill } from "react-icons/bs";
 import { formatAddress } from "./Util/helperFunctions";
 import * as locationAPI from "../Api/location";
@@ -36,16 +37,14 @@ function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [menu, setMenu] = useState(false);
-  const [cart, setCart] = useState(false);
+  const [cartMenu, setCartMenu] = useState(false);
   const [searchIcon, setSearchIcon] = useState(true);
   const [dropdown, setDropdown] = useState(false);
-  const [address, setAddress] = useState();
   const [allAddresses, setAllAddresses] = useState(null);
   const currentAddress = useSelector((state) => state.auth.location);
   const user_id = useSelector((state) => state.auth.user.user_id);
 
   useEffect(() => {
-    setAddress(currentAddress && currentAddress.address);
     async function fetchData() {
       const addresses = await locationAPI.getAllAddresses({ user_id });
       const formattedAddresses = addresses.map((location) => {
@@ -54,17 +53,18 @@ function Navbar() {
           id: location.id,
         };
       });
-      dispatch(
+      await dispatch(
         availableStores({
           latitude: currentAddress.latitude,
           longitude: currentAddress.longitude,
         })
-      );
-      console.log("current addrtess information", currentAddress);
+      ).unwrap();
       setAllAddresses(formattedAddresses);
+      dispatch(getCart({ user_id }));
     }
+
     fetchData();
-  }, [address, dispatch, user_id]);
+  }, [currentAddress, dispatch, user_id]);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, false);
@@ -91,7 +91,7 @@ function Navbar() {
       slideCartRef.current &&
       !slideCartRef.current.contains(event.target)
     ) {
-      setCart(false);
+      setCartMenu(false);
     }
     if (
       inputRef.current &&
@@ -147,7 +147,6 @@ function Navbar() {
           user_id: user_id,
         })
       );
-      setAddress(place.formatted_address);
     });
   };
   const changeAddressClick = (id) => {
@@ -164,9 +163,9 @@ function Navbar() {
     { id: 5, name: "Saved Stores", icon: TbHeart, click: savedClick },
     { id: 6, name: "Sign Out", icon: CgCloseO, click: signoutClick },
   ];
+  console.log("current address", currentAddress);
   let inputStyling =
     "border h-[2.4rem] w-[22.5rem] rounded-md bg-gray-50 border-none focus:border-solid focus:border-2 focus:border-black focus:outline-none px-10";
-  console.log("boolean", dropdown);
   return (
     <div>
       <div
@@ -213,13 +212,13 @@ function Navbar() {
       <div className="flex justify-end">
         <div
           className={`fixed bg-white h-screen z-50 shadow-gray-300 shadow  ${
-            cart ? "md:w-[22rem] w-screen " : "md:w-0"
+            cartMenu ? "md:w-[22rem] w-screen " : "md:w-0"
           } duration-300 shadow-xl shadow-gray-400`}
         >
-          {cart && (
+          {cartMenu && (
             <div className="scroll-smooth" ref={slideCartRef}>
               <div className="relative top-[1.5rem] left-[1rem] cursor-pointer">
-                <CgClose size={22} onClick={() => setCart(!cart)} />
+                <CgClose size={22} onClick={() => setCartMenu(!cartMenu)} />
               </div>
               <div
                 className="relative top-[4.2rem] left-[1.2rem] space-y-[1.8rem] flex flex-col
@@ -288,7 +287,7 @@ function Navbar() {
               onClick={() => setSearchIcon(false)}
             />
           </div>
-          <button onClick={() => setCart(!cart)} ref={cartRef}>
+          <button onClick={() => setCartMenu(!cartMenu)} ref={cartRef}>
             <BsCart3 size={24} />
             <div className="absolute rounded-full w-4 h-4 bg-red-500 right-[.5rem] lg:right-[3.4rem] bottom-[2rem]">
               <div className="text-xs text-white flex items-center justify-center">

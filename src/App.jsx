@@ -24,8 +24,8 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(me());
+    // dispatch(cart({ user_id: auth.user.user_id }));
   }, []);
-
   const ScrollWrapper = ({ children }) => {
     const location = useLocation();
     useLayoutEffect(() => {
@@ -33,7 +33,6 @@ function App() {
     }, [location.pathname]);
     return children;
   };
-
   return (
     <ScrollWrapper>
       {auth.user ? (

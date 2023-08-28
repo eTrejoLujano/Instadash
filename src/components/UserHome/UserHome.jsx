@@ -8,7 +8,7 @@ import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 import StoreOptions from "./StoreOptions";
 import Categories from "../Category/Catogories";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import FoodTypePick from "../FoodType/FoodTypePick";
 
 const UserHome = () => {
@@ -21,6 +21,8 @@ const UserHome = () => {
   const [foodPick, setFoodPick] = useState(null);
   const [typeStores, setTypeStores] = useState(null);
   const [loading, setLoading] = useState(false);
+  const restaurants = useSelector((state) => state.store.store);
+  const currentAddress = useSelector((state) => state.auth.location);
 
   useEffect(() => {
     async function fetchData() {
@@ -35,7 +37,6 @@ const UserHome = () => {
         const foodTypePick = await foodtypeAPI.getFoodPick({
           foodtype_name: foodPick,
         });
-        console.log("foodTypePick", foodTypePick);
         setTypeStores(foodTypePick[0]?.store_foodtype);
       }
       setLoading(false);
@@ -76,7 +77,6 @@ const UserHome = () => {
     setFoodPick(id);
     navigate(`/?foodtype=${name}`);
   };
-  console.log("food pick>>>>>", foodPick);
   return (
     <div>
       <Categories />
@@ -142,7 +142,7 @@ const UserHome = () => {
           </div>
         </div>
       </div>
-      {!foodPick ? (
+      {!foodPick && restaurants && currentAddress ? (
         <>
           <Ads />
           <div className="space-y-5 pt-1">
@@ -151,6 +151,8 @@ const UserHome = () => {
                 key={dashboard.id}
                 stores={dashboard.store_dashboard}
                 name={dashboard.name}
+                restaurants={restaurants}
+                currentAddress={currentAddress}
               />
             ))}
           </div>

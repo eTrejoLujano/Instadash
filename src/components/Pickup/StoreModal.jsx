@@ -16,16 +16,12 @@ const StoreModal = ({
   const [placeDetails, setPlaceDetails] = useState();
   useEffect(() => {
     async function fetchData() {
-      console.log("NAMES", name);
       const items = await pickupAPI.getStorePickup({ store_name: name });
       const travel = await pickupAPI.getDistance({ destinations, origins });
       const placeDetails = await pickupAPI.getPlaceDetails({ place_id });
-      console.log("distance>>>>", travel);
-      console.log("place details>>>>", placeDetails);
       setMenu(items);
       setDistance(travel);
       setPlaceDetails(placeDetails);
-      // console.log(items);
     }
     fetchData();
   }, []);

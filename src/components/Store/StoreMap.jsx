@@ -18,7 +18,6 @@ const StoreMap = ({ lat, lng }) => {
     gestureHandling: "cooperative",
   };
   useEffect(() => {
-    console.log(ref.current);
     setMap(new window.google.maps.Map(ref.current, mapOptions));
   }, []);
 

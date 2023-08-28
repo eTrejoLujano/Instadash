@@ -2,10 +2,20 @@ import { useState, useEffect } from "react";
 import { VscClose } from "react-icons/vsc";
 import { BiMinusCircle, BiPlusCircle } from "react-icons/bi";
 import { currencyFormat } from "../Util/helperFunctions";
+import { useDispatch, useSelector } from "react-redux";
+import { addCart } from "../../redux-store/cartSlice";
 
-const FoodModal = ({ name, description, image, price, handleClose }) => {
+const FoodModal = ({
+  itemId,
+  name,
+  description,
+  image,
+  price,
+  handleClose,
+}) => {
   const [itemQuantity, setItemQuantity] = useState(1);
-
+  const dispatch = useDispatch();
+  const user_id = useSelector((state) => state.auth.user.user_id);
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 ">
@@ -49,7 +59,18 @@ const FoodModal = ({ name, description, image, price, handleClose }) => {
                     className="text-gray-500"
                     onClick={() => setItemQuantity(itemQuantity + 1)}
                   />
-                  <div className="w-[12rem] h-[2.6rem] bg-red-500 text-white flex justify-center items-center rounded-full">
+                  <div
+                    className="w-[12rem] h-[2.6rem] bg-red-500 text-white flex justify-center items-center rounded-full"
+                    onClick={() =>
+                      dispatch(
+                        addCart({
+                          user_id,
+                          item_id: itemId,
+                          quantity: itemQuantity,
+                        })
+                      )
+                    }
+                  >
                     Add to cart - {currencyFormat(itemQuantity * price)}
                   </div>
                 </div>

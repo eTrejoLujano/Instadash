@@ -4,7 +4,7 @@ import { BiMinusCircle, BiPlusCircle } from "react-icons/bi";
 import { currencyFormat } from "../Util/helperFunctions";
 import FoodModal from "./FoodModal";
 
-const FoodItem = ({ id, name, description, image, price }) => {
+const FoodItem = ({ itemId, name, description, image, price }) => {
   const [showModal, setShowModal] = useState(false);
   const [itemQuantity, setItemQuantity] = useState(1);
   const handleClose = () => {
@@ -35,6 +35,7 @@ const FoodItem = ({ id, name, description, image, price }) => {
       </div>
       {showModal ? (
         <FoodModal
+          itemId={itemId}
           name={name}
           description={description}
           image={image}
