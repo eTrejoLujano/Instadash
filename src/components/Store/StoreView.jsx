@@ -177,7 +177,7 @@ const StoreView = () => {
                   </div>
                 </div>
                 {isDelivery && (
-                  <div className="w-full flex pb-5">
+                  <div className="w-full flex pb-5 space-x-5">
                     <StoreMapWrapper
                       lat={placeDetails.geometry.location.lat}
                       lng={placeDetails.geometry.location.lng}

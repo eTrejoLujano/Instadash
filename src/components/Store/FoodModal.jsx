@@ -12,8 +12,9 @@ const FoodModal = ({
   image,
   price,
   handleClose,
+  quantity,
 }) => {
-  const [itemQuantity, setItemQuantity] = useState(1);
+  const [itemQuantity, setItemQuantity] = useState(quantity ? quantity : 1);
   const dispatch = useDispatch();
   const user_id = useSelector((state) => state.auth.user.user_id);
   return (
@@ -60,16 +61,17 @@ const FoodModal = ({
                     onClick={() => setItemQuantity(itemQuantity + 1)}
                   />
                   <div
-                    className="w-[12rem] h-[2.6rem] bg-red-500 text-white flex justify-center items-center rounded-full"
-                    onClick={() =>
+                    className="w-[12rem] h-[2.6rem] bg-red-500 text-white flex justify-center items-center rounded-full cursor-pointer"
+                    onClick={() => {
                       dispatch(
                         addCart({
                           user_id,
                           item_id: itemId,
                           quantity: itemQuantity,
                         })
-                      )
-                    }
+                      );
+                      handleClose();
+                    }}
                   >
                     Add to cart - {currencyFormat(itemQuantity * price)}
                   </div>

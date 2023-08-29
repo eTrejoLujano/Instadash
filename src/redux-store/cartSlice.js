@@ -4,10 +4,14 @@ import axios from "axios";
 const URL = REQ_URL;
 
 export const getCart = createAsyncThunk(
-  "cart/getCart",
+  "cart/getcart",
   async ({ user_id }, thunkAPI) => {
     try {
-      const response = await axios.get(`${URL}/api/getcart/`, { user_id });
+      const response = await axios.get(`${URL}/api/getcart/`, {
+        params: {
+          user_id,
+        },
+      });
       return thunkAPI.dispatch(setCart(response.data));
     } catch (authError) {
       console.error(authError);
@@ -16,10 +20,62 @@ export const getCart = createAsyncThunk(
 );
 
 export const addCart = createAsyncThunk(
-  "cart/getCart",
+  "cart/addcart",
   async (itemInfo, thunkAPI) => {
     try {
       const response = await axios.post(`${URL}/api/addcart/`, itemInfo);
+      return thunkAPI.dispatch(setCart(response.data));
+    } catch (authError) {
+      console.error(authError);
+    }
+  }
+);
+
+export const deleteCart = createAsyncThunk(
+  "cart/deletecart",
+  async ({ user_id, cart_id }, thunkAPI) => {
+    try {
+      const response = await axios.get(`${URL}/api/deletecart/`, {
+        params: {
+          user_id,
+          cart_id,
+        },
+      });
+      return thunkAPI.dispatch(setCart(response.data));
+    } catch (authError) {
+      console.error(authError);
+    }
+  }
+);
+
+export const addOneCart = createAsyncThunk(
+  "cart/addonecart",
+  async ({ user_id, cart_id }, thunkAPI) => {
+    try {
+      const response = await axios.get(`${URL}/api/addonecart/`, {
+        params: {
+          user_id,
+          cart_id,
+        },
+      });
+      console.log("response data", response.data);
+      return thunkAPI.dispatch(setCart(response.data));
+    } catch (authError) {
+      console.error(authError);
+    }
+  }
+);
+
+export const minusOneCart = createAsyncThunk(
+  "cart/minusoneCart",
+  async ({ user_id, cart_id }, thunkAPI) => {
+    try {
+      const response = await axios.get(`${URL}/api/minusonecart/`, {
+        params: {
+          user_id,
+          cart_id,
+        },
+      });
       return thunkAPI.dispatch(setCart(response.data));
     } catch (authError) {
       console.error(authError);

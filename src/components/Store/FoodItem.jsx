@@ -1,12 +1,8 @@
-import React, { useState } from "react";
-import { VscClose } from "react-icons/vsc";
-import { BiMinusCircle, BiPlusCircle } from "react-icons/bi";
-import { currencyFormat } from "../Util/helperFunctions";
+import { useState } from "react";
 import FoodModal from "./FoodModal";
 
 const FoodItem = ({ itemId, name, description, image, price }) => {
   const [showModal, setShowModal] = useState(false);
-  const [itemQuantity, setItemQuantity] = useState(1);
   const handleClose = () => {
     setShowModal(false);
   };

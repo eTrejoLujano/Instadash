@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
+import {
+  AiOutlineSearch,
+  AiOutlineMenu,
+  AiOutlineMinus,
+  AiOutlinePlus,
+} from "react-icons/ai";
+import { FaTrash } from "react-icons/fa";
 import { FiArrowLeft } from "react-icons/fi";
 import { IoMdCart } from "react-icons/io";
 import { HiOutlinePencil, HiOutlineLocationMarker } from "react-icons/hi";
@@ -19,12 +25,18 @@ import {
   locate,
   logout,
 } from "../redux-store/authSlice";
-import { getCart } from "../redux-store/cartSlice";
+import {
+  addOneCart,
+  deleteCart,
+  getCart,
+  minusOneCart,
+} from "../redux-store/cartSlice";
 import { BsFillXCircleFill } from "react-icons/bs";
 import { formatAddress } from "./Util/helperFunctions";
 import * as locationAPI from "../Api/location";
 import AddressList from "./UserHome/AddressList";
 import { availableStores } from "../redux-store/storeSlice";
+import FoodModal from "./Store/FoodModal";
 
 function Navbar() {
   const searchRef = useRef(null);
@@ -41,8 +53,12 @@ function Navbar() {
   const [searchIcon, setSearchIcon] = useState(true);
   const [dropdown, setDropdown] = useState(false);
   const [allAddresses, setAllAddresses] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [modalInfo, setModalInfo] = useState();
+  const [addedItem, setAddedItem] = useState();
   const currentAddress = useSelector((state) => state.auth.location);
   const user_id = useSelector((state) => state.auth.user.user_id);
+  const cart = useSelector((state) => state.cart.cart);
 
   useEffect(() => {
     async function fetchData() {
@@ -149,6 +165,9 @@ function Navbar() {
       );
     });
   };
+  const handleClose = () => {
+    setShowModal(false);
+  };
   const changeAddressClick = (id) => {
     dispatch(changeAddress({ address_id: id }));
   };
@@ -217,10 +236,94 @@ function Navbar() {
         >
           {cartMenu && (
             <div className="scroll-smooth" ref={slideCartRef}>
-              <div className="relative top-[1.5rem] left-[1rem] cursor-pointer">
+              <div className="py-[1.5rem] px-[1rem] cursor-pointer">
                 <CgClose size={22} onClick={() => setCartMenu(!cartMenu)} />
               </div>
-              <div
+              <div className="divide-solid divide-y space-y-4">
+                {cart &&
+                  cart.map(({ id, items_info, quantity }) => (
+                    <div
+                      key={id}
+                      onClick={() => {
+                        setModalInfo({
+                          itemId: items_info.id,
+                          name: items_info.name,
+                          description: items_info.description,
+                          image: items_info.image,
+                          price: items_info.prices,
+                          handleClose: handleClose,
+                          quantity,
+                        });
+                        setShowModal(true);
+                      }}
+                      className="flex px-4 pt-4 space-x-2 justify-between items-center w-full h-[5rem] rounded-md z-10 cursor-pointer"
+                    >
+                      <div className="flex w-[15rem] bg-white space-x-3">
+                        <img
+                          src={`../../..${items_info.image}`}
+                          className=" w-[5rem] h-[5rem] object-cover"
+                        />
+                        <div className="flex flex-col justify-center">
+                          <div className="text-sm text-start">
+                            {items_info.name}
+                          </div>
+                          <div className="text-md text-start">
+                            ${items_info.prices}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="rounded-full bg-gray-50 shadow shadow-gray-300 h-[1.8rem] w-[6rem] flex items-center justify-between">
+                        <div
+                          className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
+                          onClick={
+                            addedItem == items_info.id && quantity !== 1
+                              ? (e) => {
+                                  dispatch(
+                                    minusOneCart({ user_id, cart_id: id })
+                                  );
+                                  e.stopPropagation();
+                                }
+                              : (e) => {
+                                  dispatch(
+                                    deleteCart({ user_id, cart_id: id })
+                                  );
+                                  e.stopPropagation();
+                                }
+                          }
+                        >
+                          {addedItem == items_info.id && quantity !== 1 ? (
+                            <AiOutlineMinus size={15} />
+                          ) : (
+                            <FaTrash size={15} className="fill-gray-500" />
+                          )}
+                        </div>
+                        <div className="text-sm">{quantity}</div>
+                        <div
+                          className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
+                          onClick={(e) => {
+                            setAddedItem(items_info.id);
+                            dispatch(addOneCart({ user_id, cart_id: id }));
+                            e.stopPropagation();
+                          }}
+                        >
+                          <AiOutlinePlus size={15} />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                {showModal ? (
+                  <FoodModal
+                    itemId={modalInfo.itemId}
+                    name={modalInfo.name}
+                    description={modalInfo.description}
+                    image={modalInfo.image}
+                    price={modalInfo.price}
+                    quantity={modalInfo.quantity}
+                    handleClose={handleClose}
+                  />
+                ) : null}
+              </div>
+              {/* <div
                 className="relative top-[4.2rem] left-[1.2rem] space-y-[1.8rem] flex flex-col
               overscroll-y-contain overflow-y-scroll container-snap"
               >
@@ -230,7 +333,7 @@ function Navbar() {
                     Cart is Empty
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           )}
         </div>
@@ -334,9 +437,17 @@ function Navbar() {
       )}
       <div
         className="w-screen relative h-[7rem] pt-[3rem] flex-col justify-center
-     text-black bg-white border border-gray-200 z-5 flex md:hidden"
+     text-black bg-white border border-gray-200 z-5 flex items-center md:hidden"
       >
-        <div className="flex justify-center pt-2">Address</div>
+        <button
+          onClick={() => setDropdown((state) => !state)}
+          className="text-black flex items-center"
+        >
+          {currentAddress
+            ? formatAddress(currentAddress.address)[0]
+            : "Enter An Address"}
+          <SlArrowDown className="relative left-2" size={10} />
+        </button>
       </div>
     </div>
   );
