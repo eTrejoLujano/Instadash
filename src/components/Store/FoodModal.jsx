@@ -13,10 +13,12 @@ const FoodModal = ({
   price,
   handleClose,
   quantity,
+  place_id,
 }) => {
   const [itemQuantity, setItemQuantity] = useState(quantity ? quantity : 1);
   const dispatch = useDispatch();
   const user_id = useSelector((state) => state.auth.user.user_id);
+  console.log("placeId", place_id);
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 ">
@@ -68,6 +70,7 @@ const FoodModal = ({
                           user_id,
                           item_id: itemId,
                           quantity: itemQuantity,
+                          place_id,
                         })
                       );
                       handleClose();

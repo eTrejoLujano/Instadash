@@ -9,7 +9,8 @@ const MapWrapper = () => {
     detailsValue,
     distanceValue,
     ratingsValue,
-    pickupBool
+    pickupBool,
+    place_id
   ) => {
     navigate("/store", {
       state: {
@@ -18,6 +19,7 @@ const MapWrapper = () => {
         distance: distanceValue,
         totalRatings: ratingsValue,
         pickup: pickupBool,
+        place_id,
       },
     });
   };

@@ -231,6 +231,7 @@ const StoreView = () => {
                           description={description}
                           image={image}
                           price={prices}
+                          place_id={location.state.place_id}
                         />
                       )
                     )}

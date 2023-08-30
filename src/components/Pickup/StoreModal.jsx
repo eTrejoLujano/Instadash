@@ -41,7 +41,8 @@ const StoreModal = ({
             placeDetails.result,
             distance.rows[0].elements[0],
             totalRatings,
-            true
+            true,
+            place_id
           )
         }
       >

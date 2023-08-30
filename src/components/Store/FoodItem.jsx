@@ -1,7 +1,7 @@
 import { useState } from "react";
 import FoodModal from "./FoodModal";
 
-const FoodItem = ({ itemId, name, description, image, price }) => {
+const FoodItem = ({ itemId, name, description, image, price, place_id }) => {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => {
     setShowModal(false);
@@ -37,6 +37,7 @@ const FoodItem = ({ itemId, name, description, image, price }) => {
           image={image}
           price={price}
           handleClose={handleClose}
+          place_id={place_id}
         />
       ) : null}
       <div className="flex md:invisible w-full h-[.05rem] top-[.4rem] relative rounded bg-gray-200" />

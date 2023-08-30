@@ -1,11 +1,21 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  AiOutlineSearch,
-  AiOutlineMenu,
-  AiOutlineMinus,
-  AiOutlinePlus,
-} from "react-icons/ai";
-import { FaTrash } from "react-icons/fa";
+  changeAddress,
+  deleteAddress,
+  locate,
+  logout,
+} from "../redux-store/authSlice";
+import { getCart } from "../redux-store/cartSlice";
+import { formatAddress } from "./Util/helperFunctions";
+import * as locationAPI from "../Api/location";
+import AddressList from "./UserHome/AddressList";
+import { availableStores } from "../redux-store/storeSlice";
+import CartMenu from "./NavbarFeatures/CartMenu";
+import Instacart from "../assets/icons/instadash.png";
+import PlateIcon from "../assets/icons/plateicon.png";
+import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
 import { FiArrowLeft } from "react-icons/fi";
 import { IoMdCart } from "react-icons/io";
 import { HiOutlinePencil, HiOutlineLocationMarker } from "react-icons/hi";
@@ -15,28 +25,6 @@ import { RxHome } from "react-icons/rx";
 import { SlBag, SlArrowDown } from "react-icons/sl";
 import { TfiReceipt } from "react-icons/tfi";
 import { TbHeart } from "react-icons/tb";
-import Instacart from "../assets/icons/instadash.png";
-import PlateIcon from "../assets/icons/plateicon.png";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  changeAddress,
-  deleteAddress,
-  locate,
-  logout,
-} from "../redux-store/authSlice";
-import {
-  addOneCart,
-  deleteCart,
-  getCart,
-  minusOneCart,
-} from "../redux-store/cartSlice";
-import { BsFillXCircleFill } from "react-icons/bs";
-import { formatAddress } from "./Util/helperFunctions";
-import * as locationAPI from "../Api/location";
-import AddressList from "./UserHome/AddressList";
-import { availableStores } from "../redux-store/storeSlice";
-import FoodModal from "./Store/FoodModal";
 
 function Navbar() {
   const searchRef = useRef(null);
@@ -53,12 +41,8 @@ function Navbar() {
   const [searchIcon, setSearchIcon] = useState(true);
   const [dropdown, setDropdown] = useState(false);
   const [allAddresses, setAllAddresses] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [modalInfo, setModalInfo] = useState();
-  const [addedItem, setAddedItem] = useState();
   const currentAddress = useSelector((state) => state.auth.location);
   const user_id = useSelector((state) => state.auth.user.user_id);
-  const cart = useSelector((state) => state.cart.cart);
 
   useEffect(() => {
     async function fetchData() {
@@ -165,8 +149,8 @@ function Navbar() {
       );
     });
   };
-  const handleClose = () => {
-    setShowModal(false);
+  const handleCartMenu = () => {
+    setCartMenu(!cartMenu);
   };
   const changeAddressClick = (id) => {
     dispatch(changeAddress({ address_id: id }));
@@ -235,106 +219,10 @@ function Navbar() {
           } duration-300 shadow-xl shadow-gray-400`}
         >
           {cartMenu && (
-            <div className="scroll-smooth" ref={slideCartRef}>
-              <div className="py-[1.5rem] px-[1rem] cursor-pointer">
-                <CgClose size={22} onClick={() => setCartMenu(!cartMenu)} />
-              </div>
-              <div className="divide-solid divide-y space-y-4">
-                {cart &&
-                  cart.map(({ id, items_info, quantity }) => (
-                    <div
-                      key={id}
-                      onClick={() => {
-                        setModalInfo({
-                          itemId: items_info.id,
-                          name: items_info.name,
-                          description: items_info.description,
-                          image: items_info.image,
-                          price: items_info.prices,
-                          handleClose: handleClose,
-                          quantity,
-                        });
-                        setShowModal(true);
-                      }}
-                      className="flex px-4 pt-4 space-x-2 justify-between items-center w-full h-[5rem] rounded-md z-10 cursor-pointer"
-                    >
-                      <div className="flex w-[15rem] bg-white space-x-3">
-                        <img
-                          src={`../../..${items_info.image}`}
-                          className=" w-[5rem] h-[5rem] object-cover"
-                        />
-                        <div className="flex flex-col justify-center">
-                          <div className="text-sm text-start">
-                            {items_info.name}
-                          </div>
-                          <div className="text-md text-start">
-                            ${items_info.prices}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="rounded-full bg-gray-50 shadow shadow-gray-300 h-[1.8rem] w-[6rem] flex items-center justify-between">
-                        <div
-                          className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
-                          onClick={
-                            addedItem == items_info.id && quantity !== 1
-                              ? (e) => {
-                                  dispatch(
-                                    minusOneCart({ user_id, cart_id: id })
-                                  );
-                                  e.stopPropagation();
-                                }
-                              : (e) => {
-                                  dispatch(
-                                    deleteCart({ user_id, cart_id: id })
-                                  );
-                                  e.stopPropagation();
-                                }
-                          }
-                        >
-                          {addedItem == items_info.id && quantity !== 1 ? (
-                            <AiOutlineMinus size={15} />
-                          ) : (
-                            <FaTrash size={15} className="fill-gray-500" />
-                          )}
-                        </div>
-                        <div className="text-sm">{quantity}</div>
-                        <div
-                          className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
-                          onClick={(e) => {
-                            setAddedItem(items_info.id);
-                            dispatch(addOneCart({ user_id, cart_id: id }));
-                            e.stopPropagation();
-                          }}
-                        >
-                          <AiOutlinePlus size={15} />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                {showModal ? (
-                  <FoodModal
-                    itemId={modalInfo.itemId}
-                    name={modalInfo.name}
-                    description={modalInfo.description}
-                    image={modalInfo.image}
-                    price={modalInfo.price}
-                    quantity={modalInfo.quantity}
-                    handleClose={handleClose}
-                  />
-                ) : null}
-              </div>
-              {/* <div
-                className="relative top-[4.2rem] left-[1.2rem] space-y-[1.8rem] flex flex-col
-              overscroll-y-contain overflow-y-scroll container-snap"
-              >
-                <div className="items-center">
-                  <img src={PlateIcon} className="h-[17rem] w-[17rem]" />
-                  <div className="relative left-[1.4rem]  font-bold text-lg">
-                    Cart is Empty
-                  </div>
-                </div>
-              </div> */}
-            </div>
+            <CartMenu
+              handleCartMenu={handleCartMenu}
+              slideCartRef={slideCartRef}
+            />
           )}
         </div>
       </div>
