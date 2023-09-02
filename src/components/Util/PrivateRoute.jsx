@@ -1,5 +1,4 @@
 import { Navigate } from "react-router-dom";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { currentAddress, updateToken } from "../../redux-store/authSlice";
 

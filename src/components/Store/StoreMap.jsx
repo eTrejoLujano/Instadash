@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Marker from "../Pickup/Marker";
 import { FaUtensils, FaHome } from "react-icons/fa";
 
-const StoreMap = ({ lat, lng }) => {
+const StoreMap = ({ lat, lng, logo }) => {
   const [map, setMap] = useState();
   const ref = useRef();
   const mapOptions = {
@@ -35,7 +35,14 @@ const StoreMap = ({ lat, lng }) => {
           className="w-7 h-7 bg-black rounded-full flex justify-center items-center
           shadow-sm shadow-gray-400"
         >
-          <FaHome size={17} className="text-white" />
+          {logo ? (
+            <img
+              src={logo}
+              className="w-[2rem] h-[2rem] object-contain rounded-full border border-gray-200 bg-white"
+            />
+          ) : (
+            <FaHome size={17} className="text-white" />
+          )}
         </div>
       </Marker>
     </>

@@ -8,11 +8,8 @@ export function makeEmail() {
   }
   strTmp = "";
   strEmail = strEmail + "@";
-  for (var j = 0; j < 8; j++) {
-    strTmp = strValues.charAt(Math.round(strValues.length * Math.random()));
-    strEmail = strEmail + strTmp;
-  }
-  strEmail = strEmail + ".com";
+
+  strEmail = strEmail + "gmail.com";
   return strEmail;
 }
 

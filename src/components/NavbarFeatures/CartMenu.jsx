@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   addOneCart,
   deleteCart,
@@ -20,12 +21,15 @@ const CartMenu = ({ handleCartMenu, slideCartRef }) => {
   const [addedItem, setAddedItem] = useState();
   let [mappedCart, setMappedCart] = useState([]);
   let [placeIds, setPlaceIds] = useState([]);
-  let [cartTotals, setCartTotals] = useState([]);
   let [loading, setLoading] = useState();
   const user_id = useSelector((state) => state.auth.user.user_id);
   const cart = useSelector((state) => state.cart.cart);
+  const navigate = useNavigate();
   const handleClose = () => {
     setShowModal(false);
+  };
+  const goCheckout = (placeId) => {
+    navigate("/checkout", { state: { cartInfo: mappedCart[placeId] } });
   };
   useEffect(() => {
     async function fetchData() {
@@ -38,16 +42,20 @@ const CartMenu = ({ handleCartMenu, slideCartRef }) => {
             mappedCart[cart[i].place_id].items.push(cart[i]);
             mappedCart[cart[i].place_id].total +=
               cart[i].quantity * +cart[i].items_info.prices;
+            mappedCart[cart[i].place_id].quantity += cart[i].quantity;
           } else {
             placeIds.push(cart[i].place_id);
             mappedCart[cart[i].place_id] = {};
             mappedCart[cart[i].place_id].items = [];
             mappedCart[cart[i].place_id].total =
               cart[i].quantity * +cart[i].items_info.prices;
+            mappedCart[cart[i].place_id].quantity = cart[i].quantity;
             const placeDetails = await pickupAPI.getPlaceDetails({
               place_id: cart[i].place_id,
             });
             mappedCart[cart[i].place_id].name = placeDetails.result.name;
+            mappedCart[cart[i].place_id].geometry =
+              placeDetails.result.geometry.location;
             mappedCart[cart[i].place_id].address =
               placeDetails.result.formatted_address;
             mappedCart[cart[i].place_id].items.push(cart[i]);
@@ -59,6 +67,7 @@ const CartMenu = ({ handleCartMenu, slideCartRef }) => {
     }
     fetchData();
   }, [cart]);
+  console.log("mapped cart ", mappedCart);
   if (loading) return <p>loading</p>;
   else
     return (
@@ -87,7 +96,10 @@ const CartMenu = ({ handleCartMenu, slideCartRef }) => {
                         </div>
                       </div>
                       <div className="flex w-full px-4 justify-center items-center">
-                        <div className="w-full h-[2.5rem] rounded-full bg-red-500 flex items-center justify-between px-3 text-white">
+                        <div
+                          className="w-full h-[2.5rem] rounded-full bg-red-600 flex items-center justify-between px-3 text-white"
+                          onClick={() => goCheckout(ids)}
+                        >
                           <div>Checkout</div>
                           <div>{currencyFormat(mappedCart[ids].total)}</div>
                         </div>

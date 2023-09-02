@@ -6,11 +6,12 @@ import { AiOutlineStar } from "react-icons/ai";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 import { formatAddress } from "../Util/helperFunctions";
 
-const StoreOptions = ({ stores, name, restaurants, currentAddress }) => {
+const StoreOptions = ({ stores, name, currentAddress }) => {
   const ref = useRef(null);
   const [disableButton, setDisableButton] = useState("left");
   let [mappedStores, setMappedStores] = useState([]);
   let [loading, setLoading] = useState();
+  const restaurants = useSelector((state) => state.store.store);
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchData() {

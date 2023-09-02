@@ -28,6 +28,11 @@ const StoreView = () => {
         const fetchStore = await storeAPI.getStoreById({
           store_id: location.state.id,
         });
+        console.log(
+          "destinations, origins",
+          location.state.destinations,
+          location.state.origins
+        );
         const travel = await pickupAPI.getDistance({
           destinations: location.state.destinations,
           origins: location.state.origins,
@@ -142,10 +147,10 @@ const StoreView = () => {
                     <div className="flex sm:flex-row flex-col items-center">
                       <div className="rounded-full w-[10rem] h-[3rem] border-2 bg-gray-300 flex justify-between items-center">
                         <div
-                          className={`flex flex-col items-center justify-center h-full rounded-full cursor-pointer ${
+                          className={`flex flex-col w-1/2 items-center justify-center h-full rounded-full cursor-pointer ${
                             isDelivery
-                              ? "bg-gray text-black w-3/5"
-                              : "bg-black text-white w-3/4"
+                              ? "bg-gray text-black"
+                              : "bg-black text-white"
                           } `}
                           onClick={() => setIsDelivery(false)}
                         >
@@ -159,10 +164,10 @@ const StoreView = () => {
                           </div>
                         </div>
                         <div
-                          className={`flex flex-col items-center justify-center text-sm h-full rounded-full cursor-pointer ${
+                          className={`flex flex-col w-1/2 items-center justify-center text-sm h-full rounded-full cursor-pointer ${
                             isDelivery
-                              ? "bg-black text-white w-3/4"
-                              : "bg-gray text-black w-3/5"
+                              ? "bg-black text-white "
+                              : "bg-gray text-black "
                           }`}
                           onClick={() => setIsDelivery(true)}
                         >

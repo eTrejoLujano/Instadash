@@ -67,7 +67,7 @@ export const availableStores = createAsyncThunk(
           }
         }
       }
-      thunkAPI.dispatch(setStores(mappedStores));
+      return thunkAPI.dispatch(setStores(mappedStores));
     } catch (authError) {
       console.error(authError);
     }

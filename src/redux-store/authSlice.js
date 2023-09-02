@@ -41,11 +41,12 @@ export const currentAddress = createAsyncThunk(
 
 export const changeAddress = createAsyncThunk(
   "auth/changeAddress",
-  async (query, thunkAPI) => {
+  async ({ address_id, user_id }, thunkAPI) => {
     try {
       const response = await axios.get(`${URL}/api/changeaddress/`, {
         params: {
-          address_id: query.address_id,
+          address_id,
+          user_id,
         },
       });
       return thunkAPI.dispatch(setLocate(response.data[0]));

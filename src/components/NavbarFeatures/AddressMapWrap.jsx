@@ -1,15 +1,18 @@
 import { Wrapper } from "@googlemaps/react-wrapper";
-import StoreMap from "./StoreMap";
+import AddressModal from "./AddressModal";
+import AddressDropdown from "./AddressDropdown";
 
-const StoreMapWrapper = ({ lat, lng, logo }) => {
+const AddressMapWrap = () => {
   return (
     <Wrapper
       apiKey={import.meta.env.VITE_GOOGLE_KEY}
       version="beta"
       libraries={["marker", "places"]}
     >
-      <StoreMap lat={lat} lng={lng} logo={logo} />
+      <AddressModal />
+      <AddressDropdown />
     </Wrapper>
   );
 };
-export default StoreMapWrapper;
+
+export default AddressMapWrap;

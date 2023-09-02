@@ -1,32 +1,24 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changeAddress,
-  deleteAddress,
-  locate,
-  logout,
-} from "../redux-store/authSlice";
+import { logout } from "../redux-store/authSlice";
 import { getCart } from "../redux-store/cartSlice";
 import { formatAddress } from "./Util/helperFunctions";
-import * as locationAPI from "../Api/location";
-import AddressList from "./UserHome/AddressList";
 import { availableStores } from "../redux-store/storeSlice";
 import CartMenu from "./NavbarFeatures/CartMenu";
 import Instacart from "../assets/icons/instadash.png";
-import PlateIcon from "../assets/icons/plateicon.png";
 import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
 import { FiArrowLeft } from "react-icons/fi";
-import { IoMdCart } from "react-icons/io";
-import { HiOutlinePencil, HiOutlineLocationMarker } from "react-icons/hi";
+import { HiOutlinePencil } from "react-icons/hi";
 import { CgClose, CgProfile, CgCloseO } from "react-icons/cg";
 import { BsCart3, BsCircle } from "react-icons/bs";
 import { RxHome } from "react-icons/rx";
 import { SlBag, SlArrowDown } from "react-icons/sl";
 import { TfiReceipt } from "react-icons/tfi";
 import { TbHeart } from "react-icons/tb";
+import AddressDropdown from "./NavbarFeatures/AddressDropdown";
 
-function Navbar() {
+function Navbar({ trueLoading, falseLoading }) {
   const searchRef = useRef(null);
   const inputRef = useRef(null);
   const dropdownRef = useRef(null);
@@ -40,31 +32,15 @@ function Navbar() {
   const [cartMenu, setCartMenu] = useState(false);
   const [searchIcon, setSearchIcon] = useState(true);
   const [dropdown, setDropdown] = useState(false);
-  const [allAddresses, setAllAddresses] = useState(null);
   const currentAddress = useSelector((state) => state.auth.location);
   const user_id = useSelector((state) => state.auth.user.user_id);
 
   useEffect(() => {
     async function fetchData() {
-      const addresses = await locationAPI.getAllAddresses({ user_id });
-      const formattedAddresses = addresses.map((location) => {
-        return {
-          formattedAddress: formatAddress(location.address),
-          id: location.id,
-        };
-      });
-      await dispatch(
-        availableStores({
-          latitude: currentAddress.latitude,
-          longitude: currentAddress.longitude,
-        })
-      ).unwrap();
-      setAllAddresses(formattedAddresses);
       dispatch(getCart({ user_id }));
     }
-
     fetchData();
-  }, [currentAddress, dispatch, user_id]);
+  }, [dispatch, user_id, currentAddress]);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, false);
@@ -125,38 +101,8 @@ function Navbar() {
     dispatch(logout());
     navigate("/");
   };
-  const locationHover = () => {
-    const options = {
-      fields: ["formatted_address", "geometry", "name"],
-      strictBounds: false,
-    };
-    const autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById("address"),
-      options
-    );
-    autocomplete.setFields(["place_id", "geometry", "name"]);
-    autocomplete.addListener("place_changed", () => {
-      const place = autocomplete.getPlace();
-      dispatch(
-        locate({
-          address: place.formatted_address,
-          latitude:
-            (place.geometry.viewport.eb.lo + place.geometry.viewport.eb.hi) / 2,
-          longitude:
-            (place.geometry.viewport.La.lo + place.geometry.viewport.La.hi) / 2,
-          user_id: user_id,
-        })
-      );
-    });
-  };
   const handleCartMenu = () => {
     setCartMenu(!cartMenu);
-  };
-  const changeAddressClick = (id) => {
-    dispatch(changeAddress({ address_id: id }));
-  };
-  const deleteAddressClick = (id) => {
-    dispatch(deleteAddress({ address_id: id, user_id }));
   };
   const menuOptions = [
     { id: 1, name: "Home", icon: RxHome, click: homeClick },
@@ -289,39 +235,10 @@ function Navbar() {
         </div>
       </div>
       {dropdown && (
-        <div
-          className="max-w-fit border-black shadow-2xl shadow-gray-400 rounded-lg pt-[1.2rem] fixed z-20 h-fit max-h-3/4
-      top-[3rem] left-[29.5rem] bg-white flex flex-col justify-start overflow-scroll"
-          ref={dropdownRef}
-        >
-          <div className="w-full space-y-2 px-[1.1rem] pb-3">
-            <div>Enter Your Address</div>
-            <input
-              className={inputStyling}
-              type="text"
-              name="address"
-              id="address"
-              placeholder="Enter a Location"
-              onMouseOver={() => locationHover()}
-            />
-            <div className="absolute top-[3.2rem] left-[1.6rem] z-50">
-              <HiOutlineLocationMarker size={23} />
-            </div>
-          </div>
-          <div className="w-full h-[.5rem] pb-2 border-t border-b border-gray-200 bg-gray-100"></div>
-          <div className="px-[1.2rem] divide-solid divide-y">
-            {allAddresses &&
-              allAddresses.map(({ formattedAddress, id }) => (
-                <AddressList
-                  key={id}
-                  id={id}
-                  address={formattedAddress}
-                  changeAddress={changeAddressClick}
-                  deleteAddress={deleteAddressClick}
-                />
-              ))}
-          </div>
-        </div>
+        <AddressDropdown
+          dropdownRef={dropdownRef}
+          inputStyling={inputStyling}
+        />
       )}
       <div
         className="w-screen relative h-[7rem] pt-[3rem] flex-col justify-center
