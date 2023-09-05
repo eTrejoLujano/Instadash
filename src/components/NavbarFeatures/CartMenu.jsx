@@ -97,7 +97,7 @@ const CartMenu = ({ handleCartMenu, slideCartRef }) => {
                       </div>
                       <div className="flex w-full px-4 justify-center items-center">
                         <div
-                          className="w-full h-[2.5rem] rounded-full bg-red-600 flex items-center justify-between px-3 text-white"
+                          className="w-full h-[2.5rem] rounded-full bg-red-600 flex items-center justify-between px-3 text-white cursor-pointer"
                           onClick={() => goCheckout(ids)}
                         >
                           <div>Checkout</div>
