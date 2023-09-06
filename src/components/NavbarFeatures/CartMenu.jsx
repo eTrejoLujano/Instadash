@@ -14,10 +14,13 @@ import { FaTrash } from "react-icons/fa";
 import PlateIcon from "../../assets/icons/plateicon.png";
 import { currencyFormat, formatAddress } from "../Util/helperFunctions";
 
-const CartMenu = ({ handleCartMenu, slideCartRef, cartMenuClose }) => {
+const CartMenu = ({
+  handleCartMenu,
+  slideCartRef,
+  cartMenuClose,
+  handleFoodModal,
+}) => {
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false);
-  const [modalInfo, setModalInfo] = useState();
   const [addedItem, setAddedItem] = useState();
   let [mappedCart, setMappedCart] = useState([]);
   let [placeIds, setPlaceIds] = useState([]);
@@ -25,9 +28,6 @@ const CartMenu = ({ handleCartMenu, slideCartRef, cartMenuClose }) => {
   const user_id = useSelector((state) => state.auth.user.user_id);
   const cart = useSelector((state) => state.cart.cart);
   const navigate = useNavigate();
-  const handleClose = () => {
-    setShowModal(false);
-  };
   const goCheckout = (placeId) => {
     navigate("/checkout", { state: { cartInfo: mappedCart[placeId] } });
     cartMenuClose();
@@ -72,16 +72,17 @@ const CartMenu = ({ handleCartMenu, slideCartRef, cartMenuClose }) => {
   if (loading) return <p>loading</p>;
   else
     return (
-      <div className="scroll-smooth" ref={slideCartRef}>
+      <div className="" ref={slideCartRef}>
         <div className="py-[1.5rem] px-[1rem] cursor-pointer">
           <CgClose size={22} onClick={() => handleCartMenu()} />
         </div>
+
         {cart.length > 0 ? (
-          <div className="space-y-6">
+          <div className="space-y-6 divide-y divide-solid scroll-smooth overflow-y-scroll container-snap">
             {placeIds.map((ids) => {
               if (mappedCart[ids])
                 return (
-                  <div className="divide-y divide-solid space-y-3">
+                  <div className="space-y-3 h-full">
                     <div className="w-full h-[5.5rem] space-y-3">
                       <div className="flex justify-between items-center px-4">
                         <div>
@@ -106,100 +107,80 @@ const CartMenu = ({ handleCartMenu, slideCartRef, cartMenuClose }) => {
                         </div>
                       </div>
                     </div>
-                    <div className="overflow-y-scroll overscroll-y-contain container-snap">
-                      {mappedCart[ids].items.map(
-                        ({ id, items_info, quantity }) => (
-                          <div
-                            key={id}
-                            onClick={() => {
-                              setModalInfo({
-                                itemId: items_info.id,
-                                name: items_info.name,
-                                description: items_info.description,
-                                image: items_info.image,
-                                price: items_info.prices,
-                                handleClose: handleClose,
-                                quantity,
-                              });
-                              setShowModal(true);
-                            }}
-                            className="flex px-4 pt-4 space-x-2 justify-between items-center w-full h-[5rem] rounded-md z-10 cursor-pointer"
-                          >
-                            <div className="flex w-[15rem] bg-white space-x-3">
-                              <img
-                                src={`../../..${items_info.image}`}
-                                className=" w-[5rem] h-[5rem] object-cover"
-                              />
-                              <div className="flex flex-col justify-center">
-                                <div className="text-sm text-start">
-                                  {items_info.name}
-                                </div>
-                                <div className="text-md text-start">
-                                  ${items_info.prices}
-                                </div>
+                    {mappedCart[ids].items.map(
+                      ({ id, items_info, quantity }) => (
+                        <div
+                          key={id}
+                          onClick={() => {
+                            handleFoodModal({
+                              itemId: items_info.id,
+                              name: items_info.name,
+                              description: items_info.description,
+                              image: items_info.image,
+                              price: items_info.prices,
+                              quantity,
+                            });
+                            cartMenuClose();
+                          }}
+                          className="flex px-4 pt-4 space-x-2 justify-between items-center w-full h-[5rem] rounded-md z-10 cursor-pointer"
+                        >
+                          <div className="flex w-[15rem] max-h-full bg-white space-x-3">
+                            <img
+                              src={`../../..${items_info.image}`}
+                              className=" w-[5rem] h-[5rem] object-cover max-h-full"
+                            />
+                            <div className="flex flex-col justify-center">
+                              <div className="text-sm text-start max-h-fit">
+                                {items_info.name}
                               </div>
-                            </div>
-                            <div className="rounded-full bg-gray-50 shadow shadow-gray-300 h-[1.8rem] w-[6rem] flex items-center justify-between">
-                              <div
-                                className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
-                                onClick={
-                                  addedItem == items_info.id && quantity !== 1
-                                    ? (e) => {
-                                        dispatch(
-                                          minusOneCart({ user_id, cart_id: id })
-                                        );
-                                        e.stopPropagation();
-                                      }
-                                    : (e) => {
-                                        dispatch(
-                                          deleteCart({ user_id, cart_id: id })
-                                        );
-                                        e.stopPropagation();
-                                      }
-                                }
-                              >
-                                {addedItem == items_info.id &&
-                                quantity !== 1 ? (
-                                  <AiOutlineMinus size={15} />
-                                ) : (
-                                  <FaTrash
-                                    size={15}
-                                    className="fill-gray-500"
-                                  />
-                                )}
-                              </div>
-                              <div className="text-sm">{quantity}</div>
-                              <div
-                                className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
-                                onClick={(e) => {
-                                  setAddedItem(items_info.id);
-                                  dispatch(
-                                    addOneCart({ user_id, cart_id: id })
-                                  );
-                                  e.stopPropagation();
-                                }}
-                              >
-                                <AiOutlinePlus size={15} />
+                              <div className="text-md text-start">
+                                ${items_info.prices}
                               </div>
                             </div>
                           </div>
-                        )
-                      )}
-                    </div>
+                          <div className="rounded-full bg-gray-50 shadow shadow-gray-300 h-[1.8rem] w-[6rem] flex items-center justify-between">
+                            <div
+                              className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
+                              onClick={
+                                addedItem == items_info.id && quantity !== 1
+                                  ? (e) => {
+                                      dispatch(
+                                        minusOneCart({ user_id, cart_id: id })
+                                      );
+                                      e.stopPropagation();
+                                    }
+                                  : (e) => {
+                                      dispatch(
+                                        deleteCart({ user_id, cart_id: id })
+                                      );
+                                      e.stopPropagation();
+                                    }
+                              }
+                            >
+                              {addedItem == items_info.id && quantity !== 1 ? (
+                                <AiOutlineMinus size={15} />
+                              ) : (
+                                <FaTrash size={15} className="fill-gray-500" />
+                              )}
+                            </div>
+                            <div className="text-sm">{quantity}</div>
+                            <div
+                              className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
+                              onClick={(e) => {
+                                setAddedItem(items_info.id);
+                                dispatch(addOneCart({ user_id, cart_id: id }));
+                                e.stopPropagation();
+                              }}
+                            >
+                              <AiOutlinePlus size={15} />
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    )}
                   </div>
                 );
             })}
-            {showModal ? (
-              <FoodModal
-                itemId={modalInfo.itemId}
-                name={modalInfo.name}
-                description={modalInfo.description}
-                image={modalInfo.image}
-                price={modalInfo.price}
-                quantity={modalInfo.quantity}
-                handleClose={handleClose}
-              />
-            ) : null}
           </div>
         ) : (
           <div

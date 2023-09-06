@@ -34,7 +34,7 @@ const PickupMap = ({ storeView }) => {
   };
   console.log("show modal", showModal);
   return (
-    <div className="md:top-[0rem] top-[8rem] relative w-screen h-screen">
+    <div className="md:top-[0rem] top-[0rem] relative w-screen">
       {showModal && (
         <FoodModal
           itemId={modalInfo.id}

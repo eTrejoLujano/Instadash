@@ -18,6 +18,7 @@ import { TfiReceipt } from "react-icons/tfi";
 import { TbHeart } from "react-icons/tb";
 import AddressDropdown from "./NavbarFeatures/AddressDropdown";
 import AddressModal from "./NavbarFeatures/AddressModal";
+import FoodModal from "./Store/FoodModal";
 
 function Navbar({ trueLoading, falseLoading }) {
   const searchRef = useRef(null);
@@ -34,6 +35,8 @@ function Navbar({ trueLoading, falseLoading }) {
   const [searchIcon, setSearchIcon] = useState(true);
   const [dropdown, setDropdown] = useState(false);
   const [addressModal, setAddressModal] = useState(false);
+  const [foodModal, setFoodModal] = useState(false);
+  const [modalInfo, setModalInfo] = useState();
   const currentAddress = useSelector((state) => state.auth.location);
   const user_id = useSelector((state) => state.auth.user.user_id);
 
@@ -86,18 +89,23 @@ function Navbar({ trueLoading, falseLoading }) {
   };
   const homeClick = () => {
     navigate("/");
+    setMenu(false);
   };
   const pickUpClick = () => {
     navigate("/pickup");
+    setMenu(false);
   };
   const orderClick = () => {
     navigate("/orders");
+    setMenu(false);
   };
   const accountClick = () => {
     navigate("/account");
+    setMenu(false);
   };
   const savedClick = () => {
     navigate("/saved");
+    setMenu(false);
   };
   const signoutClick = () => {
     dispatch(logout());
@@ -121,11 +129,29 @@ function Navbar({ trueLoading, falseLoading }) {
   const cartMenuClose = () => {
     setCartMenu(false);
   };
+  const handleFoodModal = (object) => {
+    setFoodModal(true);
+    setModalInfo(object);
+  };
+  const closeFoodModal = () => {
+    setFoodModal(false);
+  };
   let inputStyling =
     "border h-[2.4rem] w-[22.5rem] rounded-md bg-gray-50 border-none focus:border-solid focus:border-2 focus:border-black focus:outline-none px-10";
   return (
     <div className="">
       {addressModal && <AddressModal handleClose={handleClose} />}
+      {foodModal && (
+        <FoodModal
+          itemId={modalInfo.itemId}
+          name={modalInfo.name}
+          description={modalInfo.description}
+          image={modalInfo.image}
+          price={modalInfo.price}
+          quantity={modalInfo.quantity}
+          handleClose={closeFoodModal}
+        />
+      )}
       <div
         className={`fixed bg-white h-screen z-50 shadow-gray-300 shadow ${
           menu ? "md:w-[22rem] w-screen " : "md:w-0"
@@ -171,13 +197,14 @@ function Navbar({ trueLoading, falseLoading }) {
         <div
           className={`fixed bg-white h-screen z-50 shadow-gray-300 shadow  ${
             cartMenu ? "md:w-[22rem] w-screen " : "md:w-0"
-          } duration-300 shadow-xl shadow-gray-400`}
+          } duration-300 shadow-xl shadow-gray-400 overflow-y-scroll container-snap`}
         >
           {cartMenu && (
             <CartMenu
               handleCartMenu={handleCartMenu}
               slideCartRef={slideCartRef}
               cartMenuClose={cartMenuClose}
+              handleFoodModal={handleFoodModal}
             />
           )}
         </div>

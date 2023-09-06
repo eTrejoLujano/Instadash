@@ -24,8 +24,8 @@ const UserHome = () => {
   const [foodTypes, setFoodTypes] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
   const [foodPick, setFoodPick] = useState(null);
-  const [typeStores, setTypeStores] = useState([]);
-  const [loading, setLoading] = useState(false);
+  let [typeStores, setTypeStores] = useState([]);
+  const [loading, setLoading] = useState();
   const restaurants = useSelector((state) => state.store.store);
   const currentAddress = useSelector((state) => state.auth.location);
 
@@ -48,13 +48,13 @@ const UserHome = () => {
   }, [currentAddress, dispatch]);
   useEffect(() => {
     async function fetchData() {
+      setLoading(true);
+      setTypeStores([]);
       setFoodPick(searchParams.get("foodtype"));
-
       if (foodPick && restaurants) {
         const foodTypePick = await foodtypeAPI.getFoodPick({
           foodtype_name: foodPick,
         });
-        // setTypeStores(foodTypePick[0]?.store_foodtype);
         let sortedStores = foodTypePick[0]?.store_foodtype.sort((a, b) =>
           a.stores_info.name.localeCompare(b.stores_info.name)
         );
@@ -85,11 +85,11 @@ const UserHome = () => {
           }
         }
       }
-      console.log("TYPE STORES", typeStores);
+      setTypeStores(typeStores);
+      setLoading(false);
     }
     fetchData();
-  }, [foodPick, searchParams]);
-
+  }, [foodPick, searchParams, restaurants]);
   function scrollTabbar(element, left) {
     element.scrollTo({
       left,
@@ -118,7 +118,6 @@ const UserHome = () => {
     }
   };
   const storeView = (id, destinations, place_id, totalRatings) => {
-    console.log("PLACE ID", place_id);
     navigate("/store", {
       state: {
         id,
@@ -203,7 +202,7 @@ const UserHome = () => {
             </div>
           </div>
         </div>
-        {!foodPick && restaurants && currentAddress ? (
+        {!foodPick && restaurants && currentAddress && (
           <>
             <Ads />
             <div className="space-y-5 pt-1">
@@ -218,7 +217,8 @@ const UserHome = () => {
               ))}
             </div>
           </>
-        ) : (
+        )}
+        {foodPick && (
           <div className="w-screen h-full ">
             <div className="flex flex-row justify-center items-center">
               <div className="px-4 md:px-8 lg:px-12 relative top-7 space-y-6 md:space-y-10 w-[76rem]">
@@ -227,7 +227,7 @@ const UserHome = () => {
                     loading ? "bg-gray-100 opacity-25" : ""
                   }`}
                 >
-                  {typeStores?.map((store) => (
+                  {typeStores.map((store) => (
                     <div
                       key={store.id}
                       className="rounded-lg flex flex-col space-y-3 max-h-full"
