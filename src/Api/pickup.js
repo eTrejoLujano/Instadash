@@ -48,10 +48,55 @@ export const getCoffee = async (query) => {
   return output;
 };
 
+export const getDrugstore = async (query) => {
+  let output = [];
+  await axios
+    .get(`${URL}/api/drugstore/`, {
+      params: {
+        latitude: query.lat,
+        longitude: query.lng,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
+  return output;
+};
+
+export const getGrocery = async (query) => {
+  let output = [];
+  await axios
+    .get(`${URL}/api/grocery/`, {
+      params: {
+        latitude: query.lat,
+        longitude: query.lng,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
+  return output;
+};
+
 export const getPizza = async (query) => {
   let output = [];
   await axios
     .get(`${URL}/api/pizza/`, {
+      params: {
+        latitude: query.lat,
+        longitude: query.lng,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
+  return output;
+};
+
+export const getConvenience = async (query) => {
+  let output = [];
+  await axios
+    .get(`${URL}/api/convenience/`, {
       params: {
         latitude: query.lat,
         longitude: query.lng,

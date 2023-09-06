@@ -5,6 +5,7 @@ import { TbHeart } from "react-icons/tb";
 import { AiOutlineStar } from "react-icons/ai";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 import { formatAddress } from "../Util/helperFunctions";
+import Loading from "../Util/Loading";
 
 const StoreOptions = ({ stores, name, currentAddress }) => {
   const ref = useRef(null);
@@ -94,7 +95,7 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
   const dashView = ({ stores, name }) => {
     navigate("/dashboard", { state: { stores, name } });
   };
-  if (loading) return <p>loading</p>;
+  if (loading) return <Loading />;
   else if (mappedStores.length > 0)
     return (
       <div className="h-full flex flex-col pb-2 justify-center items-center space-y-4">

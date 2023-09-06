@@ -4,11 +4,13 @@ import * as pickupAPI from "../../Api/pickup";
 import Restaurants from "./Restaurants";
 import { useSelector } from "react-redux";
 import FoodModal from "../Store/FoodModal";
+import Loading from "../Util/Loading";
 
 const PickupMap = ({ storeView }) => {
   const [map, setMap] = useState();
   const [showModal, setShowModal] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
+  let [loading, setLoading] = useState();
   const ref = useRef();
   const geometry = useSelector((state) => state.auth.location);
   const mapOptions = {
@@ -23,7 +25,9 @@ const PickupMap = ({ storeView }) => {
     gestureHandling: "cooperative",
   };
   useEffect(() => {
+    setLoading(true);
     setMap(new window.google.maps.Map(ref.current, mapOptions));
+    setLoading(false);
   }, [geometry]);
   const itemModal = (object) => {
     setShowModal(true);
@@ -33,25 +37,27 @@ const PickupMap = ({ storeView }) => {
     setShowModal(false);
   };
   console.log("show modal", showModal);
-  return (
-    <div className="md:top-[0rem] top-[0rem] relative w-screen">
-      {showModal && (
-        <FoodModal
-          itemId={modalInfo.id}
-          name={modalInfo.name}
-          description={modalInfo.description}
-          image={modalInfo.image}
-          price={modalInfo.price}
-          handleClose={modalClose}
-          place_id={modalInfo.place_id}
-        />
-      )}
-      <div ref={ref} id="map" className="w-screen h-screen" />
-      {map && (
-        <Restaurants storeView={storeView} map={map} itemModal={itemModal} />
-      )}
-    </div>
-  );
+  if (loading) return <Loading />;
+  else
+    return (
+      <div className="md:top-[0rem] top-[0rem] relative w-screen">
+        {showModal && (
+          <FoodModal
+            itemId={modalInfo.id}
+            name={modalInfo.name}
+            description={modalInfo.description}
+            image={modalInfo.image}
+            price={modalInfo.price}
+            handleClose={modalClose}
+            place_id={modalInfo.place_id}
+          />
+        )}
+        <div ref={ref} id="map" className="w-screen h-screen" />
+        {map && (
+          <Restaurants storeView={storeView} map={map} itemModal={itemModal} />
+        )}
+      </div>
+    );
 };
 
 export default PickupMap;

@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import * as foodtypeAPI from "../../Api/foodtype";
 import * as dashboardsAPI from "../../Api/dashboards";
-import FoodTypes from "./FoodTypes";
 import Filterbar from "./Filterbar";
 import Ads from "./Ads";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
@@ -11,9 +10,9 @@ import StoreOptions from "./StoreOptions";
 import Categories from "../Category/Catogories";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import FoodTypePick from "../FoodType/FoodTypePick";
 import { availableStores } from "../../redux-store/storeSlice";
 import { formatAddress } from "../Util/helperFunctions";
+import Loading from "../Util/Loading";
 
 const UserHome = () => {
   const dispatch = useDispatch();
@@ -132,7 +131,8 @@ const UserHome = () => {
     setFoodPick(id);
     navigate(`/?foodtype=${name}`);
   };
-  if (loading) return <p>Loading</p>;
+  console.log("loading", loading);
+  if (loading) return <Loading />;
   else
     return (
       <div className="md:top-[0rem] top-[8rem] relative w-screen">

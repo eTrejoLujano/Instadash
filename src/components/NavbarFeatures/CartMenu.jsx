@@ -13,6 +13,7 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { FaTrash } from "react-icons/fa";
 import PlateIcon from "../../assets/icons/plateicon.png";
 import { currencyFormat, formatAddress } from "../Util/helperFunctions";
+import Loading from "../Util/Loading";
 
 const CartMenu = ({
   handleCartMenu,
@@ -69,7 +70,7 @@ const CartMenu = ({
     fetchData();
   }, [cart]);
   console.log("mapped cart ", mappedCart);
-  if (loading) return <p>loading</p>;
+  if (loading) return <Loading />;
   else
     return (
       <div className="" ref={slideCartRef}>

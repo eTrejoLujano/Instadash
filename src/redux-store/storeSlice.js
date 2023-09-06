@@ -26,6 +26,18 @@ export const availableStores = createAsyncThunk(
         lat: +query.latitude,
         lng: +query.longitude,
       });
+      const groceryOptions = await pickupAPI.getGrocery({
+        lat: +query.latitude,
+        lng: +query.longitude,
+      });
+      const drugstoreOptions = await pickupAPI.getDrugstore({
+        lat: +query.latitude,
+        lng: +query.longitude,
+      });
+      const convenienceOptions = await pickupAPI.getConvenience({
+        lat: +query.latitude,
+        lng: +query.longitude,
+      });
       availableStores = availableStores.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
@@ -34,6 +46,9 @@ export const availableStores = createAsyncThunk(
         ...fastfoodOptions.results,
         ...coffeeOptions.results,
         ...pizzaOptions.results,
+        ...groceryOptions.results,
+        ...drugstoreOptions.results,
+        ...convenienceOptions.results,
       ];
       allRestaurants = allRestaurants.sort((a, b) =>
         a.name.localeCompare(b.name)

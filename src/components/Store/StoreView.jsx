@@ -9,6 +9,7 @@ import { AiOutlineStar, AiFillCar } from "react-icons/ai";
 import StoreMapWrapper from "./StoreMapWrapper";
 import { formatAddress } from "../Util/helperFunctions";
 import FoodModal from "./FoodModal";
+import Loading from "../Util/Loading";
 
 const StoreView = () => {
   const ref = useRef(null);
@@ -20,6 +21,9 @@ const StoreView = () => {
   const [isDelivery, setIsDelivery] = useState(false);
   const [showFoodModal, setShowFoodModal] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
+  const [foodItems, setFoodItems] = useState();
+  const [originalItems, setOriginalItems] = useState();
+  const [inputText, setInputText] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
@@ -31,11 +35,6 @@ const StoreView = () => {
         const fetchStore = await storeAPI.getStoreById({
           store_id: location.state.id,
         });
-        console.log(
-          "destinations, origins",
-          location.state.destinations,
-          location.state.origins
-        );
         const travel = await pickupAPI.getDistance({
           destinations: location.state.destinations,
           origins: location.state.origins,
@@ -44,6 +43,8 @@ const StoreView = () => {
           place_id: location.state.place_id,
         });
         setStore(fetchStore);
+        setFoodItems(fetchStore[0].store_items);
+        setOriginalItems(fetchStore[0].store_items);
         setTotalRatings(totalRatings);
         setDistance(travel.rows[0].elements[0]);
         setPlaceDetails(placeDetails.result);
@@ -54,6 +55,8 @@ const StoreView = () => {
           store_name: location.state.name,
         });
         setStore(fetchStore);
+        setFoodItems(fetchStore[0].store_items);
+        setOriginalItems(fetchStore[0].store_items);
         setTotalRatings(location.state.totalRatings);
         setDistance(location.state.distance);
         setPlaceDetails(location.state.details);
@@ -66,6 +69,20 @@ const StoreView = () => {
       document.removeEventListener("click", handleClickOutside, false);
     };
   }, []);
+  console.log(foodItems);
+  useEffect(() => {
+    setFoodItems(() =>
+      foodItems?.filter(({ name }) => {
+        if (inputText === "") {
+          return setFoodItems([...originalItems]);
+        } else {
+          console.log(name.toLowerCase().includes(inputText));
+          return name.toLowerCase().includes(inputText);
+        }
+      })
+    );
+  }, [inputText]);
+
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
       setSearchIcon(true);
@@ -90,8 +107,12 @@ const StoreView = () => {
     setShowFoodModal(true);
     setModalInfo({ itemId, name, description, image, price, place_id });
   };
+  let inputHandler = (e) => {
+    var lowerCase = e.target.value.toLowerCase();
+    setInputText(lowerCase);
+  };
   console.log("place details", placeDetails);
-  if (!store) return;
+  if (!store) return <Loading />;
   else
     return (
       <div>
@@ -251,15 +272,16 @@ const StoreView = () => {
                         )}
                         <input
                           type="text"
-                          className="rounded-full block py-2 px-10 text-sm w-full h-[2.6rem] border border-gray-100 bg-gray-100 focus:ring-black text-black"
+                          className="rounded-full block py-2 px-10 text-sm w-full h-[2.6rem] border border-gray-100 bg-gray-100 focus:ring-black text-black focus:border-solid focus:border-2 focus:border-black focus:outline-none"
                           ref={ref}
                           placeholder="Search store menu"
+                          onChange={inputHandler}
                           onClick={() => setSearchIcon(false)}
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4 gap-1 px-4 md:px-0">
-                      {store[0].store_items.map(
+                      {foodItems.map(
                         ({ id, name, description, image, prices }) => (
                           <FoodItem
                             key={id}
