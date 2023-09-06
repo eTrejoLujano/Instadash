@@ -14,7 +14,7 @@ import { FaTrash } from "react-icons/fa";
 import PlateIcon from "../../assets/icons/plateicon.png";
 import { currencyFormat, formatAddress } from "../Util/helperFunctions";
 
-const CartMenu = ({ handleCartMenu, slideCartRef }) => {
+const CartMenu = ({ handleCartMenu, slideCartRef, cartMenuClose }) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [modalInfo, setModalInfo] = useState();
@@ -30,6 +30,7 @@ const CartMenu = ({ handleCartMenu, slideCartRef }) => {
   };
   const goCheckout = (placeId) => {
     navigate("/checkout", { state: { cartInfo: mappedCart[placeId] } });
+    cartMenuClose();
   };
   useEffect(() => {
     async function fetchData() {
@@ -105,78 +106,86 @@ const CartMenu = ({ handleCartMenu, slideCartRef }) => {
                         </div>
                       </div>
                     </div>
-                    {mappedCart[ids].items.map(
-                      ({ id, items_info, quantity }) => (
-                        <div
-                          key={id}
-                          onClick={() => {
-                            setModalInfo({
-                              itemId: items_info.id,
-                              name: items_info.name,
-                              description: items_info.description,
-                              image: items_info.image,
-                              price: items_info.prices,
-                              handleClose: handleClose,
-                              quantity,
-                            });
-                            setShowModal(true);
-                          }}
-                          className="flex px-4 pt-4 space-x-2 justify-between items-center w-full h-[5rem] rounded-md z-10 cursor-pointer"
-                        >
-                          <div className="flex w-[15rem] bg-white space-x-3">
-                            <img
-                              src={`../../..${items_info.image}`}
-                              className=" w-[5rem] h-[5rem] object-cover"
-                            />
-                            <div className="flex flex-col justify-center">
-                              <div className="text-sm text-start">
-                                {items_info.name}
+                    <div className="overflow-y-scroll overscroll-y-contain container-snap">
+                      {mappedCart[ids].items.map(
+                        ({ id, items_info, quantity }) => (
+                          <div
+                            key={id}
+                            onClick={() => {
+                              setModalInfo({
+                                itemId: items_info.id,
+                                name: items_info.name,
+                                description: items_info.description,
+                                image: items_info.image,
+                                price: items_info.prices,
+                                handleClose: handleClose,
+                                quantity,
+                              });
+                              setShowModal(true);
+                            }}
+                            className="flex px-4 pt-4 space-x-2 justify-between items-center w-full h-[5rem] rounded-md z-10 cursor-pointer"
+                          >
+                            <div className="flex w-[15rem] bg-white space-x-3">
+                              <img
+                                src={`../../..${items_info.image}`}
+                                className=" w-[5rem] h-[5rem] object-cover"
+                              />
+                              <div className="flex flex-col justify-center">
+                                <div className="text-sm text-start">
+                                  {items_info.name}
+                                </div>
+                                <div className="text-md text-start">
+                                  ${items_info.prices}
+                                </div>
                               </div>
-                              <div className="text-md text-start">
-                                ${items_info.prices}
+                            </div>
+                            <div className="rounded-full bg-gray-50 shadow shadow-gray-300 h-[1.8rem] w-[6rem] flex items-center justify-between">
+                              <div
+                                className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
+                                onClick={
+                                  addedItem == items_info.id && quantity !== 1
+                                    ? (e) => {
+                                        dispatch(
+                                          minusOneCart({ user_id, cart_id: id })
+                                        );
+                                        e.stopPropagation();
+                                      }
+                                    : (e) => {
+                                        dispatch(
+                                          deleteCart({ user_id, cart_id: id })
+                                        );
+                                        e.stopPropagation();
+                                      }
+                                }
+                              >
+                                {addedItem == items_info.id &&
+                                quantity !== 1 ? (
+                                  <AiOutlineMinus size={15} />
+                                ) : (
+                                  <FaTrash
+                                    size={15}
+                                    className="fill-gray-500"
+                                  />
+                                )}
+                              </div>
+                              <div className="text-sm">{quantity}</div>
+                              <div
+                                className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
+                                onClick={(e) => {
+                                  setAddedItem(items_info.id);
+                                  dispatch(
+                                    addOneCart({ user_id, cart_id: id })
+                                  );
+                                  e.stopPropagation();
+                                }}
+                              >
+                                <AiOutlinePlus size={15} />
                               </div>
                             </div>
                           </div>
-                          <div className="rounded-full bg-gray-50 shadow shadow-gray-300 h-[1.8rem] w-[6rem] flex items-center justify-between">
-                            <div
-                              className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
-                              onClick={
-                                addedItem == items_info.id && quantity !== 1
-                                  ? (e) => {
-                                      dispatch(
-                                        minusOneCart({ user_id, cart_id: id })
-                                      );
-                                      e.stopPropagation();
-                                    }
-                                  : (e) => {
-                                      dispatch(
-                                        deleteCart({ user_id, cart_id: id })
-                                      );
-                                      e.stopPropagation();
-                                    }
-                              }
-                            >
-                              {addedItem == items_info.id && quantity !== 1 ? (
-                                <AiOutlineMinus size={15} />
-                              ) : (
-                                <FaTrash size={15} className="fill-gray-500" />
-                              )}
-                            </div>
-                            <div className="text-sm">{quantity}</div>
-                            <div
-                              className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
-                              onClick={(e) => {
-                                setAddedItem(items_info.id);
-                                dispatch(addOneCart({ user_id, cart_id: id }));
-                                e.stopPropagation();
-                              }}
-                            >
-                              <AiOutlinePlus size={15} />
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    )}
+                        )
+                      )}
+                    </div>
                   </div>
                 );
             })}

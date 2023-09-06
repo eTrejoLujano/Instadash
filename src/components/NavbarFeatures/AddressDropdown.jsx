@@ -35,13 +35,14 @@ const AddressDropdown = ({ dropdownRef, inputStyling }) => {
       fields: ["formatted_address", "geometry", "name"],
       strictBounds: false,
     };
-    const autocomplete = new google.maps.places.Autocomplete(
+    const autocomplete = new window.google.maps.places.Autocomplete(
       document.getElementById("address"),
       options
     );
     autocomplete.setFields(["place_id", "geometry", "name"]);
     autocomplete.addListener("place_changed", () => {
       const place = autocomplete.getPlace();
+      console.log("place", place);
       dispatch(
         locate({
           address: place.formatted_address,
@@ -62,8 +63,8 @@ const AddressDropdown = ({ dropdownRef, inputStyling }) => {
   };
   return (
     <div
-      className="max-w-fit border-black shadow-2xl shadow-gray-400 rounded-lg pt-[1.2rem] fixed z-20 h-fit max-h-3/4
-      top-[3rem] left-[29.5rem] bg-white flex flex-col justify-start overflow-scroll"
+      className="max-w-fit border-black shadow-2xl shadow-gray-400 rounded-lg pt-[1.2rem] absolute z-20 h-fit max-h-[39rem]
+      top-[3rem] left-[-9rem] bg-white flex flex-col justify-start overflow-scroll"
       ref={dropdownRef}
     >
       <div className="w-full space-y-2 px-[1.1rem] pb-3">
@@ -81,7 +82,7 @@ const AddressDropdown = ({ dropdownRef, inputStyling }) => {
         </div>
       </div>
       <div className="w-full h-[.5rem] pb-2 border-t border-b border-gray-200 bg-gray-100"></div>
-      <div className="px-[1.2rem] divide-solid divide-y">
+      <div className="px-[1.2rem] divide-solid divide-y overflow-y-scroll overscroll-y-contain container-snap">
         {allAddresses &&
           allAddresses.map(({ formattedAddress, id }) => (
             <AddressList

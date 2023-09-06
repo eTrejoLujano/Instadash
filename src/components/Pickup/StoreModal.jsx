@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as pickupAPI from "../../Api/pickup";
 import { currencyFormat } from "../Util/helperFunctions";
+import FoodModal from "../Store/FoodModal";
 const StoreModal = ({
   place_id,
   name,
@@ -10,8 +11,11 @@ const StoreModal = ({
   destinations,
   origins,
   storeView,
+  itemModal,
 }) => {
   const [menu, setMenu] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [modalInfo, setModalInfo] = useState({});
   const [distance, setDistance] = useState();
   const [placeDetails, setPlaceDetails] = useState();
   useEffect(() => {
@@ -25,7 +29,7 @@ const StoreModal = ({
     }
     fetchData();
   }, []);
-
+  console.log("placedetails>>>>>>", placeDetails);
   const buttonStyling =
     "w-[9.5rem] h-[2.9rem] font-medium text-sm rounded-full flex justify-center items-center border border-gray-300";
 
@@ -65,24 +69,54 @@ const StoreModal = ({
             className="flex flex-row w-full h-full overscroll-x-contain overflow-x-scroll
            container-snap scroll-smooth space-x-[1rem] overflow-y-contain pl-5"
           >
-            {menu[0].store_items.map(({ id, name, image, prices }) => (
-              <div key={id}>
-                <div className="max-h-fit w-full">
-                  <img
-                    alt=""
-                    src={`../../../${image}`}
-                    className="rounded-md relative w-[7rem] h-[7rem] object-cover"
-                  />
-                </div>
+            {menu[0].store_items.map(
+              ({ id, name, image, prices, description }) => (
+                <div
+                  key={id}
+                  onClick={(e) => {
+                    itemModal({
+                      id,
+                      name,
+                      image,
+                      description,
+                      place_id,
+                      price: prices,
+                    });
+                    e.stopPropagation();
+                  }}
+                >
+                  <div className="max-h-fit w-full">
+                    <img
+                      alt=""
+                      src={`../../../${image}`}
+                      className="rounded-md relative w-[7rem] h-[7rem] object-cover"
+                    />
+                  </div>
 
-                <div className="text-xs">{name}</div>
-                <div className="text-xs">{currencyFormat(+prices)}</div>
-              </div>
-            ))}
+                  <div className="text-xs">{name}</div>
+                  <div className="text-xs">{currencyFormat(+prices)}</div>
+                </div>
+              )
+            )}
           </div>
         </div>
         <div className="flex justify-between px-5 pt-3">
-          <button className={buttonStyling}>Delivery</button>
+          <button
+            onClick={(e) => {
+              storeView(
+                name,
+                placeDetails.result,
+                distance.rows[0].elements[0],
+                totalRatings,
+                false,
+                place_id
+              );
+              e.stopPropagation();
+            }}
+            className={buttonStyling}
+          >
+            Delivery
+          </button>
           <button className={buttonStyling}>Pickup</button>
         </div>
       </div>

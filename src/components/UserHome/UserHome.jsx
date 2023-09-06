@@ -5,12 +5,15 @@ import FoodTypes from "./FoodTypes";
 import Filterbar from "./Filterbar";
 import Ads from "./Ads";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
+import { AiOutlineStar } from "react-icons/ai";
+import { TbHeart } from "react-icons/tb";
 import StoreOptions from "./StoreOptions";
 import Categories from "../Category/Catogories";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import FoodTypePick from "../FoodType/FoodTypePick";
 import { availableStores } from "../../redux-store/storeSlice";
+import { formatAddress } from "../Util/helperFunctions";
 
 const UserHome = () => {
   const dispatch = useDispatch();
@@ -21,7 +24,7 @@ const UserHome = () => {
   const [foodTypes, setFoodTypes] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
   const [foodPick, setFoodPick] = useState(null);
-  const [typeStores, setTypeStores] = useState(null);
+  const [typeStores, setTypeStores] = useState([]);
   const [loading, setLoading] = useState(false);
   const restaurants = useSelector((state) => state.store.store);
   const currentAddress = useSelector((state) => state.auth.location);
@@ -33,14 +36,6 @@ const UserHome = () => {
       const foodType = await foodtypeAPI.getFoodType();
       setDashboard(dashboards);
       setFoodTypes(foodType);
-      setFoodPick(searchParams.get("foodtype"));
-
-      if (foodPick) {
-        const foodTypePick = await foodtypeAPI.getFoodPick({
-          foodtype_name: foodPick,
-        });
-        setTypeStores(foodTypePick[0]?.store_foodtype);
-      }
       await dispatch(
         availableStores({
           latitude: currentAddress.latitude,
@@ -50,7 +45,51 @@ const UserHome = () => {
       setLoading(false);
     }
     fetchData();
-  }, [searchParams, foodPick, currentAddress]);
+  }, [currentAddress, dispatch]);
+  useEffect(() => {
+    async function fetchData() {
+      setFoodPick(searchParams.get("foodtype"));
+
+      if (foodPick && restaurants) {
+        const foodTypePick = await foodtypeAPI.getFoodPick({
+          foodtype_name: foodPick,
+        });
+        // setTypeStores(foodTypePick[0]?.store_foodtype);
+        let sortedStores = foodTypePick[0]?.store_foodtype.sort((a, b) =>
+          a.stores_info.name.localeCompare(b.stores_info.name)
+        );
+        let storeIndex = 0;
+        let restaurantIndex = 0;
+        while (
+          restaurantIndex < restaurants.length &&
+          storeIndex < sortedStores.length
+        ) {
+          if (
+            restaurants[restaurantIndex].name ==
+            sortedStores[storeIndex].stores_info.name
+          ) {
+            typeStores.push({
+              ...restaurants[restaurantIndex],
+              ...sortedStores[storeIndex].stores_info,
+            });
+            storeIndex += 1;
+          } else {
+            const compare = restaurants[restaurantIndex].name.localeCompare(
+              sortedStores[storeIndex].stores_info.name
+            );
+            if (compare == -1) {
+              restaurantIndex += 1;
+            } else {
+              storeIndex += 1;
+            }
+          }
+        }
+      }
+      console.log("TYPE STORES", typeStores);
+    }
+    fetchData();
+  }, [foodPick, searchParams]);
+
   function scrollTabbar(element, left) {
     element.scrollTo({
       left,
@@ -78,8 +117,17 @@ const UserHome = () => {
       }
     }
   };
-  const storeView = (id) => {
-    navigate("/store", { state: { id: id } });
+  const storeView = (id, destinations, place_id, totalRatings) => {
+    console.log("PLACE ID", place_id);
+    navigate("/store", {
+      state: {
+        id,
+        destinations,
+        place_id,
+        totalRatings,
+        origins: currentAddress.address,
+      },
+    });
   };
   const foodTypePicked = (name, id) => {
     setFoodPick(id);
@@ -88,7 +136,7 @@ const UserHome = () => {
   if (loading) return <p>Loading</p>;
   else
     return (
-      <div>
+      <div className="md:top-[0rem] top-[8rem] relative w-screen">
         <Categories />
         <div className="h-full text-black">
           <div className="flex flex-row justify-center md:space-x-5">
@@ -181,39 +229,52 @@ const UserHome = () => {
                 >
                   {typeStores?.map((store) => (
                     <div
-                      key={store.stores_info.id}
+                      key={store.id}
                       className="rounded-lg flex flex-col space-y-3 max-h-full"
-                      onClick={() => storeView(store.stores_info.id)}
+                      onClick={() =>
+                        storeView(
+                          store.id,
+                          store.formatted_address,
+                          store.place_id,
+                          store.user_ratings_total
+                        )
+                      }
                     >
                       <div className="h-[12rem] flex flex-col justify-center">
                         <img
                           alt=""
-                          src={`../../../${store.stores_info.image}`}
+                          src={`../../../${store.image}`}
                           className="rounded-md object-cover relative w-full h-full"
                         />
                       </div>
-                      <div className="space-y-[-1rem]">
-                        <div className="font-semibold relative flex flex-row pb-1">
-                          <div className="">{store.stores_info.name}</div>
-                          <button
-                            className="absolute right-[.6rem] z-20"
-                            // onClick={async () => handleSave(store.id)}
-                          >
-                            {/* <TbHeart
-                  size={26}
-                  className={store.save ? "fill-red-400" : ""}
-                /> */}
-                          </button>
+                      <div className="w-full flex justify-between">
+                        <div>
+                          <div className="font-semibold text-base">
+                            {store.name}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {formatAddress(store.formatted_address)[0]}
+                          </div>
+                          <div className="flex space-x-1">
+                            <div className="flex items-center">
+                              <div className="text-gray-500 text-sm">
+                                {store.rating}
+                              </div>
+                              <div>
+                                <AiOutlineStar
+                                  size={14}
+                                  className={"fill-gray-500"}
+                                />
+                              </div>
+                            </div>
+                            <div className="text-gray-500 text-sm">
+                              ({store.user_ratings_total}+ reviews)
+                            </div>
+                          </div>
                         </div>
-                        {/* <div className="text-sm pt-[1rem] text-gray-500 relative flex flex-row">
-                    {store.distance} • {store.time} • {store.fee}
-                  </div> */}
-                        <div className="text-sm pt-[1rem] text-gray-500 relative flex flex-row">
-                          {/* {store.rate} */}
-                          {/* <div className="pr-[.4rem]">
-                      <AiOutlineStar className="top-[.2rem] relative fill-gray-500" />
-                    </div> */}
-                          {/* {store.reviews} */}
+                        <div>
+                          {" "}
+                          <TbHeart size={26} className={"fill-red-400"} />
                         </div>
                       </div>
                       <div className="flex sm:invisible w-full h-[.05rem] relative top-1 rounded bg-gray-200" />

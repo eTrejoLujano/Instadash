@@ -38,7 +38,7 @@ const AddressModal = ({ handleClose }) => {
       strictBounds: false,
     };
 
-    const autocomplete = new window.google.maps.places.Autocomplete(
+    const autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("address"),
       options
     );
@@ -65,13 +65,13 @@ const AddressModal = ({ handleClose }) => {
     dispatch(deleteAddress({ address_id: id, user_id }));
   };
   return (
-    <div>
-      <div className="flex fixed w-screen h-screen items-center justify-center z-50 ">
+    <div className="">
+      <div className="flex fixed w-screen h-screen items-center justify-center z-50">
         <div
-          className="md:w-[35rem] md:max-h-[47rem] w-full h-full hidden md:h-fit py-6 border-black shadow-2xl shadow-gray-400 rounded-2xl 
-      left-[29.5rem] bg-white md:flex flex-col overflow-scroll"
+          className="w-[35rem] md:max-h-[47rem] h-full sm:h-5/6 md:h-fit py-6 border-black shadow-2xl shadow-gray-400 rounded-2xl 
+      left-[29.5rem] bg-white flex flex-col"
         >
-          <div className="w-full space-y-2 px-[.7rem] pb-3">
+          <div className="w-full space-y-2 px-[.7rem]">
             <VscClose
               size={29}
               className="cursor-pointer"
@@ -86,12 +86,12 @@ const AddressModal = ({ handleClose }) => {
               placeholder="Enter a Location"
               onMouseOver={() => locationHover()}
             />
-            {/* <div className="absolute top-[3.2rem] left-[1.6rem] z-50">
-            <HiOutlineLocationMarker size={23} />
-          </div> */}
+            <div className="relative bottom-[2.5rem] left-[0.4rem] z-50">
+              <HiOutlineLocationMarker size={23} />
+            </div>
           </div>
           <div className="w-full h-[.5rem] pb-2 border-t border-b border-gray-200 bg-gray-100"></div>
-          <div className="px-[1.2rem] divide-solid divide-y">
+          <div className="px-[1.2rem] divide-solid divide-y overflow-y-scroll overscroll-y-contain container-snap">
             {allAddresses &&
               allAddresses.map(({ formattedAddress, id }) => (
                 <AddressList

@@ -8,7 +8,6 @@ const Marker = ({ map, children, position, onClick }) => {
     if (!rootRef.current) {
       const container = document.createElement("div");
       rootRef.current = createRoot(container);
-
       markerRef.current = new window.google.maps.marker.AdvancedMarkerView({
         position,
         content: container,

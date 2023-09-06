@@ -54,7 +54,7 @@ const CheckoutView = () => {
     return (
       <div>
         {addressModal && <AddressModal handleClose={handleClose} />}
-        <div className="md:pt-[3.9rem] w-full h-fit md:h-screen flex md:flex-row flex-col items-center justify-center">
+        <div className="md:pt-[3.9rem] relative top-[7rem] md:top-0 w-full h-fit md:h-screen flex md:flex-row flex-col items-center justify-center">
           <div className="w-full h-fit md:h-full md:pt-[2rem] border-r flex flex-col items-center md:space-y-4">
             <div className="w-full lg:w-[40rem] h-[4rem] border rounded-lg hidden md:flex justify-between items-center px-4">
               <div className="font-bold">1. Account Details</div>

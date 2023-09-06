@@ -17,6 +17,7 @@ import AccountInfo from "./components/Account/AccountInfo";
 import SavedStores from "./components/Saved/SavedStores";
 import CategoryView from "./components/Category/CategoryView";
 import CheckoutView from "./components/Checkout/CheckoutView";
+import { Wrapper } from "@googlemaps/react-wrapper";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -34,7 +35,18 @@ function App() {
 
   return (
     <ScrollWrapper>
-      {auth.user ? <Navbar /> : <AuthBar />}
+      {auth.user ? (
+        <Wrapper
+          apiKey={import.meta.env.VITE_GOOGLE_KEY}
+          version="beta"
+          libraries={["marker", "places"]}
+        >
+          {" "}
+          <Navbar />
+        </Wrapper>
+      ) : (
+        <AuthBar />
+      )}
       <Routes>
         {!auth.user && <Route exact path="/" element={<Login />} />}
         {!auth.user && <Route path="/signup" element={<SignUp />} />}

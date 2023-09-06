@@ -17,6 +17,7 @@ import { SlBag, SlArrowDown } from "react-icons/sl";
 import { TfiReceipt } from "react-icons/tfi";
 import { TbHeart } from "react-icons/tb";
 import AddressDropdown from "./NavbarFeatures/AddressDropdown";
+import AddressModal from "./NavbarFeatures/AddressModal";
 
 function Navbar({ trueLoading, falseLoading }) {
   const searchRef = useRef(null);
@@ -32,6 +33,7 @@ function Navbar({ trueLoading, falseLoading }) {
   const [cartMenu, setCartMenu] = useState(false);
   const [searchIcon, setSearchIcon] = useState(true);
   const [dropdown, setDropdown] = useState(false);
+  const [addressModal, setAddressModal] = useState(false);
   const currentAddress = useSelector((state) => state.auth.location);
   const user_id = useSelector((state) => state.auth.user.user_id);
 
@@ -113,10 +115,17 @@ function Navbar({ trueLoading, falseLoading }) {
     { id: 6, name: "Sign Out", icon: CgCloseO, click: signoutClick },
   ];
   console.log("current address", currentAddress);
+  const handleClose = () => {
+    setAddressModal(false);
+  };
+  const cartMenuClose = () => {
+    setCartMenu(false);
+  };
   let inputStyling =
     "border h-[2.4rem] w-[22.5rem] rounded-md bg-gray-50 border-none focus:border-solid focus:border-2 focus:border-black focus:outline-none px-10";
   return (
-    <div>
+    <div className="">
+      {addressModal && <AddressModal handleClose={handleClose} />}
       <div
         className={`fixed bg-white h-screen z-50 shadow-gray-300 shadow ${
           menu ? "md:w-[22rem] w-screen " : "md:w-0"
@@ -168,6 +177,7 @@ function Navbar({ trueLoading, falseLoading }) {
             <CartMenu
               handleCartMenu={handleCartMenu}
               slideCartRef={slideCartRef}
+              cartMenuClose={cartMenuClose}
             />
           )}
         </div>
@@ -204,6 +214,14 @@ function Navbar({ trueLoading, falseLoading }) {
                 : "Enter An Address"}
               <SlArrowDown className="relative left-2" size={10} />
             </button>
+            <div className="relative">
+              {dropdown && (
+                <AddressDropdown
+                  dropdownRef={dropdownRef}
+                  inputStyling={inputStyling}
+                />
+              )}
+            </div>
           </div>
         </div>
         <div className="flex items-center space-x-4">
@@ -234,18 +252,12 @@ function Navbar({ trueLoading, falseLoading }) {
           </button>
         </div>
       </div>
-      {dropdown && (
-        <AddressDropdown
-          dropdownRef={dropdownRef}
-          inputStyling={inputStyling}
-        />
-      )}
       <div
-        className="w-screen relative h-[7rem] pt-[3rem] flex-col justify-center
-     text-black bg-white border border-gray-200 z-5 flex items-center md:hidden"
+        className="w-screen absolute mt-[1rem] h-[7rem] pt-[3rem] justify-center
+     text-black bg-white border border-gray-200 flex items-center md:hidden"
       >
         <button
-          onClick={() => setDropdown((state) => !state)}
+          onClick={() => setAddressModal(true)}
           className="text-black flex items-center"
         >
           {currentAddress

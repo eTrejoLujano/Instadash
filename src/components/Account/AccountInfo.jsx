@@ -5,7 +5,7 @@ const AccountInfo = () => {
     "border h-[2.4rem] w-[26rem] md:w-[21rem] rounded-md bg-gray-50 border-none focus:border-solid focus:border-2 focus:border-black focus:outline-none px-4";
 
   return (
-    <div className="w-full h-full pt-0 lg:pt-20">
+    <div className="w-screen h-full pt-0 top-[9rem] lg:top-[4rem] relative lg:pt-20">
       <div className="flex justify-center pb-7">
         <div className="md:h-[29rem] md:w-[48rem] h-[47rem] w-[30rem] border border-gray-300">
           <div className="h-[5.5rem] flex justify-between items-center px-7">

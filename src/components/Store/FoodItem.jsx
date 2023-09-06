@@ -1,15 +1,21 @@
 import { useState } from "react";
 import FoodModal from "./FoodModal";
 
-const FoodItem = ({ itemId, name, description, image, price, place_id }) => {
-  const [showModal, setShowModal] = useState(false);
-  const handleClose = () => {
-    setShowModal(false);
-  };
+const FoodItem = ({
+  itemId,
+  name,
+  description,
+  image,
+  price,
+  place_id,
+  foodModelInfo,
+}) => {
   return (
     <div className="space-y-[-.5rem]">
       <div
-        onClick={() => setShowModal(true)}
+        onClick={() =>
+          foodModelInfo({ itemId, name, description, image, price, place_id })
+        }
         className="flex justify-between items-center w-full h-[9rem] md:border md:border-b-2 rounded-md z-10 cursor-pointer"
       >
         <div className="space-y-1 md:px-4">
@@ -29,17 +35,6 @@ const FoodItem = ({ itemId, name, description, image, price, place_id }) => {
           </div>
         </div>
       </div>
-      {showModal ? (
-        <FoodModal
-          itemId={itemId}
-          name={name}
-          description={description}
-          image={image}
-          price={price}
-          handleClose={handleClose}
-          place_id={place_id}
-        />
-      ) : null}
       <div className="flex md:invisible w-full h-[.05rem] top-[.4rem] relative rounded bg-gray-200" />
     </div>
   );
