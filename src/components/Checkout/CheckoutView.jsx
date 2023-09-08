@@ -11,6 +11,7 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { RxHome } from "react-icons/rx";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import AddressModal from "../NavbarFeatures/AddressModal";
+import Loading from "../Util/Loading";
 
 const CheckoutView = () => {
   let [isDelivery, setIsDelivery] = useState(true);
@@ -50,7 +51,8 @@ const CheckoutView = () => {
   const handleClose = () => {
     setAddressModal(false);
   };
-  if (travelInfo)
+  if (!travelInfo) return <Loading />;
+  else
     return (
       <div>
         {addressModal && <AddressModal handleClose={handleClose} />}

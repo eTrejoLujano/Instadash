@@ -25,6 +25,7 @@ const UserHome = () => {
   const [foodPick, setFoodPick] = useState(null);
   let [typeStores, setTypeStores] = useState([]);
   const [loading, setLoading] = useState();
+  const [storesLoading, setStoresLoading] = useState();
   const restaurants = useSelector((state) => state.store.store);
   const currentAddress = useSelector((state) => state.auth.location);
 
@@ -35,6 +36,7 @@ const UserHome = () => {
       const foodType = await foodtypeAPI.getFoodType();
       setDashboard(dashboards);
       setFoodTypes(foodType);
+
       await dispatch(
         availableStores({
           latitude: currentAddress.latitude,
@@ -47,7 +49,6 @@ const UserHome = () => {
   }, [currentAddress, dispatch]);
   useEffect(() => {
     async function fetchData() {
-      setLoading(true);
       setTypeStores([]);
       setFoodPick(searchParams.get("foodtype"));
       if (foodPick && restaurants) {
@@ -85,7 +86,6 @@ const UserHome = () => {
         }
       }
       setTypeStores(typeStores);
-      setLoading(false);
     }
     fetchData();
   }, [foodPick, searchParams, restaurants]);
@@ -132,8 +132,9 @@ const UserHome = () => {
     navigate(`/?foodtype=${name}`);
   };
   console.log("loading", loading);
+  console.log("stores loading", storesLoading);
   if (loading) return <Loading />;
-  else
+  else if (!loading)
     return (
       <div className="md:top-[0rem] top-[8rem] relative w-screen">
         <Categories />
@@ -213,6 +214,8 @@ const UserHome = () => {
                   name={dashboard.name}
                   restaurants={restaurants}
                   currentAddress={currentAddress}
+                  setStoresLoading={setStoresLoading}
+                  storesLoading={storesLoading}
                 />
               ))}
             </div>

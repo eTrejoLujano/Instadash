@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux-store/authSlice";
 import { getCart } from "../redux-store/cartSlice";
 import { formatAddress } from "./Util/helperFunctions";
-import { availableStores } from "../redux-store/storeSlice";
 import CartMenu from "./NavbarFeatures/CartMenu";
 import Instacart from "../assets/icons/instadash.png";
 import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
 import { FiArrowLeft } from "react-icons/fi";
 import { HiOutlinePencil } from "react-icons/hi";
 import { CgClose, CgProfile, CgCloseO } from "react-icons/cg";
-import { BsCart3, BsCircle } from "react-icons/bs";
+import { BsCart3 } from "react-icons/bs";
 import { RxHome } from "react-icons/rx";
 import { SlBag, SlArrowDown } from "react-icons/sl";
 import { TfiReceipt } from "react-icons/tfi";
@@ -19,11 +18,13 @@ import { TbHeart } from "react-icons/tb";
 import AddressDropdown from "./NavbarFeatures/AddressDropdown";
 import AddressModal from "./NavbarFeatures/AddressModal";
 import FoodModal from "./Store/FoodModal";
+import SearchDropdown from "./NavbarFeatures/SearchDropdown";
 
-function Navbar({ trueLoading, falseLoading }) {
+function Navbar() {
   const searchRef = useRef(null);
   const inputRef = useRef(null);
   const dropdownRef = useRef(null);
+  const searchDropdownRef = useRef(null);
   const cartRef = useRef(null);
   const slideCartRef = useRef(null);
   const menuRef = useRef(null);
@@ -35,8 +36,10 @@ function Navbar({ trueLoading, falseLoading }) {
   const [searchIcon, setSearchIcon] = useState(true);
   const [dropdown, setDropdown] = useState(false);
   const [addressModal, setAddressModal] = useState(false);
+  const [searchDropdown, setSearchDropdown] = useState(false);
   const [foodModal, setFoodModal] = useState(false);
   const [modalInfo, setModalInfo] = useState();
+  const [inputText, setInputText] = useState("");
   const currentAddress = useSelector((state) => state.auth.location);
   const user_id = useSelector((state) => state.auth.user.user_id);
 
@@ -56,7 +59,10 @@ function Navbar({ trueLoading, falseLoading }) {
 
   const handleClickOutside = (event) => {
     if (searchRef.current && !searchRef.current.contains(event.target)) {
+      searchRef.current.value = "";
       setSearchIcon(true);
+      setSearchDropdown(false);
+      setInputText("");
     }
     if (
       menuRef.current &&
@@ -86,6 +92,7 @@ function Navbar({ trueLoading, falseLoading }) {
   const onClear = () => {
     searchRef.current.value = "";
     setSearchIcon(true);
+    setInputText("");
   };
   const homeClick = () => {
     navigate("/");
@@ -135,6 +142,21 @@ function Navbar({ trueLoading, falseLoading }) {
   };
   const closeFoodModal = () => {
     setFoodModal(false);
+  };
+  let inputHandler = (e) => {
+    var lowerCase = e.target.value.toLowerCase();
+    setInputText(lowerCase);
+  };
+  const storeView = ({ id, destinations, place_id, totalRatings }) => {
+    navigate("/store", {
+      state: {
+        id,
+        destinations,
+        place_id,
+        totalRatings,
+        origins: currentAddress.address,
+      },
+    });
   };
   let inputStyling =
     "border h-[2.4rem] w-[22.5rem] rounded-md bg-gray-50 border-none focus:border-solid focus:border-2 focus:border-black focus:outline-none px-10";
@@ -209,8 +231,13 @@ function Navbar({ trueLoading, falseLoading }) {
           )}
         </div>
       </div>
-      <div className="w-full h-[4rem] bg-white fixed z-20 border border-gray-2 flex justify-between px-4 lg:px-[3.9rem] items-center">
-        <div className="flex items-center space-x-5" ref={menuRef}>
+      <div className="w-full h-[4rem] bg-white fixed z-20 border border-gray-2 flex md:justify-between px-4 lg:px-[3.9rem] items-center">
+        <div
+          className={`${
+            searchDropdown ? "md:flex hidden" : "flex"
+          } items-center space-x-5 w-1/4 md:w-full`}
+          ref={menuRef}
+        >
           <AiOutlineMenu
             className="cursor-pointer h-5 "
             size={22}
@@ -225,7 +252,7 @@ function Navbar({ trueLoading, falseLoading }) {
               DASHED EATS
             </div>
           </div>
-          <div className="hidden sm:flex space-x-5 cursor-pointer">
+          <div className="hidden md:flex space-x-5 cursor-pointer">
             <div onClick={homeClick}>Delivery</div>
             <div onClick={pickUpClick}>Pickup</div>
           </div>
@@ -251,23 +278,36 @@ function Navbar({ trueLoading, falseLoading }) {
             </div>
           </div>
         </div>
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center max-w-fit">
-            <div className="relative text-gray-500 left-9">
-              {searchIcon ? (
-                <AiOutlineSearch size={24} />
-              ) : (
-                <FiArrowLeft size={23} onClick={onClear} />
-              )}
-            </div>
-            <input
-              className="rounded-full block px-10 text-sm w-full md:w-[19rem]
+        <div className="flex items-center space-x-4 md:w-fit w-full">
+          <div className="flex items-center justify-center w-full">
+            <div className="flex items-center justify-center z-50 w-full h-[3.9rem] bg-white">
+              <div className="relative text-gray-500 left-9">
+                {searchIcon ? (
+                  <AiOutlineSearch size={24} />
+                ) : (
+                  <FiArrowLeft size={23} onClick={onClear} />
+                )}
+              </div>
+              <input
+                className="rounded-full block px-10 text-sm w-full md:w-[18rem]
               lg:w-[22rem] lg h-[2.6rem] border border-gray-100 bg-gray-100 
               focus:ring-black text-black focus:border-solid focus:border-2 focus:border-black focus:outline-none"
-              ref={searchRef}
-              placeholder="Search stores, dishes, products"
-              onClick={() => setSearchIcon(false)}
-            />
+                ref={searchRef}
+                placeholder="Search stores, dishes, products"
+                onClick={() => {
+                  setSearchIcon(false);
+                  setSearchDropdown(true);
+                }}
+                onChange={inputHandler}
+              />
+            </div>
+            {searchDropdown && (
+              <SearchDropdown
+                ref={searchDropdownRef}
+                input={inputText}
+                storeView={storeView}
+              />
+            )}
           </div>
           <button onClick={() => setCartMenu(!cartMenu)} ref={cartRef}>
             <BsCart3 size={24} />

@@ -36,22 +36,23 @@ const PickupMap = ({ storeView }) => {
   const modalClose = () => {
     setShowModal(false);
   };
-  console.log("show modal", showModal);
   if (loading) return <Loading />;
   else
     return (
       <div className="md:top-[0rem] top-[0rem] relative w-screen">
-        {showModal && (
-          <FoodModal
-            itemId={modalInfo.id}
-            name={modalInfo.name}
-            description={modalInfo.description}
-            image={modalInfo.image}
-            price={modalInfo.price}
-            handleClose={modalClose}
-            place_id={modalInfo.place_id}
-          />
-        )}
+        <div className="max-h-4/5">
+          {showModal && (
+            <FoodModal
+              itemId={modalInfo.id}
+              name={modalInfo.name}
+              description={modalInfo.description}
+              image={modalInfo.image}
+              price={modalInfo.price}
+              handleClose={modalClose}
+              place_id={modalInfo.place_id}
+            />
+          )}
+        </div>
         <div ref={ref} id="map" className="w-screen h-screen" />
         {map && (
           <Restaurants storeView={storeView} map={map} itemModal={itemModal} />

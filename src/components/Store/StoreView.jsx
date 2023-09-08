@@ -24,6 +24,7 @@ const StoreView = () => {
   const [foodItems, setFoodItems] = useState();
   const [originalItems, setOriginalItems] = useState();
   const [inputText, setInputText] = useState("");
+  const [loading, setLoading] = useState();
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
@@ -32,6 +33,7 @@ const StoreView = () => {
     }
     async function fetchData() {
       if (location.state.id) {
+        setLoading(true);
         const fetchStore = await storeAPI.getStoreById({
           store_id: location.state.id,
         });
@@ -39,18 +41,20 @@ const StoreView = () => {
           destinations: location.state.destinations,
           origins: location.state.origins,
         });
-        const placeDetails = await pickupAPI.getPlaceDetails({
+        const fetchPlaceDetails = await pickupAPI.getPlaceDetails({
           place_id: location.state.place_id,
         });
         setStore(fetchStore);
         setFoodItems(fetchStore[0].store_items);
         setOriginalItems(fetchStore[0].store_items);
-        setTotalRatings(totalRatings);
+        setTotalRatings(location.state.totalRatings);
         setDistance(travel.rows[0].elements[0]);
-        setPlaceDetails(placeDetails.result);
+        setPlaceDetails(fetchPlaceDetails.result);
         setIsDelivery(false);
+        setLoading(false);
       }
       if (location.state.name) {
+        setLoading(true);
         const fetchStore = await storeAPI.getStoreByName({
           store_name: location.state.name,
         });
@@ -61,6 +65,7 @@ const StoreView = () => {
         setDistance(location.state.distance);
         setPlaceDetails(location.state.details);
         setIsDelivery(location.state.pickup);
+        setLoading(false);
       }
     }
     fetchData();
@@ -68,7 +73,7 @@ const StoreView = () => {
     return () => {
       document.removeEventListener("click", handleClickOutside, false);
     };
-  }, []);
+  }, [location.state.id]);
   console.log(foodItems);
   useEffect(() => {
     setFoodItems(() =>
@@ -112,8 +117,8 @@ const StoreView = () => {
     setInputText(lowerCase);
   };
   console.log("place details", placeDetails);
-  if (!store) return <Loading />;
-  else
+  if (!store && loading) return <Loading />;
+  else if (store)
     return (
       <div>
         {showFoodModal ? (
@@ -149,12 +154,12 @@ const StoreView = () => {
                       <span className="font-bold text-4xl relative  items-start">
                         {store[0].name}
                       </span>
-                      <p className="text-gray-500 text-sm flex space-x-[.4rem]">
+                      <p className="text-gray-600 text-sm flex space-x-[.4rem]">
                         <div className="flex items-center space-x-[.2rem]">
                           <div>{placeDetails.rating}</div>
-                          <AiOutlineStar className="fill-gray-500" />
+                          <AiOutlineStar className="fill-gray-600" />
                           <div className="flex space-x-[.2rem]">
-                            <div>{totalRatings}</div>
+                            <div>{totalRatings}+ </div>
                             <div>ratings</div>
                           </div>
                         </div>
@@ -164,21 +169,24 @@ const StoreView = () => {
                       </p>
                       <p className="flex relative items-center space-x-[.4rem]">
                         <AiOutlineClockCircle
-                          className="relative text-gray-500"
+                          className="relative text-gray-600"
                           size={13}
                         />
-                        {placeDetails.opening_hours.open_now ? (
+                        {placeDetails.opening_hours &&
+                        placeDetails.opening_hours.open_now ? (
                           <div className="text-green-500 text-sm">Open</div>
                         ) : (
                           <div className="text-red-500 text-sm">Closed</div>
                         )}
-                        <div className="text-sm text-gray-500">
-                          {
-                            placeDetails.opening_hours.weekday_text[
-                              new Date().getDay() - 1
-                            ]
-                          }
-                        </div>
+                        {placeDetails.opening_hours && (
+                          <div className="text-sm text-gray-600">
+                            {
+                              placeDetails.opening_hours.weekday_text[
+                                new Date().getDay() - 1
+                              ]
+                            }
+                          </div>
+                        )}
                       </p>
                     </div>
                     <div className="flex sm:flex-row flex-col items-center space-y-2 sm:space-x-2 bottom-[.8rem] relative">
@@ -189,7 +197,7 @@ const StoreView = () => {
                               {Math.floor((distance.duration.value + 720) / 60)}{" "}
                               min
                             </div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-gray-600">
                               delivery time
                             </div>
                           </div>
@@ -262,14 +270,14 @@ const StoreView = () => {
                     <div className="flex flex-col md:flex-row md:justify-between items-center space-y-4">
                       <div className="">Full Menu</div>
                       <div className="relative md:w-[20rem] w-full bottom-2">
-                        <div className="absolute text-gray-500 top-2 left-2">
+                        <div className="absolute text-gray-600 top-2 left-2">
                           <AiOutlineSearch size={24} />
                         </div>
-                        {!searchIcon && (
-                          <button className="absolute text-gray-500 top-[.6rem] left-[17.6rem]">
+                        {/* {!searchIcon && (
+                          <button className="absolute text-gray-600 top-[.6rem] left-[17.6rem]">
                             <BsFillXCircleFill size={21} onClick={onClear} />
                           </button>
-                        )}
+                        )} */}
                         <input
                           type="text"
                           className="rounded-full block py-2 px-10 text-sm w-full h-[2.6rem] border border-gray-100 bg-gray-100 focus:ring-black text-black focus:border-solid focus:border-2 focus:border-black focus:outline-none"

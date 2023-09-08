@@ -7,16 +7,24 @@ import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 import { formatAddress } from "../Util/helperFunctions";
 import Loading from "../Util/Loading";
 
-const StoreOptions = ({ stores, name, currentAddress }) => {
+const StoreOptions = ({
+  stores,
+  name,
+  currentAddress,
+  setStoresLoading,
+  storesLoading,
+}) => {
   const ref = useRef(null);
   const [disableButton, setDisableButton] = useState("left");
   let [mappedStores, setMappedStores] = useState([]);
   let [loading, setLoading] = useState();
   const restaurants = useSelector((state) => state.store.store);
+  const currentAddressState = useSelector((state) => state.auth.location);
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
+      setStoresLoading(true);
       let sortedStores = stores.sort((a, b) =>
         a.stores_info.name.localeCompare(b.stores_info.name)
       );
@@ -49,6 +57,7 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
       console.log("MAPPED STORES>>>", mappedStores);
       setMappedStores(mappedStores.sort(() => Math.random() - 0.5));
       setLoading(false);
+      setStoresLoading(false);
     }
     fetchData();
   }, []);
@@ -207,22 +216,22 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
                 <div className="w-full flex justify-between">
                   <div>
                     <div className="font-semibold text-base">{store.name}</div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-gray-600">
                       {formatAddress(store.formatted_address)[0]}
                     </div>
                     <div className="flex space-x-1">
                       <div className="flex items-center">
-                        <div className="text-gray-500 text-sm">
+                        <div className="text-gray-600 text-sm">
                           {store.rating}
                         </div>
                         <div>
                           <AiOutlineStar
                             size={14}
-                            className={"fill-gray-500"}
+                            className={"fill-gray-600"}
                           />
                         </div>
                       </div>
-                      <div className="text-gray-500 text-sm">
+                      <div className="text-gray-600 text-sm">
                         ({store.user_ratings_total}+ reviews)
                       </div>
                     </div>
@@ -233,11 +242,11 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
                   </div>
                 </div>
 
-                {/* <div className="text-sm pt-[1rem] text-gray-500 relative flex flex-row">
+                {/* <div className="text-sm pt-[1rem] text-gray-600 relative flex flex-row">
                 {store.distance} • {store.time} • {store.fee}
               </div> */}
 
-                {/* <AiOutlineStar className="top-[.2rem] relative fill-gray-500" /> */}
+                {/* <AiOutlineStar className="top-[.2rem] relative fill-gray-600" /> */}
               </div>
             ))}
           </div>

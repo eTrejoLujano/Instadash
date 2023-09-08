@@ -47,7 +47,7 @@ const AddressDropdown = ({ dropdownRef, inputStyling }) => {
         locate({
           address: place.formatted_address,
           latitude:
-            (place.geometry.viewport.eb.lo + place.geometry.viewport.eb.hi) / 2,
+            (place.geometry.viewport.cb.lo + place.geometry.viewport.cb.hi) / 2,
           longitude:
             (place.geometry.viewport.La.lo + place.geometry.viewport.La.hi) / 2,
           user_id: user_id,

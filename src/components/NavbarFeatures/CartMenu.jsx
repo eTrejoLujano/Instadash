@@ -78,7 +78,7 @@ const CartMenu = ({
           <CgClose size={22} onClick={() => handleCartMenu()} />
         </div>
 
-        {cart.length > 0 ? (
+        {cart?.length > 0 ? (
           <div className="space-y-6 divide-y divide-solid scroll-smooth overflow-y-scroll container-snap">
             {placeIds.map((ids) => {
               if (mappedCart[ids])

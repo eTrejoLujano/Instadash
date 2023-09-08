@@ -9,47 +9,29 @@ export const availableStores = createAsyncThunk(
   "store/availableStores",
   async (query, thunkAPI) => {
     try {
+      let allRestaurants = [];
+      const urlPaths = [
+        pickupAPI.getRestaurants,
+        pickupAPI.getFastFood,
+        pickupAPI.getCoffee,
+        pickupAPI.getPizza,
+        pickupAPI.getGrocery,
+        pickupAPI.getDrugstore,
+        pickupAPI.getConvenience,
+      ];
+      await Promise.all(
+        urlPaths.map(async (urlPath) => {
+          const result = await urlPath({
+            lat: +query.latitude,
+            lng: +query.longitude,
+          });
+          allRestaurants = [...allRestaurants, ...result.results];
+        })
+      );
       let availableStores = await storeAPI.getAllStores();
-      const restaurantsOptions = await pickupAPI.getRestaurants({
-        lat: +query.latitude,
-        lng: +query.longitude,
-      });
-      const fastfoodOptions = await pickupAPI.getFastFood({
-        lat: +query.latitude,
-        lng: +query.longitude,
-      });
-      const coffeeOptions = await pickupAPI.getCoffee({
-        lat: +query.latitude,
-        lng: +query.longitude,
-      });
-      const pizzaOptions = await pickupAPI.getPizza({
-        lat: +query.latitude,
-        lng: +query.longitude,
-      });
-      const groceryOptions = await pickupAPI.getGrocery({
-        lat: +query.latitude,
-        lng: +query.longitude,
-      });
-      const drugstoreOptions = await pickupAPI.getDrugstore({
-        lat: +query.latitude,
-        lng: +query.longitude,
-      });
-      const convenienceOptions = await pickupAPI.getConvenience({
-        lat: +query.latitude,
-        lng: +query.longitude,
-      });
       availableStores = availableStores.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
-      let allRestaurants = [
-        ...restaurantsOptions.results,
-        ...fastfoodOptions.results,
-        ...coffeeOptions.results,
-        ...pizzaOptions.results,
-        ...groceryOptions.results,
-        ...drugstoreOptions.results,
-        ...convenienceOptions.results,
-      ];
       allRestaurants = allRestaurants.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
@@ -65,7 +47,10 @@ export const availableStores = createAsyncThunk(
           availableStores[storeIndex].name ==
           allRestaurants[restaurantIndex].name
         ) {
-          mappedStores.push(allRestaurants[restaurantIndex]);
+          mappedStores.push({
+            ...allRestaurants[restaurantIndex],
+            ...availableStores[storeIndex],
+          });
           restaurantIndex += 1;
         }
         if (
@@ -82,7 +67,8 @@ export const availableStores = createAsyncThunk(
           }
         }
       }
-      return thunkAPI.dispatch(setStores(mappedStores));
+
+      return await thunkAPI.dispatch(setStores(mappedStores));
     } catch (authError) {
       console.error(authError);
     }

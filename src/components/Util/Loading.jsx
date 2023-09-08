@@ -1,10 +1,19 @@
 const Loading = () => {
   return (
-    <div className="bg-white w-full min-h-screen flex justify-center items-center">
-      <div className="flex min-h-screen w-full items-center justify-center bg-white">
-        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-tr from-red-300 to-red-600 animate-spin">
-          <div className="h-10 w-10 rounded-full bg-white"></div>
-        </div>
+    <div className="h-screen w-full flex items-center justify-center">
+      <div className="sk-circle">
+        <div className="sk-circle1 sk-child"></div>
+        <div className="sk-circle2 sk-child"></div>
+        <div className="sk-circle3 sk-child"></div>
+        <div className="sk-circle4 sk-child"></div>
+        <div className="sk-circle5 sk-child"></div>
+        <div className="sk-circle6 sk-child"></div>
+        <div className="sk-circle7 sk-child"></div>
+        <div className="sk-circle8 sk-child"></div>
+        <div className="sk-circle9 sk-child"></div>
+        <div className="sk-circle10 sk-child"></div>
+        <div className="sk-circle11 sk-child"></div>
+        <div className="sk-circle12 sk-child"></div>
       </div>
     </div>
   );

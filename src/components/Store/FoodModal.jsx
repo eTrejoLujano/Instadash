@@ -20,8 +20,8 @@ const FoodModal = ({
   const user_id = useSelector((state) => state.auth.user.user_id);
   console.log("placeId", place_id);
   return (
-    <div>
-      <div className="justify-center items-center flex fixed h-screen w-screen z-50 overflow-y-scroll overscroll-y-contain container-snap">
+    <div className="">
+      <div className="justify-center items-center flex fixed h-full w-screen z-50">
         <div className="w-[34rem] h-fit pb-4 space-y-[2rem] px-[.5rem] bg-white rounded-2xl">
           <VscClose
             size={36}
@@ -33,8 +33,8 @@ const FoodModal = ({
             <div className="text-sm font-medium text-gray-500">
               {description}
             </div>
-            <div>
-              <img src={`../../..${image}`} className="w-[31.8rem] max-h-fit" />
+            <div className="flex justify-center">
+              <img src={`../../..${image}`} className="w-[20rem] max-h-fit" />
             </div>
           </div>
           <div className="space-y-3">
