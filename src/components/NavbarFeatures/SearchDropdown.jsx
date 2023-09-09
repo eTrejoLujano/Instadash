@@ -25,7 +25,7 @@ const SearchDropdown = ({ ref, input, storeView }) => {
     return (
       <div
         className="md:h-[40rem] h-screen absolute right-[3rem] lg:right-[6rem] w-full md:w-[20rem] lg:w-[23rem]
-               border rounded-lg top-[.1rem] z-40 animate-fade bg-white"
+               border rounded-lg top-[.1rem] z-40 bg-white"
         ref={ref}
       >
         <div

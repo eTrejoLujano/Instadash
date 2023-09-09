@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import DashedEats from "../../assets/icons/instadash.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import * as pickupAPI from "../../Api/pickup";
 import * as storeAPI from "../../Api/store";
+import * as checkoutAPI from "../../Api/checkout";
 import { currencyFormat, formatAddress } from "../Util/helperFunctions";
 import StoreMapWrapper from "../Store/StoreMapWrapper";
 import { FaStoreAlt, FaRegCreditCard } from "react-icons/fa";
@@ -12,6 +13,7 @@ import { RxHome } from "react-icons/rx";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import AddressModal from "../NavbarFeatures/AddressModal";
 import Loading from "../Util/Loading";
+import { getCart } from "../../redux-store/cartSlice";
 
 const CheckoutView = () => {
   let [isDelivery, setIsDelivery] = useState(true);
@@ -19,11 +21,14 @@ const CheckoutView = () => {
   let [travelInfo, setTravelInfo] = useState();
   let [storeInfo, setStoreInfo] = useState();
   let [items, setItems] = useState();
+  const [checkoutButton, setCheckoutButton] = useState(false);
   const [addressModal, setAddressModal] = useState(false);
   const [taxesAndFees, setTaxesAndFees] = useState();
   const [deliveryFee, setDeliveryFee] = useState("5.99");
   const auth = useSelector((state) => state.auth);
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     console.log(location.state.cartInfo);
     async function fetchData() {
@@ -40,6 +45,7 @@ const CheckoutView = () => {
         setTaxesAndFees(
           location.state.cartInfo.total * 0.0975 + (isDelivery ? 3 : 0)
         );
+        setItems(location.state.cartInfo.items);
         console.log("travelInfo: ", travelInfo);
 
         console.log("storeInfo: ", storeInfo);
@@ -48,6 +54,46 @@ const CheckoutView = () => {
     fetchData();
   }, [isDelivery]);
 
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     if (checkoutButton) {
+  //       const orderInfo = await checkoutAPI.createOrder({
+  //         origin: auth.location.address,
+  //         destination: location.state.cartInfo.address,
+  //         isDelivery,
+  //       });
+  //       console.log("orderInfo", orderInfo);
+  //       console.log(location.state.cartInfo.items);
+  //       for (let i = 0; i < items.length; i++) {
+  //         await checkoutAPI.updateCart({
+  //           user_id: auth.user.user_id,
+  //           item_id: items[i].item,
+  //           order_id: orderInfo[0].id,
+  //         });
+  //       }
+  //       dispatch(getCart({ user_id: auth.user.user_id }));
+  //       setCheckoutButton(false);
+  //     }
+  //   }
+  //   fetchData();
+  // }, [checkoutButton]);
+
+  const checkout = async ({ origin, destination }) => {
+    const orderInfo = await checkoutAPI.createOrder({
+      origin,
+      destination,
+      isDelivery,
+    });
+    for (let i = 0; i < items.length; i++) {
+      await checkoutAPI.updateCart({
+        user_id: auth.user.user_id,
+        item_id: items[i].item,
+        order_id: orderInfo[0].id,
+      });
+    }
+    dispatch(getCart({ user_id: auth.user.user_id }));
+    navigate("/orders");
+  };
   const handleClose = () => {
     setAddressModal(false);
   };
@@ -187,7 +233,15 @@ const CheckoutView = () => {
                 <div className="text-sm font-semibold">Gift Card</div>
               </div>
             </div>
-            <div className="w-full lg:w-[40rem] h-[2.5rem] rounded-full bg-red-600 hidden md:flex justify-between items-center px-4">
+            <div
+              className="w-full lg:w-[40rem] h-[2.5rem] rounded-full bg-red-600 hidden md:flex justify-between items-center px-4 cursor-pointer"
+              onClick={() =>
+                checkout({
+                  origin: auth.location.address,
+                  destination: location.state.cartInfo.address,
+                })
+              }
+            >
               <div className="text-white font-semibold">Place Order</div>
               <div className="text-white font-semibold">
                 {currencyFormat(
@@ -222,7 +276,15 @@ const CheckoutView = () => {
               </div>
               <div className="w-full flex flex-col divide-solid divide-y space-y-5">
                 <div>
-                  <div className="w-full h-[2.5rem] rounded-full bg-red-600 hidden md:flex justify-between items-center px-4">
+                  <div
+                    className="w-full h-[2.5rem] rounded-full bg-red-600 hidden md:flex justify-between items-center px-4 cursor-pointer"
+                    onClick={() =>
+                      checkout({
+                        origin: auth.location.address,
+                        destination: location.state.cartInfo.address,
+                      })
+                    }
+                  >
                     <div className="text-white font-semibold">Place Order</div>
                     <div className="text-white font-semibold">
                       {currencyFormat(
@@ -334,7 +396,15 @@ const CheckoutView = () => {
                     )}
                   </div>
                 </div>
-                <div className="w-full h-[2.5rem] rounded-full bg-red-600 md:hidden flex justify-between items-center px-4">
+                <div
+                  className="w-full h-[2.5rem] rounded-full bg-red-600 md:hidden flex justify-between items-center px-4 cursor-pointer"
+                  onClick={() =>
+                    checkout({
+                      origin: auth.location.address,
+                      destination: location.state.cartInfo.address,
+                    })
+                  }
+                >
                   <div className="text-white font-semibold">Place Order</div>
                   <div className="text-white font-semibold">
                     {currencyFormat(

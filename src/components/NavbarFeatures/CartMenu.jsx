@@ -83,7 +83,7 @@ const CartMenu = ({
             {placeIds.map((ids) => {
               if (mappedCart[ids])
                 return (
-                  <div className="space-y-3 h-full">
+                  <div key={ids} className="space-y-3 h-full">
                     <div className="w-full h-[5.5rem] space-y-3">
                       <div className="flex justify-between items-center px-4">
                         <div>

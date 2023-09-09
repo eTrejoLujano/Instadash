@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       animation: {
-        fade: "fadeOut .3s ease-in-out",
+        fade: "fadeOut .8s ease-in-out",
       },
       keyframes: (theme) => ({
         fadeOut: {
