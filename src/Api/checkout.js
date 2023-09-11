@@ -11,7 +11,7 @@ export const createOrder = async (orderInfo) => {
   return output;
 };
 
-export const updateCart = async (orderInfo) => {
+export const checkout = async (orderInfo) => {
   let output = [];
   await axios.post(`${URL}/api/updatecart/`, orderInfo).then((res) => {
     output = res.data;

@@ -47,45 +47,31 @@ const CheckoutView = () => {
         );
         setItems(location.state.cartInfo.items);
         console.log("travelInfo: ", travelInfo);
-
         console.log("storeInfo: ", storeInfo);
       }
     }
     fetchData();
   }, [isDelivery]);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     if (checkoutButton) {
-  //       const orderInfo = await checkoutAPI.createOrder({
-  //         origin: auth.location.address,
-  //         destination: location.state.cartInfo.address,
-  //         isDelivery,
-  //       });
-  //       console.log("orderInfo", orderInfo);
-  //       console.log(location.state.cartInfo.items);
-  //       for (let i = 0; i < items.length; i++) {
-  //         await checkoutAPI.updateCart({
-  //           user_id: auth.user.user_id,
-  //           item_id: items[i].item,
-  //           order_id: orderInfo[0].id,
-  //         });
-  //       }
-  //       dispatch(getCart({ user_id: auth.user.user_id }));
-  //       setCheckoutButton(false);
-  //     }
-  //   }
-  //   fetchData();
-  // }, [checkoutButton]);
-
-  const checkout = async ({ origin, destination }) => {
+  const checkout = async ({
+    origin,
+    origin_lat,
+    origin_lng,
+    destination,
+    destination_lat,
+    destination_lng,
+  }) => {
     const orderInfo = await checkoutAPI.createOrder({
       origin,
+      origin_lat,
+      origin_lng,
       destination,
       isDelivery,
+      destination_lat,
+      destination_lng,
     });
     for (let i = 0; i < items.length; i++) {
-      await checkoutAPI.updateCart({
+      await checkoutAPI.checkout({
         user_id: auth.user.user_id,
         item_id: items[i].item,
         order_id: orderInfo[0].id,
@@ -238,7 +224,11 @@ const CheckoutView = () => {
               onClick={() =>
                 checkout({
                   origin: auth.location.address,
+                  origin_lat: auth.location.latitude,
+                  origin_lng: auth.location.longitude,
                   destination: location.state.cartInfo.address,
+                  destination_lat: location.state.cartInfo.geometry.lat,
+                  destination_lng: location.state.cartInfo.geometry.lng,
                 })
               }
             >
@@ -281,7 +271,11 @@ const CheckoutView = () => {
                     onClick={() =>
                       checkout({
                         origin: auth.location.address,
+                        origin_lat: auth.location.latitude,
+                        origin_lng: auth.location.longitude,
                         destination: location.state.cartInfo.address,
+                        destination_lat: location.state.cartInfo.geometry.lat,
+                        destination_lng: location.state.cartInfo.geometry.lng,
                       })
                     }
                   >
@@ -401,7 +395,11 @@ const CheckoutView = () => {
                   onClick={() =>
                     checkout({
                       origin: auth.location.address,
+                      origin_lat: auth.location.latitude,
+                      origin_lng: auth.location.longitude,
                       destination: location.state.cartInfo.address,
+                      destination_lat: location.state.cartInfo.geometry.lat,
+                      destination_lng: location.state.cartInfo.geometry.lng,
                     })
                   }
                 >

@@ -1,15 +1,15 @@
 import { Wrapper } from "@googlemaps/react-wrapper";
-import StoreMap from "./StoreMap";
+import OrderMap from "./OrderMap";
 
-const StoreMapWrapper = ({ lat, lng, logo }) => {
+const OrderMapWrapper = ({ lat, lng, logo }) => {
   return (
     <Wrapper
       apiKey={import.meta.env.VITE_GOOGLE_KEY}
       version="beta"
       libraries={["marker", "places"]}
     >
-      <StoreMap lat={lat} lng={lng} logo={logo} />
+      <OrderMap lat={lat} lng={lng} logo={logo} />
     </Wrapper>
   );
 };
-export default StoreMapWrapper;
+export default OrderMapWrapper;
