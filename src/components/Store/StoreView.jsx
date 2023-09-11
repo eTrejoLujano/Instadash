@@ -47,7 +47,7 @@ const StoreView = () => {
         setStore(fetchStore);
         setFoodItems(fetchStore[0].store_items);
         setOriginalItems(fetchStore[0].store_items);
-        setTotalRatings(location.state.totalRatings);
+        setTotalRatings(location.state?.totalRatings);
         setDistance(travel.rows[0].elements[0]);
         setPlaceDetails(fetchPlaceDetails.result);
         setIsDelivery(false);
@@ -158,10 +158,12 @@ const StoreView = () => {
                         <div className="flex items-center space-x-[.2rem]">
                           <div>{placeDetails.rating}</div>
                           <AiOutlineStar className="fill-gray-600" />
-                          <div className="flex space-x-[.2rem]">
-                            <div>{totalRatings}+ </div>
-                            <div>ratings</div>
-                          </div>
+                          {totalRatings && (
+                            <div className="flex space-x-[.2rem]">
+                              <div>{totalRatings}+ </div>
+                              <div>ratings</div>
+                            </div>
+                          )}
                         </div>
                         <div>•</div>
                         <div>{distance.distance.text}</div> <div>•</div>{" "}

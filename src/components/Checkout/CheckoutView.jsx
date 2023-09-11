@@ -21,6 +21,7 @@ const CheckoutView = () => {
   let [travelInfo, setTravelInfo] = useState();
   let [storeInfo, setStoreInfo] = useState();
   let [items, setItems] = useState();
+  let [totalQuantity, setTotalQuantity] = useState(0);
   const [checkoutButton, setCheckoutButton] = useState(false);
   const [addressModal, setAddressModal] = useState(false);
   const [taxesAndFees, setTaxesAndFees] = useState();
@@ -40,6 +41,7 @@ const CheckoutView = () => {
         const storeInfo = await storeAPI.getStoreByName({
           store_name: location.state.cartInfo.name,
         });
+        setTotalQuantity(totalQuantity);
         setStoreInfo(storeInfo);
         setTravelInfo(travel.rows[0].elements[0]);
         setTaxesAndFees(
@@ -60,6 +62,7 @@ const CheckoutView = () => {
     destination,
     destination_lat,
     destination_lng,
+    total,
   }) => {
     const orderInfo = await checkoutAPI.createOrder({
       origin,
@@ -69,6 +72,8 @@ const CheckoutView = () => {
       isDelivery,
       destination_lat,
       destination_lng,
+      total,
+      totalQuantity: location.state.cartInfo.quantity,
     });
     for (let i = 0; i < items.length; i++) {
       await checkoutAPI.checkout({
@@ -229,6 +234,16 @@ const CheckoutView = () => {
                   destination: location.state.cartInfo.address,
                   destination_lat: location.state.cartInfo.geometry.lat,
                   destination_lng: location.state.cartInfo.geometry.lng,
+                  total:
+                    location.state.cartInfo.total +
+                    (isDelivery ? +deliveryFee : 0) +
+                    +taxesAndFees +
+                    (isDelivery
+                      ? (location.state.cartInfo.total +
+                          +deliveryFee +
+                          +taxesAndFees) *
+                        +tipChoice
+                      : 0),
                 })
               }
             >
@@ -276,6 +291,16 @@ const CheckoutView = () => {
                         destination: location.state.cartInfo.address,
                         destination_lat: location.state.cartInfo.geometry.lat,
                         destination_lng: location.state.cartInfo.geometry.lng,
+                        total:
+                          location.state.cartInfo.total +
+                          (isDelivery ? +deliveryFee : 0) +
+                          +taxesAndFees +
+                          (isDelivery
+                            ? (location.state.cartInfo.total +
+                                +deliveryFee +
+                                +taxesAndFees) *
+                              +tipChoice
+                            : 0),
                       })
                     }
                   >
@@ -400,6 +425,16 @@ const CheckoutView = () => {
                       destination: location.state.cartInfo.address,
                       destination_lat: location.state.cartInfo.geometry.lat,
                       destination_lng: location.state.cartInfo.geometry.lng,
+                      total:
+                        location.state.cartInfo.total +
+                        (isDelivery ? +deliveryFee : 0) +
+                        +taxesAndFees +
+                        (isDelivery
+                          ? (location.state.cartInfo.total +
+                              +deliveryFee +
+                              +taxesAndFees) *
+                            +tipChoice
+                          : 0),
                     })
                   }
                 >

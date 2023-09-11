@@ -59,3 +59,7 @@ export function gmapsAddress(address) {
   }
   return formattedAddress;
 }
+
+export function orderDateFormat(date) {
+  return date.slice(0, 3) + "," + date.slice(3, 10);
+}

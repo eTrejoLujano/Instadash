@@ -18,3 +18,17 @@ export const checkout = async (orderInfo) => {
   });
   return output;
 };
+
+export const getOrders = async ({ user_id }) => {
+  let output = [];
+  await axios
+    .get(`${URL}/api/getorders/`, {
+      params: {
+        user_id,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
+  return output;
+};

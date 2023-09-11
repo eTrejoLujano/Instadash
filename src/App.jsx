@@ -18,6 +18,7 @@ import SavedStores from "./components/Saved/SavedStores";
 import CategoryView from "./components/Category/CategoryView";
 import CheckoutView from "./components/Checkout/CheckoutView";
 import { Wrapper } from "@googlemaps/react-wrapper";
+import Receipt from "./components/Orders/Receipt";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -93,10 +94,19 @@ function App() {
           }
         />
         <Route
+          exact
           path="/orders"
           element={
             <PrivateRoute>
               <OrderHistory />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/orders/receipt"
+          element={
+            <PrivateRoute>
+              <Receipt />
             </PrivateRoute>
           }
         />
