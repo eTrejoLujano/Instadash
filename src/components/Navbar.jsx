@@ -40,12 +40,31 @@ function Navbar() {
   const [foodModal, setFoodModal] = useState(false);
   const [modalInfo, setModalInfo] = useState();
   const [inputText, setInputText] = useState("");
+  let [cartTotal, setCartTotal] = useState(0);
   const currentAddress = useSelector((state) => state.auth.location);
   const user_id = useSelector((state) => state.auth.user.user_id);
+  const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
     async function fetchData() {
       dispatch(getCart({ user_id }));
+
+      // .then(() => {
+      //   for (let i = 0; i < cart.length; i++) {
+      //     cartTotal += +cart[i].quantity;
+      //   }
+      //   console.log("cartTotal", cartTotal);
+      //   return setCartTotal(cartTotal);
+      // });
+      // console.log("outside if", cart);
+      // if (cart.length > 0) {
+      //   console.log("inside if", cart);
+      //   for (let i = 0; i < cart.length; i++) {
+      //     cartTotal += +cart[i].quantity;
+      //   }
+      //   console.log("cartTotal", cartTotal);
+      //   setCartTotal(cartTotal);
+      // }
     }
     fetchData();
   }, [dispatch, user_id, currentAddress]);
@@ -121,6 +140,10 @@ function Navbar() {
   const handleCartMenu = () => {
     setCartMenu(!cartMenu);
   };
+  const handleCartTotal = (total) => {
+    setCartTotal(total);
+  };
+
   const menuOptions = [
     { id: 1, name: "Home", icon: RxHome, click: homeClick },
     { id: 2, name: "Pickup", icon: SlBag, click: pickUpClick },
@@ -227,6 +250,7 @@ function Navbar() {
               slideCartRef={slideCartRef}
               cartMenuClose={cartMenuClose}
               handleFoodModal={handleFoodModal}
+              handleCartTotal={handleCartTotal}
             />
           )}
         </div>
@@ -313,7 +337,7 @@ function Navbar() {
             <BsCart3 size={24} />
             <div className="absolute rounded-full w-4 h-4 bg-red-500 right-[.5rem] lg:right-[3.4rem] bottom-[2rem]">
               <div className="text-xs text-white flex items-center justify-center">
-                1
+                {cartTotal ? cartTotal : "0"}
               </div>
             </div>
           </button>

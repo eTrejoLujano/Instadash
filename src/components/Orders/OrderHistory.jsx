@@ -89,79 +89,82 @@ const OrderHistory = () => {
                 destination_lng,
                 total,
                 totalQuantity,
-              }) => (
-                <div
-                  key={id}
-                  className="w-full min-h-[10rem] h-fit border rounded-xl hover:bg-gray-100 cursor-pointer"
-                >
+              }) =>
+                cart.length > 0 && (
                   <div
-                    className="h-[3rem] px-4 rounded-t-xl bg-gray-100 flex items-center justify-between"
-                    onClick={() =>
-                      storeView({
-                        id: cart[0].items_info.stores_info.id,
-                        origins: origin,
-                        destinations: destination,
-                        place_id: cart[0].place_id,
-                      })
-                    }
+                    key={id}
+                    className="w-full min-h-[10rem] h-fit border rounded-xl hover:bg-gray-100 cursor-pointer"
                   >
-                    <div className="font-semibold">
-                      {cart[0].items_info.stores_info.name}
-                    </div>
-                    <div>
-                      <MdOutlineArrowForwardIos />
-                    </div>
-                  </div>
-                  <div
-                    className="min-h-[7rem] h-fit flex flex-col items-start justify-start md:flex-row md:justify-between md:items-center px-4 w-full"
-                    onClick={() =>
-                      receiptView({
-                        id,
-                        cart,
-                        date,
-                        origin,
-                        origin_lat,
-                        origin_lng,
-                        isDelivery,
-                        destination,
-                        destination_lat,
-                        destination_lng,
-                        total,
-                        totalQuantity,
-                      })
-                    }
-                  >
-                    <div className="w-full md:w-5/6">
-                      <div className="text-gray-500 text-sm flex space-x-1">
-                        <div>{orderDateFormat(new Date(date).toString())}</div>
-                        <div>•</div>
-                        <div>{currencyFormat(+total)}</div>
-                        <div>•</div>
-                        <div>{totalQuantity} items</div>
+                    <div
+                      className="h-[3rem] px-4 rounded-t-xl bg-gray-100 flex items-center justify-between"
+                      onClick={() =>
+                        storeView({
+                          id: cart[0].items_info.stores_info.id,
+                          origins: origin,
+                          destinations: destination,
+                          place_id: cart[0].place_id,
+                        })
+                      }
+                    >
+                      <div className="font-semibold">
+                        {cart[0].items_info.stores_info.name}
                       </div>
-                      <div className="line-clamp-2 space-x-1 pr-6">
-                        {cart.map(({ items_info }, index) => (
-                          <span key={items_info.id}>
-                            {items_info.name}{" "}
-                            {cart.length - 1 == index ? " " : "•"}{" "}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="text-sm text-gray-500 line-clamp-1">
-                        {destination}
+                      <div>
+                        <MdOutlineArrowForwardIos />
                       </div>
                     </div>
-                    <div className="w-[9rem] flex items-center justify-end py-3">
-                      <div className="font-semibold rounded-full w-[9rem] h-[2.8rem] border flex justify-center items-center space-x-1 bg-gray-200 hover:bg-gray-300">
-                        <div>
-                          <TfiReceipt />
+                    <div
+                      className="min-h-[7rem] h-fit flex flex-col items-start justify-start md:flex-row md:justify-between md:items-center px-4 w-full"
+                      onClick={() =>
+                        receiptView({
+                          id,
+                          cart,
+                          date,
+                          origin,
+                          origin_lat,
+                          origin_lng,
+                          isDelivery,
+                          destination,
+                          destination_lat,
+                          destination_lng,
+                          total,
+                          totalQuantity,
+                        })
+                      }
+                    >
+                      <div className="w-full md:w-5/6">
+                        <div className="text-gray-500 text-sm flex space-x-1">
+                          <div>
+                            {orderDateFormat(new Date(date).toString())}
+                          </div>
+                          <div>•</div>
+                          <div>{currencyFormat(+total)}</div>
+                          <div>•</div>
+                          <div>{totalQuantity} items</div>
                         </div>
-                        <div className="truncate">View Receipt</div>
+                        <div className="line-clamp-2 space-x-1 pr-6">
+                          {cart.map(({ items_info }, index) => (
+                            <span key={items_info.id}>
+                              {items_info.name}{" "}
+                              {cart.length - 1 == index ? " " : "•"}{" "}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="text-sm text-gray-500 line-clamp-1">
+                          {destination}
+                        </div>
+                      </div>
+                      <div className="w-[9rem] flex items-center justify-end py-3">
+                        <div className="font-semibold rounded-full w-[9rem] h-[2.8rem] border flex justify-center items-center space-x-1 bg-gray-200 hover:bg-gray-300">
+                          <div>
+                            <TfiReceipt />
+                          </div>
+                          <div className="truncate">View Receipt</div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )
+                )
             )}
         </div>
       </div>

@@ -26,6 +26,7 @@ const CartMenu = ({
   let [mappedCart, setMappedCart] = useState([]);
   let [placeIds, setPlaceIds] = useState([]);
   let [loading, setLoading] = useState();
+  let [totalQuantity, setTotalQuantity] = useState(0);
   const user_id = useSelector((state) => state.auth.user.user_id);
   const cart = useSelector((state) => state.cart.cart);
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ const CartMenu = ({
             mappedCart[cart[i].place_id].total +=
               cart[i].quantity * +cart[i].items_info.prices;
             mappedCart[cart[i].place_id].quantity += cart[i].quantity;
+            totalQuantity += cart[i].quantity;
           } else {
             placeIds.push(cart[i].place_id);
             mappedCart[cart[i].place_id] = {};
@@ -61,6 +63,7 @@ const CartMenu = ({
             mappedCart[cart[i].place_id].address =
               placeDetails.result.formatted_address;
             mappedCart[cart[i].place_id].items.push(cart[i]);
+            totalQuantity += cart[i].quantity;
           }
         }
       setMappedCart(mappedCart);
