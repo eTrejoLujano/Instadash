@@ -5,8 +5,9 @@ import Restaurants from "./Restaurants";
 import { useSelector } from "react-redux";
 import FoodModal from "../Store/FoodModal";
 import Loading from "../Util/Loading";
+import { StoreList } from "./StoreList";
 
-const PickupMap = ({ storeView }) => {
+const PickupMap = ({ storeView, storeViewList }) => {
   const [map, setMap] = useState();
   const [showModal, setShowModal] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
@@ -39,7 +40,7 @@ const PickupMap = ({ storeView }) => {
   if (loading) return <Loading />;
   else
     return (
-      <div className="md:top-[0rem] top-[0rem] relative w-screen">
+      <div className="md:flex md:top-[0rem] top-[0rem] h-screen relative w-screen">
         <div className="max-h-4/5">
           {showModal && (
             <FoodModal
@@ -53,10 +54,22 @@ const PickupMap = ({ storeView }) => {
             />
           )}
         </div>
-        <div ref={ref} id="map" className="w-screen h-screen" />
+        <div className="hidden md:h-full md:w-[26.7rem] md:flex pt-16 relative">
+          <StoreList storeView={storeViewList} itemModal={itemModal} />
+        </div>
+        <div
+          ref={ref}
+          id="map"
+          className="h-2/3 md:h-screen w-screen flex items-center justify-center z-0"
+        />
+
         {map && (
           <Restaurants storeView={storeView} map={map} itemModal={itemModal} />
         )}
+
+        <div className="md:hidden w-full h-1/3 md:h-full md:w-[32rem] flex">
+          <StoreList storeView={storeViewList} itemModal={itemModal} />
+        </div>
       </div>
     );
 };

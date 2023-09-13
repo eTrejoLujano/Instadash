@@ -14,26 +14,36 @@ import { MdOutlineArrowForwardIos } from "react-icons/md";
 import AddressModal from "../NavbarFeatures/AddressModal";
 import Loading from "../Util/Loading";
 import { getCart } from "../../redux-store/cartSlice";
+import ItemsInCart from "../NavbarFeatures/ItemsInCart";
+import FoodModal from "../Store/FoodModal";
 
 const CheckoutView = () => {
   let [isDelivery, setIsDelivery] = useState(true);
-  let [tipChoice, setTipChoice] = useState(".2");
+  let [tipChoice, setTipChoice] = useState(0.2);
   let [travelInfo, setTravelInfo] = useState();
   let [storeInfo, setStoreInfo] = useState();
   let [items, setItems] = useState();
   let [totalQuantity, setTotalQuantity] = useState(0);
+  let [subtotalAmount, setSubtotalAmount] = useState(0);
   const [checkoutButton, setCheckoutButton] = useState(false);
   const [addressModal, setAddressModal] = useState(false);
-  const [taxesAndFees, setTaxesAndFees] = useState();
-  const [deliveryFee, setDeliveryFee] = useState("5.99");
+  const [taxes, setTaxes] = useState(0.0975);
+  const [fees, setFees] = useState(3);
+  const [orderTotal, setOrderTotal] = useState();
+  const [deliveryFee, setDeliveryFee] = useState(5.99);
+  const [foodModal, setFoodModal] = useState(false);
+  const [modalInfo, setModalInfo] = useState();
+  const [orderSummary, setOrderSummary] = useState(false);
   const auth = useSelector((state) => state.auth);
+  const cart = useSelector((state) => state.cart.cart);
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(location.state.cartInfo);
+    console.log("cartInfo", location.state.cartInfo);
     async function fetchData() {
       if (auth.location) {
+        subtotalAmount = 0;
         const travel = await pickupAPI.getDistance({
           destinations: location.state.cartInfo.address,
           origins: auth.location.address,
@@ -41,19 +51,31 @@ const CheckoutView = () => {
         const storeInfo = await storeAPI.getStoreByName({
           store_name: location.state.cartInfo.name,
         });
+        for (let i = 0; i < cart.length; i++) {
+          if (location.state.place_id == cart[i].place_id) {
+            subtotalAmount += cart[i].quantity * +cart[i].items_info.prices;
+          }
+        }
+        setSubtotalAmount(subtotalAmount);
         setTotalQuantity(totalQuantity);
         setStoreInfo(storeInfo);
         setTravelInfo(travel.rows[0].elements[0]);
-        setTaxesAndFees(
-          location.state.cartInfo.total * 0.0975 + (isDelivery ? 3 : 0)
+        setOrderTotal(
+          subtotalAmount +
+            subtotalAmount * taxes +
+            (isDelivery ? fees : 0) +
+            (isDelivery ? deliveryFee : 0) +
+            (isDelivery ? subtotalAmount * tipChoice : 0)
         );
+        // setTaxesAndFees(subtotalAmount * 0.0975 + (isDelivery ? 3 : 0));
         setItems(location.state.cartInfo.items);
         console.log("travelInfo: ", travelInfo);
         console.log("storeInfo: ", storeInfo);
       }
     }
     fetchData();
-  }, [isDelivery]);
+  }, [isDelivery, dispatch, cart, tipChoice]);
+  console.log("subtotal Amount", subtotalAmount);
 
   const checkout = async ({
     origin,
@@ -88,11 +110,40 @@ const CheckoutView = () => {
   const handleClose = () => {
     setAddressModal(false);
   };
+  const handleFoodModal = (object) => {
+    setFoodModal(true);
+    setModalInfo(object);
+  };
+  const closeFoodModal = () => {
+    setFoodModal(false);
+  };
+  const placeOrder = () => {
+    checkout({
+      origin: auth.location.address,
+      origin_lat: auth.location.latitude,
+      origin_lng: auth.location.longitude,
+      destination: location.state.cartInfo.address,
+      destination_lat: location.state.cartInfo.geometry.lat,
+      destination_lng: location.state.cartInfo.geometry.lng,
+      total: orderTotal,
+    });
+  };
   if (!travelInfo) return <Loading />;
   else
     return (
       <div>
         {addressModal && <AddressModal handleClose={handleClose} />}
+        {foodModal && (
+          <FoodModal
+            itemId={modalInfo.itemId}
+            name={modalInfo.name}
+            description={modalInfo.description}
+            image={modalInfo.image}
+            price={modalInfo.price}
+            quantity={modalInfo.quantity}
+            handleClose={closeFoodModal}
+          />
+        )}
         <div className="md:pt-[3.9rem] relative top-[7rem] md:top-0 w-full h-fit md:h-screen flex md:flex-row flex-col items-center justify-center">
           <div className="w-full h-fit md:h-full md:pt-[2rem] border-r flex flex-col items-center md:space-y-4">
             <div className="w-full lg:w-[40rem] h-[4rem] border rounded-lg hidden md:flex justify-between items-center px-4">
@@ -226,45 +277,16 @@ const CheckoutView = () => {
             </div>
             <div
               className="w-full lg:w-[40rem] h-[2.5rem] rounded-full bg-red-600 hidden md:flex justify-between items-center px-4 cursor-pointer"
-              onClick={() =>
-                checkout({
-                  origin: auth.location.address,
-                  origin_lat: auth.location.latitude,
-                  origin_lng: auth.location.longitude,
-                  destination: location.state.cartInfo.address,
-                  destination_lat: location.state.cartInfo.geometry.lat,
-                  destination_lng: location.state.cartInfo.geometry.lng,
-                  total:
-                    location.state.cartInfo.total +
-                    (isDelivery ? +deliveryFee : 0) +
-                    +taxesAndFees +
-                    (isDelivery
-                      ? (location.state.cartInfo.total +
-                          +deliveryFee +
-                          +taxesAndFees) *
-                        +tipChoice
-                      : 0),
-                })
-              }
+              onClick={() => placeOrder()}
             >
               <div className="text-white font-semibold">Place Order</div>
               <div className="text-white font-semibold">
-                {currencyFormat(
-                  location.state.cartInfo.total +
-                    (isDelivery ? +deliveryFee : 0) +
-                    +taxesAndFees +
-                    (isDelivery
-                      ? (location.state.cartInfo.total +
-                          +deliveryFee +
-                          +taxesAndFees) *
-                        +tipChoice
-                      : 0)
-                )}
+                {currencyFormat(orderTotal)}
               </div>
             </div>
           </div>
-          <div className="w-full md:w-[25rem] h-fit md:h-full">
-            <div className="w-full md:w-[25rem] px-4 md:px-8 md:py-8 md:h-full space-y-6">
+          <div className="w-full md:w-[25rem] h-fit md:h-full pb-7">
+            <div className="w-full md:w-[25rem] px-4 md:px-8 md:py-8 md:h-full space-y-6 overscroll-y-contain overflow-y-scroll container-snap">
               <div className="hidden md:flex items-center space-x-4">
                 <div>
                   <img
@@ -283,49 +305,39 @@ const CheckoutView = () => {
                 <div>
                   <div
                     className="w-full h-[2.5rem] rounded-full bg-red-600 hidden md:flex justify-between items-center px-4 cursor-pointer"
-                    onClick={() =>
-                      checkout({
-                        origin: auth.location.address,
-                        origin_lat: auth.location.latitude,
-                        origin_lng: auth.location.longitude,
-                        destination: location.state.cartInfo.address,
-                        destination_lat: location.state.cartInfo.geometry.lat,
-                        destination_lng: location.state.cartInfo.geometry.lng,
-                        total:
-                          location.state.cartInfo.total +
-                          (isDelivery ? +deliveryFee : 0) +
-                          +taxesAndFees +
-                          (isDelivery
-                            ? (location.state.cartInfo.total +
-                                +deliveryFee +
-                                +taxesAndFees) *
-                              +tipChoice
-                            : 0),
-                      })
-                    }
+                    onClick={() => placeOrder()}
                   >
                     <div className="text-white font-semibold">Place Order</div>
                     <div className="text-white font-semibold">
-                      {currencyFormat(
-                        location.state.cartInfo.total +
-                          (isDelivery ? +deliveryFee : 0) +
-                          +taxesAndFees +
-                          (isDelivery
-                            ? (location.state.cartInfo.total +
-                                +deliveryFee +
-                                +taxesAndFees) *
-                              +tipChoice
-                            : 0)
-                      )}
+                      {currencyFormat(orderTotal)}
                     </div>
                   </div>
-                  <div className="w-full h-fit pt-5 flex justify-between items-center">
-                    <div>Order Summary</div>
+                  <div className="w-full h-fit pt-5">
+                    <div
+                      className="flex  justify-between items-center cursor-pointer del"
+                      onClick={() => setOrderSummary((state) => !state)}
+                    >
+                      <div>Order Summary</div>
+                      <div>
+                        <MdOutlineArrowForwardIos
+                          className="text-gray-700"
+                          size={16}
+                        />
+                      </div>
+                    </div>
                     <div>
-                      <MdOutlineArrowForwardIos
-                        className="text-gray-700"
-                        size={16}
-                      />
+                      {orderSummary &&
+                        items &&
+                        items.map(({ id, items_info, quantity }) => (
+                          <ItemsInCart
+                            key={id}
+                            id={id}
+                            item={items_info}
+                            quantity={quantity}
+                            // cartMenuClose={cartMenuClose}
+                            handleFoodModal={handleFoodModal}
+                          />
+                        ))}
                     </div>
                   </div>
                 </div>
@@ -336,62 +348,59 @@ const CheckoutView = () => {
                     <div>Fees & Estimated Tax</div>
                   </div>
                   <div className="space-y-2">
-                    <div>{currencyFormat(location.state.cartInfo.total)}</div>
+                    <div>{currencyFormat(subtotalAmount)}</div>
                     {isDelivery && <div>{currencyFormat(+deliveryFee)}</div>}
-                    <div>{currencyFormat(+taxesAndFees)}</div>
+                    <div>
+                      {currencyFormat(
+                        subtotalAmount * taxes + (isDelivery ? fees : 0)
+                      )}
+                    </div>
                   </div>
                 </div>
                 {isDelivery && (
                   <div className="space-y-5">
                     <div className="w-full flex justify-between items-center pt-5">
                       <div>Dasher Tip</div>
-                      <div>
-                        {currencyFormat(
-                          (location.state.cartInfo.total +
-                            +deliveryFee +
-                            +taxesAndFees) *
-                            +tipChoice
-                        )}
-                      </div>
+                      <div>{currencyFormat(subtotalAmount * tipChoice)}</div>
                     </div>
 
                     <div className="flex flex-col items-center w-full px-4 cursor-pointer">
                       <div className="w-full h-[2rem] flex justify-between items-center rounded-full border bg-gray-200">
                         <div
                           className={`w-1/4 flex justify-center items-center ${
-                            tipChoice === ".15" &&
+                            tipChoice === 0.15 &&
                             "rounded-full text-white h-full bg-black"
                           }`}
                           onClick={() => {
-                            setTipChoice(".15");
+                            setTipChoice(0.15);
                           }}
                         >
                           15%
                         </div>
                         <div
                           className={`w-1/4 flex justify-center items-center ${
-                            tipChoice === ".2" &&
+                            tipChoice === 0.2 &&
                             "rounded-full text-white h-full bg-black"
                           }`}
-                          onClick={() => setTipChoice(".2")}
+                          onClick={() => setTipChoice(0.2)}
                         >
                           20%
                         </div>
                         <div
                           className={`w-1/4 flex justify-center items-center ${
-                            tipChoice === ".25" &&
+                            tipChoice === 0.25 &&
                             "rounded-full text-white h-full bg-black"
                           }`}
-                          onClick={() => setTipChoice(".25")}
+                          onClick={() => setTipChoice(0.25)}
                         >
                           25%
                         </div>
                         <div
                           className={`w-1/4 flex justify-center items-center ${
-                            tipChoice === ".3" &&
+                            tipChoice === 0.3 &&
                             "rounded-full text-white h-full bg-black"
                           }`}
-                          onClick={() => setTipChoice(".3")}
+                          onClick={() => setTipChoice(0.3)}
                         >
                           30%
                         </div>
@@ -401,56 +410,15 @@ const CheckoutView = () => {
                 )}
                 <div className="w-full flex justify-between pt-5">
                   <div>Total</div>
-                  <div>
-                    {currencyFormat(
-                      location.state.cartInfo.total +
-                        (isDelivery ? +deliveryFee : 0) +
-                        +taxesAndFees +
-                        (isDelivery
-                          ? (location.state.cartInfo.total +
-                              +deliveryFee +
-                              +taxesAndFees) *
-                            +tipChoice
-                          : 0)
-                    )}
-                  </div>
+                  <div>{currencyFormat(orderTotal)}</div>
                 </div>
                 <div
                   className="w-full h-[2.5rem] rounded-full bg-red-600 md:hidden flex justify-between items-center px-4 cursor-pointer"
-                  onClick={() =>
-                    checkout({
-                      origin: auth.location.address,
-                      origin_lat: auth.location.latitude,
-                      origin_lng: auth.location.longitude,
-                      destination: location.state.cartInfo.address,
-                      destination_lat: location.state.cartInfo.geometry.lat,
-                      destination_lng: location.state.cartInfo.geometry.lng,
-                      total:
-                        location.state.cartInfo.total +
-                        (isDelivery ? +deliveryFee : 0) +
-                        +taxesAndFees +
-                        (isDelivery
-                          ? (location.state.cartInfo.total +
-                              +deliveryFee +
-                              +taxesAndFees) *
-                            +tipChoice
-                          : 0),
-                    })
-                  }
+                  onClick={() => placeOrder()}
                 >
                   <div className="text-white font-semibold">Place Order</div>
                   <div className="text-white font-semibold">
-                    {currencyFormat(
-                      location.state.cartInfo.total +
-                        (isDelivery ? +deliveryFee : 0) +
-                        +taxesAndFees +
-                        (isDelivery
-                          ? (location.state.cartInfo.total +
-                              +deliveryFee +
-                              +taxesAndFees) *
-                            +tipChoice
-                          : 0)
-                    )}
+                    {currencyFormat(orderTotal)}
                   </div>
                 </div>
               </div>

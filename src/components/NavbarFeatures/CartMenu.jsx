@@ -14,6 +14,7 @@ import { FaTrash } from "react-icons/fa";
 import PlateIcon from "../../assets/icons/plateicon.png";
 import { currencyFormat, formatAddress } from "../Util/helperFunctions";
 import Loading from "../Util/Loading";
+import ItemsInCart from "./ItemsInCart";
 
 const CartMenu = ({
   handleCartMenu,
@@ -26,12 +27,13 @@ const CartMenu = ({
   let [mappedCart, setMappedCart] = useState([]);
   let [placeIds, setPlaceIds] = useState([]);
   let [loading, setLoading] = useState();
-  let [totalQuantity, setTotalQuantity] = useState(0);
   const user_id = useSelector((state) => state.auth.user.user_id);
   const cart = useSelector((state) => state.cart.cart);
   const navigate = useNavigate();
   const goCheckout = (placeId) => {
-    navigate("/checkout", { state: { cartInfo: mappedCart[placeId] } });
+    navigate("/checkout", {
+      state: { cartInfo: mappedCart[placeId], place_id: placeId },
+    });
     cartMenuClose();
   };
   useEffect(() => {
@@ -46,7 +48,6 @@ const CartMenu = ({
             mappedCart[cart[i].place_id].total +=
               cart[i].quantity * +cart[i].items_info.prices;
             mappedCart[cart[i].place_id].quantity += cart[i].quantity;
-            totalQuantity += cart[i].quantity;
           } else {
             placeIds.push(cart[i].place_id);
             mappedCart[cart[i].place_id] = {};
@@ -63,7 +64,6 @@ const CartMenu = ({
             mappedCart[cart[i].place_id].address =
               placeDetails.result.formatted_address;
             mappedCart[cart[i].place_id].items.push(cart[i]);
-            totalQuantity += cart[i].quantity;
           }
         }
       setMappedCart(mappedCart);
@@ -113,73 +113,14 @@ const CartMenu = ({
                     </div>
                     {mappedCart[ids].items.map(
                       ({ id, items_info, quantity }) => (
-                        <div
+                        <ItemsInCart
                           key={id}
-                          onClick={() => {
-                            handleFoodModal({
-                              itemId: items_info.id,
-                              name: items_info.name,
-                              description: items_info.description,
-                              image: items_info.image,
-                              price: items_info.prices,
-                              quantity,
-                            });
-                            cartMenuClose();
-                          }}
-                          className="flex px-4 pt-4 space-x-2 justify-between items-center w-full h-[5rem] rounded-md z-10 cursor-pointer"
-                        >
-                          <div className="flex w-[15rem] max-h-full bg-white space-x-3">
-                            <img
-                              src={`../../..${items_info.image}`}
-                              className=" w-[5rem] h-[5rem] object-cover max-h-full"
-                            />
-                            <div className="flex flex-col justify-center">
-                              <div className="text-sm text-start max-h-fit">
-                                {items_info.name}
-                              </div>
-                              <div className="text-md text-start">
-                                ${items_info.prices}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="rounded-full bg-gray-50 shadow shadow-gray-300 h-[1.8rem] w-[6rem] flex items-center justify-between">
-                            <div
-                              className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
-                              onClick={
-                                addedItem == items_info.id && quantity !== 1
-                                  ? (e) => {
-                                      dispatch(
-                                        minusOneCart({ user_id, cart_id: id })
-                                      );
-                                      e.stopPropagation();
-                                    }
-                                  : (e) => {
-                                      dispatch(
-                                        deleteCart({ user_id, cart_id: id })
-                                      );
-                                      e.stopPropagation();
-                                    }
-                              }
-                            >
-                              {addedItem == items_info.id && quantity !== 1 ? (
-                                <AiOutlineMinus size={15} />
-                              ) : (
-                                <FaTrash size={15} className="fill-gray-500" />
-                              )}
-                            </div>
-                            <div className="text-sm">{quantity}</div>
-                            <div
-                              className="rounded-full shadow shadow-gray-300 bg-white h-full w-[1.8rem] flex justify-center items-center"
-                              onClick={(e) => {
-                                setAddedItem(items_info.id);
-                                dispatch(addOneCart({ user_id, cart_id: id }));
-                                e.stopPropagation();
-                              }}
-                            >
-                              <AiOutlinePlus size={15} />
-                            </div>
-                          </div>
-                        </div>
+                          id={id}
+                          item={items_info}
+                          quantity={quantity}
+                          cartMenuClose={cartMenuClose}
+                          handleFoodModal={handleFoodModal}
+                        />
                       )
                     )}
                   </div>

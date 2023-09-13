@@ -25,7 +25,6 @@ const UserHome = () => {
   const [foodPick, setFoodPick] = useState(null);
   let [typeStores, setTypeStores] = useState([]);
   const [loading, setLoading] = useState();
-  const [storesLoading, setStoresLoading] = useState();
   const restaurants = useSelector((state) => state.store.store);
   const currentAddress = useSelector((state) => state.auth.location);
 
@@ -131,8 +130,6 @@ const UserHome = () => {
     setFoodPick(id);
     navigate(`/?foodtype=${name}`);
   };
-  console.log("loading", loading);
-  console.log("stores loading", storesLoading);
   if (loading) return <Loading />;
   else if (!loading)
     return (
@@ -214,8 +211,6 @@ const UserHome = () => {
                   name={dashboard.name}
                   restaurants={restaurants}
                   currentAddress={currentAddress}
-                  setStoresLoading={setStoresLoading}
-                  storesLoading={storesLoading}
                 />
               ))}
             </div>

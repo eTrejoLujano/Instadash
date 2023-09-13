@@ -14,8 +14,6 @@ const AddressDropdown = ({ dropdownRef, inputStyling }) => {
   const dispatch = useDispatch();
   const [allAddresses, setAllAddresses] = useState(null);
   const user_id = useSelector((state) => state.auth.user.user_id);
-  const currentAddress = useSelector((state) => state.auth.location);
-
   useEffect(() => {
     async function fetchData() {
       const addresses = await locationAPI.getAllAddresses({ user_id });
@@ -29,7 +27,6 @@ const AddressDropdown = ({ dropdownRef, inputStyling }) => {
     }
     fetchData();
   }, [user_id]);
-
   const locationHover = () => {
     const options = {
       fields: ["formatted_address", "geometry", "name"],

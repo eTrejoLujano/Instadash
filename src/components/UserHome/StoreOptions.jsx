@@ -7,13 +7,7 @@ import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 import { formatAddress } from "../Util/helperFunctions";
 import Loading from "../Util/Loading";
 
-const StoreOptions = ({
-  stores,
-  name,
-  currentAddress,
-  setStoresLoading,
-  storesLoading,
-}) => {
+const StoreOptions = ({ stores, name, currentAddress }) => {
   const ref = useRef(null);
   const [disableButton, setDisableButton] = useState("left");
   let [mappedStores, setMappedStores] = useState([]);
@@ -24,7 +18,6 @@ const StoreOptions = ({
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      setStoresLoading(true);
       let sortedStores = stores.sort((a, b) =>
         a.stores_info.name.localeCompare(b.stores_info.name)
       );
@@ -57,7 +50,6 @@ const StoreOptions = ({
       console.log("MAPPED STORES>>>", mappedStores);
       setMappedStores(mappedStores.sort(() => Math.random() - 0.5));
       setLoading(false);
-      setStoresLoading(false);
     }
     fetchData();
   }, []);

@@ -23,13 +23,18 @@ const MapWrapper = () => {
       },
     });
   };
+  const storeViewList = (object) => {
+    navigate("/store", {
+      state: object,
+    });
+  };
   return (
     <Wrapper
       apiKey={import.meta.env.VITE_GOOGLE_KEY}
       version="beta"
       libraries={["marker", "places"]}
     >
-      <PickupMap storeView={storeView} />
+      <PickupMap storeView={storeView} storeViewList={storeViewList} />
     </Wrapper>
   );
 };

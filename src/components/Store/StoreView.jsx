@@ -34,6 +34,7 @@ const StoreView = () => {
     async function fetchData() {
       if (location.state.id) {
         setLoading(true);
+        console.log("location", location.state.id);
         const fetchStore = await storeAPI.getStoreById({
           store_id: location.state.id,
         });
@@ -50,7 +51,7 @@ const StoreView = () => {
         setTotalRatings(location.state?.totalRatings);
         setDistance(travel.rows[0].elements[0]);
         setPlaceDetails(fetchPlaceDetails.result);
-        setIsDelivery(false);
+        setIsDelivery(location.state.isDelivery ? true : false);
         setLoading(false);
       }
       if (location.state.name) {
