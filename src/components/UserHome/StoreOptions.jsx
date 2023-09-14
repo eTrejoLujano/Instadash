@@ -13,7 +13,6 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
   let [mappedStores, setMappedStores] = useState([]);
   let [loading, setLoading] = useState();
   const restaurants = useSelector((state) => state.store.store);
-  const currentAddressState = useSelector((state) => state.auth.location);
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchData() {
@@ -224,7 +223,7 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
                         </div>
                       </div>
                       <div className="text-gray-600 text-sm">
-                        ({store.user_ratings_total}+ reviews)
+                        ({store.user_ratings_total}+ ratings)
                       </div>
                     </div>
                   </div>

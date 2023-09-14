@@ -32,3 +32,18 @@ export const getOrders = async ({ user_id }) => {
     });
   return output;
 };
+
+export const deleteOrder = async ({ user_id, order_id }) => {
+  let output = [];
+  await axios
+    .get(`${URL}/api/deleteorder/`, {
+      params: {
+        user_id,
+        order_id,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
+  return output;
+};

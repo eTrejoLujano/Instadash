@@ -266,7 +266,7 @@ const UserHome = () => {
                               </div>
                             </div>
                             <div className="text-gray-500 text-sm">
-                              ({store.user_ratings_total}+ reviews)
+                              ({store.user_ratings_total}+ ratings)
                             </div>
                           </div>
                         </div>

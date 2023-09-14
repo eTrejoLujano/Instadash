@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Loading from "../Util/Loading";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { TfiReceipt } from "react-icons/tfi";
+import { FaTrash } from "react-icons/fa";
 import { currencyFormat, orderDateFormat } from "../Util/helperFunctions";
 
 const OrderHistory = () => {
@@ -154,12 +155,30 @@ const OrderHistory = () => {
                           {destination}
                         </div>
                       </div>
-                      <div className="w-[9rem] flex items-center justify-end py-3">
+                      <div className="w-full md:w-[9rem] md:flex-col flex items-center justify-between md:justify-end py-3 md:space-y-3">
                         <div className="font-semibold rounded-full w-[9rem] h-[2.8rem] border flex justify-center items-center space-x-1 bg-gray-200 hover:bg-gray-300">
                           <div>
                             <TfiReceipt />
                           </div>
                           <div className="truncate">View Receipt</div>
+                        </div>
+                        <div className="font-semibold rounded-full w-[9rem] h-[2.8rem] border flex justify-center items-center space-x-1 bg-gray-200 hover:bg-gray-300">
+                          <div>
+                            <FaTrash />
+                          </div>
+                          <div
+                            className="truncate"
+                            onClick={(e) => {
+                              checkoutAPI.deleteOrder({
+                                user_id: auth.user.user_id,
+                                order_id: id,
+                              });
+                              e.stopPropagation();
+                              window.location.reload();
+                            }}
+                          >
+                            Delete Receipt
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -142,7 +142,7 @@ const CategoryView = () => {
                                 </div>
                               </div>
                               <div className="text-gray-500 text-sm">
-                                ({user_ratings_total}+ reviews)
+                                ({user_ratings_total}+ ratings)
                               </div>
                             </div>
                           </div>

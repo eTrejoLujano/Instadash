@@ -1,16 +1,8 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  addOneCart,
-  deleteCart,
-  minusOneCart,
-} from "../../redux-store/cartSlice";
-import FoodModal from "../Store/FoodModal";
 import * as pickupAPI from "../../Api/pickup";
 import { CgClose } from "react-icons/cg";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { FaTrash } from "react-icons/fa";
 import PlateIcon from "../../assets/icons/plateicon.png";
 import { currencyFormat, formatAddress } from "../Util/helperFunctions";
 import Loading from "../Util/Loading";
@@ -22,12 +14,9 @@ const CartMenu = ({
   cartMenuClose,
   handleFoodModal,
 }) => {
-  const dispatch = useDispatch();
-  const [addedItem, setAddedItem] = useState();
   let [mappedCart, setMappedCart] = useState([]);
   let [placeIds, setPlaceIds] = useState([]);
   let [loading, setLoading] = useState();
-  const user_id = useSelector((state) => state.auth.user.user_id);
   const cart = useSelector((state) => state.cart.cart);
   const navigate = useNavigate();
   const goCheckout = (placeId) => {
