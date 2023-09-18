@@ -82,7 +82,7 @@ const CategoryView = () => {
   if (loading) return <Loading />;
   else
     return (
-      <div className="md:pt-[5rem] w-full h-full">
+      <div className="md:pt-[5rem] w-full h-full relative md:top-[0rem] top-[8rem]">
         <div className="flex flex-row justify-center items-center">
           <div className="px-4 md:px-8 lg:px-12 relative top-7 space-y-6 md:space-y-10 w-[76rem]">
             {/* <p className="text-4xl px-4 font-bold">{category[0].name}</p> */}
@@ -152,11 +152,11 @@ const CategoryView = () => {
                           className="pr-1"
                           onClick={() => console.log("hello")}
                         >
-                          <TbHeart
+                          {/* <TbHeart
                             size={26}
 
                             // className={store.save ? "fill-red-400" : ""}
-                          />
+                          /> */}
                         </button>
                       </button>
                       <div className="flex sm:invisible w-screen h-[.05rem] relative top-1 rounded bg-gray-200" />

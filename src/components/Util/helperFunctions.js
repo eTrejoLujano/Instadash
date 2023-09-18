@@ -67,3 +67,7 @@ export function orderDateFormat(date) {
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export function savedStoreCheck(array, storeId) {
+  return array.filter((store) => store.id == storeId);
+}

@@ -19,6 +19,7 @@ import CategoryView from "./components/Category/CategoryView";
 import CheckoutView from "./components/Checkout/CheckoutView";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import ReceiptMap from "./components/Orders/ReceiptMap";
+import Footer from "./components/Footer";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -143,6 +144,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </ScrollWrapper>
   );
 }

@@ -16,7 +16,7 @@ const FoodItem = ({
         onClick={() =>
           foodModelInfo({ itemId, name, description, image, price, place_id })
         }
-        className="flex justify-between items-center w-full h-[9rem] md:border md:border-b-2 rounded-md z-10 cursor-pointer"
+        className="flex justify-between items-center w-full h-[9rem] md:border rounded-md z-10 cursor-pointer"
       >
         <div className="space-y-1 md:px-4">
           <div className="text-md font-bold text-start">{name}</div>

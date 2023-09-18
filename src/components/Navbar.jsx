@@ -42,26 +42,47 @@ function Navbar() {
   const [foodModal, setFoodModal] = useState(false);
   const [modalInfo, setModalInfo] = useState();
   const [inputText, setInputText] = useState("");
-  let [cartTotal, setCartTotal] = useState(0);
+  var [cartTotal, setCartTotal] = useState(0);
   const currentAddress = useSelector((state) => state.auth.location);
   const user_id = useSelector((state) => state.auth.user.user_id);
   const cart = useSelector((state) => state.cart.cart);
+  const restaurants = useSelector((state) => state.store.store);
 
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      dispatch(getCart({ user_id }));
-      if (cart)
-        for (let i = 0; i < cart.length; i++) {
-          cartTotal += cart[i].quantity;
+      await dispatch(getCart({ user_id })).then((res) => {
+        console.log("res", res);
+
+        console.log("inside if");
+        for (let i = 0; i < res.payload.payload.length; i++) {
+          cartTotal += res.payload.payload[i].quantity;
         }
-      console.log("cart total", cartTotal);
-      setCartTotal(cartTotal);
+        console.log("cart total", cartTotal);
+        setCartTotal(cartTotal);
+      });
+      // console.log("outside cart", cart);
+      // if (cart) {
+      //   for (let i = 0; i < cart.length; i++) {
+      //     cartTotal += cart[i].quantity;
+      //   }
+      // }
       // console.log("response", res);
       setLoading(false);
     }
     fetchData();
   }, [dispatch, user_id, currentAddress]);
+  useEffect(() => {
+    if (cart) {
+      cartTotal = 0;
+      console.log("inside if");
+      for (let i = 0; i < cart.length; i++) {
+        cartTotal += cart[i].quantity;
+      }
+      console.log("cart total", cartTotal);
+      setCartTotal(cartTotal);
+    }
+  }, [cart]);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, false);
@@ -69,7 +90,6 @@ function Navbar() {
       document.removeEventListener("click", handleClickOutside, false);
     };
   }, []);
-
   const handleClickOutside = (event) => {
     if (searchRef.current && !searchRef.current.contains(event.target)) {
       searchRef.current.value = "";
@@ -135,12 +155,16 @@ function Navbar() {
     setCartMenu(!cartMenu);
   };
 
+  const cartCounter = (quantity) => {
+    setCartTotal(quantity);
+  };
+
   const menuOptions = [
     { id: 1, name: "Home", icon: RxHome, click: homeClick },
     { id: 2, name: "Pickup", icon: SlBag, click: pickUpClick },
     { id: 3, name: "Orders", icon: TfiReceipt, click: orderClick },
     { id: 4, name: "Account", icon: CgProfile, click: accountClick },
-    { id: 5, name: "Saved Stores", icon: TbHeart, click: savedClick },
+    // { id: 5, name: "Saved Stores", icon: TbHeart, click: savedClick },
     { id: 6, name: "Sign Out", icon: CgCloseO, click: signoutClick },
   ];
   console.log("current address", currentAddress);
@@ -328,10 +352,8 @@ function Navbar() {
             </div>
             <button onClick={() => setCartMenu(!cartMenu)} ref={cartRef}>
               <BsCart3 size={24} />
-              <div className="absolute rounded-full w-4 h-4 bg-red-500 right-[.5rem] lg:right-[3.4rem] bottom-[2rem]">
-                <div className="text-xs text-white flex items-center justify-center">
-                  {cartTotal ? cartTotal : ""}
-                </div>
+              <div className="absolute flex items-center justify-center rounded-full w-[1.1rem] h-[1.1rem] bg-red-500 right-[.5rem] lg:right-[3.4rem] bottom-[2rem]">
+                <div className="text-xs text-white">{cartTotal}</div>
               </div>
             </button>
           </div>

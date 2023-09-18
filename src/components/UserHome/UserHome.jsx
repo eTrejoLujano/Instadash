@@ -10,8 +10,8 @@ import StoreOptions from "./StoreOptions";
 import Categories from "../Category/Catogories";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { availableStores } from "../../redux-store/storeSlice";
-import { formatAddress } from "../Util/helperFunctions";
+import { availableStores, getSavedStores } from "../../redux-store/storeSlice";
+import { formatAddress, savedStoreCheck } from "../Util/helperFunctions";
 import Loading from "../Util/Loading";
 
 const UserHome = () => {
@@ -26,7 +26,9 @@ const UserHome = () => {
   let [typeStores, setTypeStores] = useState([]);
   const [loading, setLoading] = useState();
   const restaurants = useSelector((state) => state.store.store);
+  const savedStores = useSelector((state) => state.store.savedStores);
   const currentAddress = useSelector((state) => state.auth.location);
+  const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
     async function fetchData() {
@@ -42,6 +44,7 @@ const UserHome = () => {
           longitude: currentAddress.longitude,
         })
       ).unwrap();
+      await dispatch(getSavedStores({ user_id: auth.user.user_id }));
       setLoading(false);
     }
     fetchData();
@@ -271,8 +274,15 @@ const UserHome = () => {
                           </div>
                         </div>
                         <div>
-                          {" "}
-                          <TbHeart size={26} className={"fill-red-400"} />
+                          {/* {" "}
+                          <TbHeart
+                            size={26}
+                            className={`${
+                              savedStoreCheck(savedStores, store.id)
+                                ? "fill-red-400"
+                                : ""
+                            }`}
+                          /> */}
                         </div>
                       </div>
                       <div className="flex sm:invisible w-full h-[.05rem] relative top-1 rounded bg-gray-200" />

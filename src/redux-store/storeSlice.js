@@ -74,6 +74,57 @@ export const availableStores = createAsyncThunk(
     }
   }
 );
+
+export const getSavedStores = createAsyncThunk(
+  "cart/getSavedStores",
+  async ({ user_id }, thunkAPI) => {
+    try {
+      const response = await axios.get(`${URL}/api/getsavedstores/`, {
+        params: {
+          user_id,
+        },
+      });
+      return thunkAPI.dispatch(setSavedStores(response.data));
+    } catch (authError) {
+      console.error(authError);
+    }
+  }
+);
+
+export const saveStore = createAsyncThunk(
+  "cart/saveStore",
+  async ({ user_id, store_id }, thunkAPI) => {
+    try {
+      const response = await axios.get(`${URL}/api/savestore/`, {
+        params: {
+          user_id,
+          store_id,
+        },
+      });
+      return thunkAPI.dispatch(setSavedStores(response.data));
+    } catch (authError) {
+      console.error(authError);
+    }
+  }
+);
+
+export const deleteSaveStore = createAsyncThunk(
+  "cart/deleteSaveStore",
+  async ({ user_id, store_id }, thunkAPI) => {
+    try {
+      const response = await axios.get(`${URL}/api/deletesavestore/`, {
+        params: {
+          user_id,
+          store_id,
+        },
+      });
+      return thunkAPI.dispatch(setSavedStores(response.data));
+    } catch (authError) {
+      console.error(authError);
+    }
+  }
+);
+
 const initialState = {};
 const storeSlice = createSlice({
   name: "store",
@@ -82,8 +133,11 @@ const storeSlice = createSlice({
     setStores: (state, action) => {
       state.store = action.payload;
     },
+    setSavedStores: (state, action) => {
+      state.savedStores = action.payload;
+    },
   },
 });
 
-export const { setStores } = storeSlice.actions;
+export const { setStores, setSavedStores } = storeSlice.actions;
 export default storeSlice.reducer;

@@ -1,18 +1,23 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { TbHeart } from "react-icons/tb";
 import { AiOutlineStar } from "react-icons/ai";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
-import { formatAddress } from "../Util/helperFunctions";
+import { formatAddress, savedStoreCheck } from "../Util/helperFunctions";
 import Loading from "../Util/Loading";
+import { deleteSaveStore, saveStore } from "../../redux-store/storeSlice";
 
 const StoreOptions = ({ stores, name, currentAddress }) => {
   const ref = useRef(null);
+  const dispatch = useDispatch();
   const [disableButton, setDisableButton] = useState("left");
   let [mappedStores, setMappedStores] = useState([]);
   let [loading, setLoading] = useState();
+  const auth = useSelector((state) => state.auth);
   const restaurants = useSelector((state) => state.store.store);
+  const savedStores = useSelector((state) => state.store.savedStores);
+
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchData() {
@@ -184,62 +189,102 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
             ref={ref}
             onScroll={handleScroll}
           >
-            {mappedStores.map((store) => (
-              <div
-                key={store.id}
-                className="rounded-lg flex flex-col space-y-[-1rem] cursor-pointer"
-                onClick={() =>
-                  storeView(
-                    store.id,
-                    store.formatted_address,
-                    store.place_id,
-                    store.user_ratings_total
-                  )
-                }
-              >
-                <div className="h-[14rem] w-[24.5rem]">
-                  <img
-                    alt=""
-                    src={`../../../${store.image}`}
-                    className="rounded-md relative w-[30rem] h-[12rem]"
-                  />
-                </div>
-                <div className="w-full flex justify-between">
-                  <div>
-                    <div className="font-semibold text-base">{store.name}</div>
-                    <div className="text-sm text-gray-600">
-                      {formatAddress(store.formatted_address)[0]}
-                    </div>
-                    <div className="flex space-x-1">
-                      <div className="flex items-center">
+            {mappedStores.map((store) => {
+              // console.log(
+              //   "console.log",
+              //   savedStoreCheck(savedStores, store.id)
+              // );
+              return (
+                <div
+                  key={store.id}
+                  className="rounded-lg flex flex-col space-y-[-1rem] cursor-pointer"
+                  onClick={() =>
+                    storeView(
+                      store.id,
+                      store.formatted_address,
+                      store.place_id,
+                      store.user_ratings_total
+                    )
+                  }
+                >
+                  <div className="h-[14rem] w-[24.5rem]">
+                    <img
+                      alt=""
+                      src={`../../../${store.image}`}
+                      className="rounded-md relative w-[30rem] h-[12rem]"
+                    />
+                  </div>
+                  <div className="w-full flex justify-between">
+                    <div>
+                      <div className="font-semibold text-base">
+                        {store.name}
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        {formatAddress(store.formatted_address)[0]}
+                      </div>
+                      <div className="flex space-x-1">
+                        <div className="flex items-center">
+                          <div className="text-gray-600 text-sm">
+                            {store.rating}
+                          </div>
+                          <div>
+                            <AiOutlineStar
+                              size={14}
+                              className={"fill-gray-600"}
+                            />
+                          </div>
+                        </div>
                         <div className="text-gray-600 text-sm">
-                          {store.rating}
+                          ({store.user_ratings_total}+ ratings)
                         </div>
-                        <div>
-                          <AiOutlineStar
-                            size={14}
-                            className={"fill-gray-600"}
-                          />
-                        </div>
-                      </div>
-                      <div className="text-gray-600 text-sm">
-                        ({store.user_ratings_total}+ ratings)
                       </div>
                     </div>
+                    <div
+                    // onClick={(e) => {
+                    //   // console.log(
+                    //   //   "console.log",
+                    //   //   savedStoreCheck(savedStores, store.id)
+                    //   // );
+                    //   if (savedStoreCheck(savedStores, store.id).length == 0)
+                    //     dispatch(
+                    //       saveStore({
+                    //         user_id: auth.user.user_id,
+                    //         store_id: store.id,
+                    //       })
+                    //     );
+                    //   else if (
+                    //     savedStoreCheck(savedStores, store.id).length > 0
+                    //   ) {
+                    //     dispatch(
+                    //       deleteSaveStore({
+                    //         user_id: auth.user.user_id,
+                    //         store_id: store.id,
+                    //       })
+                    //     );
+                    //   }
+                    //   e.stopPropagation();
+                    // }}
+                    >
+                      {" "}
+                      {/* <TbHeart
+                        size={26}
+                        className={`${
+                          savedStoreCheck(savedStores, store.id).length > 0
+                            ? "fill-red-400"
+                            : ""
+                        } z-40`}
+                      /> */}
+                    </div>
                   </div>
-                  <div>
-                    {" "}
-                    <TbHeart size={26} className={"fill-red-400"} />
-                  </div>
-                </div>
 
-                {/* <div className="text-sm pt-[1rem] text-gray-600 relative flex flex-row">
+                  {/* <div className="text-sm pt-[1rem] text-gray-600 relative flex flex-row">
                 {store.distance} • {store.time} • {store.fee}
               </div> */}
 
-                {/* <AiOutlineStar className="top-[.2rem] relative fill-gray-600" /> */}
-              </div>
-            ))}
+                  {/* <AiOutlineStar className="top-[.2rem] relative fill-gray-600" /> */}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

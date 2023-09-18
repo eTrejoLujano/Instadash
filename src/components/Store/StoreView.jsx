@@ -121,7 +121,7 @@ const StoreView = () => {
   if (!store && loading) return <Loading />;
   else if (store)
     return (
-      <div>
+      <div className="relative h-fit">
         {showFoodModal ? (
           <FoodModal
             itemId={modalInfo.itemId}
