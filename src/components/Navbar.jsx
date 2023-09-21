@@ -154,11 +154,6 @@ function Navbar() {
   const handleCartMenu = () => {
     setCartMenu(!cartMenu);
   };
-
-  const cartCounter = (quantity) => {
-    setCartTotal(quantity);
-  };
-
   const menuOptions = [
     { id: 1, name: "Home", icon: RxHome, click: homeClick },
     { id: 2, name: "Pickup", icon: SlBag, click: pickUpClick },

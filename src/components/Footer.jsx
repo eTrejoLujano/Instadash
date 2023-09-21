@@ -2,7 +2,9 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
-import { BsFillPersonLinesFill, BsCodeSlash } from "react-icons/bs";
+import { BsFillPersonLinesFill } from "react-icons/bs";
+import { CgWebsite } from "react-icons/cg";
+import Instacart from "../assets/icons/instadash.png";
 
 const Footer = () => {
   const { pathname } = useLocation();
@@ -13,65 +15,97 @@ const Footer = () => {
     {
       id: 1,
       child: (
-        <>
-          <FaLinkedin size={30} />
-        </>
+        <div className="group text-red-200">
+          <div className="group-hover:text-teal-500">
+            <CgWebsite className="" size={30} />
+          </div>
+          <div className="hidden group-hover:text-teal-500 group-hover:flex w-full h-full relative top-2 items-center justify-center">
+            <div className="absolute">Portfolio</div>
+          </div>
+        </div>
+      ),
+      href: "https://eriktrejolujano.netlify.app/",
+      style:
+        "rounded-full flex items-center justify-center w-[3.6rem] flex items-center justify-center h-[3.6rem]",
+    },
+    {
+      id: 1,
+      child: (
+        <div className="group text-red-200">
+          <div className="group-hover:text-blue-600">
+            <FaLinkedin size={30} />
+          </div>
+          <div className="hidden group-hover:text-blue-600 group-hover:flex w-full h-full relative top-2 items-center justify-center">
+            <div className="absolute">LinkedIn</div>
+          </div>
+        </div>
       ),
       href: "https://www.linkedin.com/in/erik-trejo-lujano/",
       style:
-        "rounded-full flex items-center justify-center w-[3.6rem] flex items-center justify-center h-[3.6rem] bg-blue-600",
+        "rounded-full flex items-center justify-center w-[3.6rem] flex items-center justify-center h-[3.6rem]",
     },
     {
       id: 2,
       child: (
-        <>
-          <FaGithub size={30} />
-        </>
+        <div className="group text-red-200">
+          <div className="group-hover:text-gray-500">
+            <FaGithub size={30} />
+          </div>
+          <div className="hidden group-hover:text-gray-500 group-hover:flex w-full h-full relative top-2 items-center justify-center">
+            <div className="absolute">GitHub</div>
+          </div>
+        </div>
       ),
       href: "https://github.com/eTrejoLujano",
       style:
-        "rounded-full flex items-center justify-center w-[3.6rem] flex items-center justify-center h-[3.6rem] bg-gray-500",
+        "rounded-full flex items-center justify-center w-[3.6rem] flex items-center justify-center h-[3.6rem]",
     },
     {
       id: 3,
       child: (
-        <>
-          <HiOutlineMail size={30} />
-        </>
+        <div className="group text-red-200">
+          <div className="group-hover:text-green-600">
+            <HiOutlineMail size={30} />
+          </div>
+          <div className="hidden group-hover:text-green-600 group-hover:flex w-full h-full relative top-2 items-center justify-center">
+            <div className="absolute">Email</div>
+          </div>
+        </div>
       ),
       href: "mailto:trejolujano.erik@gmail.com",
       style:
-        "rounded-full flex items-center justify-center w-[3.6rem] flex items-center justify-center h-[3.6rem] bg-green-600",
+        "rounded-full flex items-center justify-center w-[3.6rem] flex items-center justify-center h-[3.6rem]",
     },
     {
       id: 4,
       child: (
-        <>
-          <BsFillPersonLinesFill size={30} />
-        </>
+        <div className="group text-red-200">
+          <div className="group-hover:text-blue-400">
+            <BsFillPersonLinesFill size={30} />
+          </div>
+          <div className="hidden group-hover:text-blue-400 group-hover:flex w-full h-full relative top-2 items-center justify-center">
+            <div className="absolute">Resume</div>
+          </div>
+        </div>
       ),
       href: "/Erik_TrejoLujano_Resume.pdf",
       style:
-        "rounded-full flex items-center justify-center w-[3.6rem] flex items-center justify-center h-[3.6rem] bg-blue-400",
+        "rounded-full flex items-center justify-center w-[3.6rem] flex items-center justify-center h-[3.6rem]",
       download: true,
     },
   ];
   return (
     <div
-      className={`w-screen h-[20rem] md:pt-[0rem] pt-[8rem] relative ${
-        pathname === "/store" && "top-[6rem]"
-      } ${pathname === "/category" && "top-[2rem]"} ${
-        pathname === "/account" && "top-[3rem]"
-      } ${pathname === "/orders" || (pathname === "/" && "top-[1rem]")}`}
+      className={`w-screen h-full md:pt-[0rem] pt-[8rem]
+      relative ${pathname === "/store" && "top-[6rem]"} ${
+        pathname === "/category" && "top-[2rem]"
+      } ${pathname === "/account" && "top-[3rem]"} ${
+        pathname === "/orders" || (pathname === "/" && "top-[1rem]")
+      }`}
     >
-      <div className="w-full h-[.05rem] rounded bg-gray-200" />
-      <div className="flex flex-col items-center w-full h-full">
-        <div className="flex flex-col items-center justify-center w-full h-full">
-          <div>Dashed Eats</div>
-          <div>By</div>
-          <div>Erik Trejo</div>
-        </div>
-        <div className="flex space-x-4 items-center">
+      <div className="w-full h-[.05rem] rounded bg-gray-200 relative top-4" />
+      <div className="flex flex-col items-center w-full h-full relative pt-6 space-y-3">
+        <div className="flex space-x-[2rem] items-center">
           {links.map(({ id, child, href, style, download }) => (
             <li
               key={id}
@@ -88,6 +122,21 @@ const Footer = () => {
               </a>
             </li>
           ))}
+        </div>
+        <div className="flex items-center justify-center w-full md:w-[50rem] h-full">
+          <div className="flex items-center space-x-2">
+            <img src={Instacart} className="w-[2.5rem] h-[2.5rem]" />
+            <div className="text-xl font-bold text-red-500 flex">
+              DASHED EATS
+            </div>
+            <div>
+              <div className="w-full flex justify-center">by Erik Trejo</div>
+            </div>
+          </div>
+          {/* <div className="flex space-x-2">
+            <div className="">Email</div>
+            <div className="">Resume</div>
+          </div> */}
         </div>
       </div>
     </div>

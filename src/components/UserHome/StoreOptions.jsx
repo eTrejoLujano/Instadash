@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { TbHeart } from "react-icons/tb";
+import { HiArrowNarrowRight } from "react-icons/hi";
 import { AiOutlineStar } from "react-icons/ai";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 import { formatAddress, savedStoreCheck } from "../Util/helperFunctions";
@@ -112,77 +113,54 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
             >
               {name}
             </h2>
-            <div className="flex-row justify-center items-center bottom-1 hidden md:flex">
+            <div className="flex-row justify-center items-center bottom-1 flex">
               <div
-                className="relative right-6 hidden sm:flex font-semibold text-sm cursor-pointer"
+                className="relative right-0 md:right-6 font-semibold text-sm cursor-pointer"
                 onClick={() => dashView({ stores, name })}
               >
-                See All
+                <div className="hidden md:flex">See All</div>
+                <div className="md:hidden flex border rounded-full h-8 w-8 items-center justify-center bg-gray-200">
+                  <HiArrowNarrowRight size={23} />
+                </div>
               </div>
-              {disableButton !== "left" && (
-                <div className="bottom-[2.2rem]">
+              <div className="bottom-[2.2rem] hidden md:flex">
+                <div
+                  className={`rounded-full h-8 w-8 border-solid border-2
+                  border-gray-100 ${
+                    disableButton === "left"
+                      ? "bg-gray-100"
+                      : "bg-gray-300 cursor-pointer"
+                  }`}
+                >
                   <div
-                    className="rounded-full h-8 w-8 border-solid border-2
-                  border-gray-100 bg-gray-300"
+                    className="pl-[.1rem] pt-[.2rem]"
+                    onClick={() => adjustView("left")}
                   >
-                    <button
-                      className="pl-[.1rem] pt-[.2rem]"
-                      onClick={() => adjustView("left")}
-                    >
-                      <TbChevronLeft size={23} />
-                    </button>
+                    <TbChevronLeft size={23} />
                   </div>
                 </div>
-              )}
-              {disableButton === "left" && (
-                <div className="bottom-[2.2rem]">
+              </div>
+              <div className="bottom-[2.2rem] hidden md:flex">
+                <div
+                  className={`rounded-full h-8 w-8 border-solid border-2
+                  border-gray-100 ${
+                    disableButton === "right" || mappedStores.length <= 3
+                      ? "bg-gray-100"
+                      : "bg-gray-300 cursor-pointer"
+                  }`}
+                >
                   <div
-                    className="rounded-full h-8 w-8 border-solid border-2
-                  border-gray-100 bg-gray-100"
+                    className="pl-[.2rem] pt-[.2rem]"
+                    onClick={() => adjustView("right")}
                   >
-                    <button
-                      className="pl-[.1rem] pt-[.2rem]"
-                      onClick={() => adjustView("left")}
-                    >
-                      <TbChevronLeft size={23} className="text-gray-300" />
-                    </button>
+                    <TbChevronRight size={23} />
                   </div>
                 </div>
-              )}
-              {disableButton !== "right" && (
-                <div className="bottom-[2.2rem]">
-                  <div
-                    className="rounded-full h-8 w-8 border-solid border-2
-                  border-gray-100 bg-gray-300"
-                  >
-                    <button
-                      className="pl-[.2rem] pt-[.2rem]"
-                      onClick={() => adjustView("right")}
-                    >
-                      <TbChevronRight size={23} />
-                    </button>
-                  </div>
-                </div>
-              )}
-              {disableButton === "right" && (
-                <div className="bottom-[2.2rem]">
-                  <div
-                    className="rounded-full h-8 w-8 border-solid border-2
-                  border-gray-100 bg-gray-100"
-                  >
-                    <button
-                      className="pl-[.2rem] pt-[.2rem]"
-                      onClick={() => adjustView("right")}
-                    >
-                      <TbChevronRight size={23} className="text-gray-300" />
-                    </button>
-                  </div>
-                </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
-        <div className="flex flex-row w-full lg:w-[75.5rem]">
+        <div className="flex flex-row w-full lg:w-[75.5rem] pl-4">
           <div
             className="flex flex-row w-[75.5rem] overscroll-x-contain overflow-x-scroll
             top-[9rem] container-snap scroll-smooth space-x-[1rem]"

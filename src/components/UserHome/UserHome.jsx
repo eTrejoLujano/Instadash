@@ -205,8 +205,10 @@ const UserHome = () => {
         </div>
         {!foodPick && restaurants && currentAddress && (
           <>
-            <Ads />
-            <div className="space-y-5 pt-1">
+            {/* <div className="pt-5">
+              <Ads />
+            </div> */}
+            <div className="space-y-5 pt-4">
               {dashboard?.map((dashboard) => (
                 <StoreOptions
                   key={dashboard.id}

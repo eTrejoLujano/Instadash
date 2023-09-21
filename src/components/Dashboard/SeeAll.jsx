@@ -67,7 +67,7 @@ const SeeAll = () => {
   if (loading) return <Loading />;
   else
     return (
-      <div className="md:pt-[5rem] w-screen h-full md:top-[0rem] top-[8rem]">
+      <div className="md:pt-[5rem] w-screen h-full md:top-[0rem] relative top-[8rem]">
         <div className="flex flex-row justify-center items-center">
           <div className="px-4 md:px-8 lg:px-12 relative top-7 space-y-6 md:space-y-10 w-[76rem]">
             <p className="text-4xl px-4 md:px-0 font-bold">
