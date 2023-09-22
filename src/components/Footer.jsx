@@ -5,6 +5,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { CgWebsite } from "react-icons/cg";
 import Instacart from "../assets/icons/instadash.png";
+import picture from "../../public/personalphoto.jpeg";
 
 const Footer = () => {
   const { pathname } = useLocation();
@@ -96,7 +97,7 @@ const Footer = () => {
   ];
   return (
     <div
-      className={`w-screen h-full md:pt-[0rem] pt-[8rem]
+      className={`w-screen h-full md:pt-[0rem] pt-[8rem] pb-2
       relative ${pathname === "/store" && "top-[6rem]"} ${
         pathname === "/category" && "top-[2rem]"
       } ${pathname === "/account" && "top-[3rem]"} ${
@@ -129,8 +130,14 @@ const Footer = () => {
             <div className="text-xl font-bold text-red-500 flex">
               DASHED EATS
             </div>
-            <div>
-              <div className="w-full flex justify-center">by Erik Trejo</div>
+            <div className="flex items-center space-x-2">
+              <div className="w-full flex justify-center text-red-600">
+                by Erik Trejo
+              </div>
+              <img
+                src={picture}
+                className="w-[3.5rem] h-[3.5rem] rounded-full"
+              />
             </div>
           </div>
           {/* <div className="flex space-x-2">

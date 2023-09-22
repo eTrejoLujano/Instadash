@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { TbHeart } from "react-icons/tb";
 import { HiArrowNarrowRight } from "react-icons/hi";
-import { AiOutlineStar } from "react-icons/ai";
+import { FaStar } from "react-icons/fa";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
 import { formatAddress, savedStoreCheck } from "../Util/helperFunctions";
 import Loading from "../Util/Loading";
@@ -128,7 +128,7 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
                   className={`rounded-full h-8 w-8 border-solid border-2
                   border-gray-100 ${
                     disableButton === "left"
-                      ? "bg-gray-100"
+                      ? "bg-gray-100 opacity-40"
                       : "bg-gray-300 cursor-pointer"
                   }`}
                 >
@@ -145,7 +145,7 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
                   className={`rounded-full h-8 w-8 border-solid border-2
                   border-gray-100 ${
                     disableButton === "right" || mappedStores.length <= 3
-                      ? "bg-gray-100"
+                      ? "bg-gray-100 opacity-40"
                       : "bg-gray-300 cursor-pointer"
                   }`}
                 >
@@ -160,10 +160,10 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-row w-full lg:w-[75.5rem] pl-4">
+        <div className="flex flex-row w-full lg:w-[75.5rem]">
           <div
             className="flex flex-row w-[75.5rem] overscroll-x-contain overflow-x-scroll
-            top-[9rem] container-snap scroll-smooth space-x-[1rem]"
+            top-[9rem] container-snap scroll-smooth space-x-[1rem] pl-2 md:pl-0"
             ref={ref}
             onScroll={handleScroll}
           >
@@ -206,10 +206,7 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
                             {store.rating}
                           </div>
                           <div>
-                            <AiOutlineStar
-                              size={14}
-                              className={"fill-gray-600"}
-                            />
+                            <FaStar size={14} className={"fill-gray-600"} />
                           </div>
                         </div>
                         <div className="text-gray-600 text-sm">
@@ -259,7 +256,7 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
                 {store.distance} • {store.time} • {store.fee}
               </div> */}
 
-                  {/* <AiOutlineStar className="top-[.2rem] relative fill-gray-600" /> */}
+                  {/* <FaStar className="top-[.2rem] relative fill-gray-600" /> */}
                 </div>
               );
             })}

@@ -55,7 +55,7 @@ const FoodTypePick = ({ stores }) => {
                   <div className="text-sm pt-[1rem] text-gray-500 relative flex flex-row">
                     {/* {store.rate} */}
                     {/* <div className="pr-[.4rem]">
-                      <AiOutlineStar className="top-[.2rem] relative fill-gray-500" />
+                      <FaStar className="top-[.2rem] relative fill-gray-500" />
                     </div> */}
                     {/* {store.reviews} */}
                   </div>

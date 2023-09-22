@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { AiOutlineStar } from "react-icons/ai";
+import { FaStar } from "react-icons/fa";
 import Loading from "../Util/Loading";
 
 const SearchDropdown = ({ ref, input, storeView }) => {
@@ -84,7 +84,7 @@ const SearchDropdown = ({ ref, input, storeView }) => {
                         </div>
                         <div>• {rating} </div>
                         <div>
-                          <AiOutlineStar />
+                          <FaStar />
                         </div>
                         <div> • {expensive_rating}</div>
                       </div>

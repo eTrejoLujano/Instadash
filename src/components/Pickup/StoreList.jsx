@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { AiOutlineStar, AiOutlineClockCircle } from "react-icons/ai";
+import { AiOutlineClockCircle } from "react-icons/ai";
+import { FaStar } from "react-icons/fa";
+
 import { TbHeart } from "react-icons/tb";
 import { currencyFormat } from "../Util/helperFunctions";
 
@@ -43,9 +45,7 @@ export const StoreList = ({ storeView, itemModal }) => {
                 <div className="px-7 py-3">
                   <div className="flex items-center space-x-1">
                     <div className="text-lg font-semibold">{name}</div>
-                    <div>
-                      <TbHeart size={23} />
-                    </div>
+                    <div>{/* <TbHeart size={23} /> */}</div>
                   </div>
                   <div>
                     <div className="flex items-center space-x-1 text-sm">
@@ -61,7 +61,7 @@ export const StoreList = ({ storeView, itemModal }) => {
                       </div>
                       <div>•</div>
                       <div className="flex items-center">
-                        <AiOutlineStar />
+                        <FaStar />
                         {rating}
                       </div>
                       <div>({user_ratings_total}+ ratings)</div>

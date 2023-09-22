@@ -5,7 +5,9 @@ import FoodItem from "./FoodItem";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineClockCircle, AiOutlineSearch } from "react-icons/ai";
 import { BsFillXCircleFill } from "react-icons/bs";
-import { AiOutlineStar, AiFillCar } from "react-icons/ai";
+import { AiFillCar } from "react-icons/ai";
+import { FaStar } from "react-icons/fa";
+
 import StoreMapWrapper from "./StoreMapWrapper";
 import { formatAddress } from "../Util/helperFunctions";
 import FoodModal from "./FoodModal";
@@ -158,7 +160,7 @@ const StoreView = () => {
                       <p className="text-gray-600 text-sm flex space-x-[.4rem]">
                         <div className="flex items-center space-x-[.2rem]">
                           <div>{placeDetails.rating}</div>
-                          <AiOutlineStar className="fill-gray-600" />
+                          <FaStar className="fill-gray-600" />
                           {totalRatings && (
                             <div className="flex space-x-[.2rem]">
                               <div>{totalRatings}+ </div>

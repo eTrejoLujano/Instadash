@@ -4,7 +4,7 @@ import * as dashboardsAPI from "../../Api/dashboards";
 import Filterbar from "./Filterbar";
 import Ads from "./Ads";
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb";
-import { AiOutlineStar } from "react-icons/ai";
+import { FaStar } from "react-icons/fa";
 import { TbHeart } from "react-icons/tb";
 import StoreOptions from "./StoreOptions";
 import Categories from "../Category/Catogories";
@@ -264,10 +264,7 @@ const UserHome = () => {
                                 {store.rating}
                               </div>
                               <div>
-                                <AiOutlineStar
-                                  size={14}
-                                  className={"fill-gray-500"}
-                                />
+                                <FaStar size={14} className={"fill-gray-500"} />
                               </div>
                             </div>
                             <div className="text-gray-500 text-sm">

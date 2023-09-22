@@ -5,7 +5,7 @@ const AccountInfo = () => {
     "border h-[2.4rem] w-[26rem] md:w-[21rem] rounded-md bg-gray-50 border-none focus:border-solid focus:border-2 focus:border-black focus:outline-none px-4";
 
   return (
-    <div className="w-screen h-full pt-0 top-[9rem] lg:top-[4rem] relative lg:pt-20">
+    <div className="w-screen h-screen pt-0 top-[9rem] lg:top-[4rem] relative lg:pt-20">
       <div className="flex justify-center pb-7">
         <div className="md:h-[29rem] md:w-[48rem] h-[47rem] w-[30rem] border border-gray-300">
           <div className="h-[5.5rem] flex justify-between items-center px-7">
@@ -19,7 +19,7 @@ const AccountInfo = () => {
           >
             <div className="flex flex-col items-center space-y-[3rem] md:flex-row md:justify-center md:space-x-[2rem] md:space-y-0">
               <div className="space-y-2">
-                <p>First Name</p>
+                <p className="px-2">First Name</p>
                 <input
                   className={inputStyling}
                   type="text"
@@ -28,7 +28,7 @@ const AccountInfo = () => {
                 />
               </div>
               <div className="space-y-2">
-                <p>Last Name</p>
+                <p className="px-2">Last Name</p>
                 <input
                   className={inputStyling}
                   type="text"
@@ -39,7 +39,7 @@ const AccountInfo = () => {
             </div>
             <div className="flex flex-col items-center space-y-[3rem] md:flex-row md:justify-center md:space-x-[2rem] md:space-y-0">
               <div>
-                <p>Email</p>
+                <p className="px-2">Email</p>
                 <input
                   className="border h-[2.8rem] w-[26rem] md:w-[21rem] rounded-md bg-gray-50 border-none focus:border-solid focus:border-2 focus:border-black focus:outline-none px-4"
                   type="text"
@@ -47,7 +47,7 @@ const AccountInfo = () => {
                 />
               </div>
               <div className="space-y-2">
-                <p>Password</p>
+                <p className="px-2">Password</p>
                 <input
                   className={inputStyling}
                   type="text"
@@ -58,7 +58,7 @@ const AccountInfo = () => {
             </div>
             <div className="flex flex-col items-center space-y-[3rem] md:flex-row md:justify-center md:space-x-[2rem] md:space-y-0">
               <div className="space-y-2">
-                <p>Confirm Password</p>
+                <p className="px-2">Confirm Password</p>
                 <input
                   className={inputStyling}
                   type="text"

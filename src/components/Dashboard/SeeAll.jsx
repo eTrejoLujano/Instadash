@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { AiOutlineStar } from "react-icons/ai";
+import { FaStar } from "react-icons/fa";
 import Loading from "../Util/Loading";
 import { formatAddress } from "../Util/helperFunctions";
 
@@ -115,10 +115,7 @@ const SeeAll = () => {
                               {rating}
                             </div>
                             <div>
-                              <AiOutlineStar
-                                size={14}
-                                className={"fill-gray-600"}
-                              />
+                              <FaStar size={14} className={"fill-gray-600"} />
                             </div>
                           </div>
                           <div className="text-gray-600 text-sm">
