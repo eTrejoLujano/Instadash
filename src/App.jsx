@@ -69,8 +69,8 @@ function App() {
               {auth.location ? (
                 <UserHome />
               ) : (
-                <div className="h-screen w-screen flex items-center justify-center text-red-600">
-                  <div>
+                <div className="h-screen w-screen text-center flex items-center justify-center text-red-600">
+                  <div className="">
                     <div className="flex justify-center text-4xl">
                       Thank you for visiting Dashed Eats!
                     </div>

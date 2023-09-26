@@ -12,27 +12,31 @@ export const me = createAsyncThunk("auth/me", async (_, thunkAPI) => {
     });
     if (response.status === 200) {
       window.localStorage.setItem("token", JSON.stringify(response.data));
+      const decoded = jwt_decode(response.data.access);
+      console.log("decoded", decoded);
+      const userInfo = await axios.get(`${URL}/api/getuser/`, {
+        params: {
+          user_id: decoded.user_id,
+        },
+      });
+      const fetchedInfo = userInfo.data[0];
+      console.log("userInfo", userInfo);
       thunkAPI.dispatch(setToken(response.data));
-      thunkAPI.dispatch(setUser(jwt_decode(response.data.access)));
+      thunkAPI.dispatch(
+        setUser({
+          first_name: fetchedInfo.first_name,
+          last_name: fetchedInfo.last_name,
+          email: fetchedInfo.email,
+          user_id: fetchedInfo.id,
+        })
+      );
     } else {
       thunkAPI.dispatch(logout());
-      alert("You've been timed out");
+      alert("You've been timed");
     }
   } catch (authError) {
     console.error(authError);
   }
-  // const token = JSON.parse(window.localStorage.getItem("token"));
-  // if (token) {
-  //   thunkAPI.dispatch(setToken(token));
-  //   thunkAPI.dispatch(setUser(jwt_decode(token.access)));
-  //   // const response = await axios.get(`${URL}/api/latestaddress/`, {
-  //   //   params: {
-  //   //     user_id: jwt_decode(token.access).user_id,
-  //   //   },
-  //   // });
-  //   // return await thunkAPI.dispatch(setLocate(response.data));
-  // }
-  // return;
 });
 
 export const currentAddress = createAsyncThunk(
@@ -112,7 +116,9 @@ export const authenticate = createAsyncThunk(
   "auth/authenticate",
   async (formVals, thunkAPI) => {
     try {
+      console.log("auth", formVals);
       const response = await axios.post(`${URL}/api/token/`, formVals);
+      console.log("res auth", response);
       if (response.status === 200) {
         window.localStorage.setItem("token", JSON.stringify(response.data));
         thunkAPI.dispatch(setToken(response.data));

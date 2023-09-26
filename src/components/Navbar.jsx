@@ -193,7 +193,9 @@ function Navbar() {
   else if (!loading)
     return (
       <div className="">
-        {addressModal && <AddressModal handleClose={handleClose} />}
+        {addressModal && (
+          <AddressModal handleClose={handleClose} inputStyling={inputStyling} />
+        )}
         {foodModal && (
           <FoodModal
             itemId={modalInfo.itemId}

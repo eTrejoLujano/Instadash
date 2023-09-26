@@ -1,10 +1,30 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import * as accountAPI from "../../Api/account";
+import { me } from "../../redux-store/authSlice";
 
 const AccountInfo = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
+  const editAccount = async (e) => {
+    e.preventDefault();
+    let first_name = !e.target.firstName.value
+      ? user.first_name
+      : e.target.firstName.value;
+    let last_name = !e.target.lastName.value
+      ? user.last_name
+      : e.target.lastName.value;
+    let email = !e.target.email.value ? user.email : e.target.email.value;
+    console.log("account info", first_name, last_name, email, user.email);
+    await accountAPI.updateAccount({
+      user_id: user.user_id,
+      first_name,
+      last_name,
+      email,
+    });
+    dispatch(me());
+  };
   let inputStyling =
     "border h-[2.4rem] w-full md:w-[21rem] rounded-md bg-gray-50 border-none focus:border-solid focus:border-2 focus:border-black focus:outline-none px-4";
   if (user)
@@ -23,7 +43,7 @@ const AccountInfo = () => {
             </div>
             <div className="w-full h-[.05rem] rounded bg-gray-300"></div>
             <form
-              //   onSubmit={}
+              onSubmit={editAccount}
               className="flex flex-col py-6 space-y-6"
             >
               <div className="flex flex-col items-center space-y-[1.5rem] md:flex-row md:justify-center md:space-x-[2rem] md:space-y-0">
