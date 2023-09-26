@@ -5,18 +5,34 @@ import jwt_decode from "jwt-decode";
 
 const URL = REQ_URL;
 export const me = createAsyncThunk("auth/me", async (_, thunkAPI) => {
-  const token = JSON.parse(window.localStorage.getItem("token"));
-  if (token) {
-    thunkAPI.dispatch(setToken(token));
-    thunkAPI.dispatch(setUser(jwt_decode(token.access)));
-    // const response = await axios.get(`${URL}/api/latestaddress/`, {
-    //   params: {
-    //     user_id: jwt_decode(token.access).user_id,
-    //   },
-    // });
-    // return await thunkAPI.dispatch(setLocate(response.data));
+  try {
+    const token = JSON.parse(window.localStorage.getItem("token"));
+    const response = await axios.post(`${URL}/api/token/refresh/`, {
+      refresh: token.refresh,
+    });
+    if (response.status === 200) {
+      window.localStorage.setItem("token", JSON.stringify(response.data));
+      thunkAPI.dispatch(setToken(response.data));
+      thunkAPI.dispatch(setUser(jwt_decode(response.data.access)));
+    } else {
+      thunkAPI.dispatch(logout());
+      alert("You've been timed out");
+    }
+  } catch (authError) {
+    console.error(authError);
   }
-  return;
+  // const token = JSON.parse(window.localStorage.getItem("token"));
+  // if (token) {
+  //   thunkAPI.dispatch(setToken(token));
+  //   thunkAPI.dispatch(setUser(jwt_decode(token.access)));
+  //   // const response = await axios.get(`${URL}/api/latestaddress/`, {
+  //   //   params: {
+  //   //     user_id: jwt_decode(token.access).user_id,
+  //   //   },
+  //   // });
+  //   // return await thunkAPI.dispatch(setLocate(response.data));
+  // }
+  // return;
 });
 
 export const currentAddress = createAsyncThunk(

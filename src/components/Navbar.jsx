@@ -20,6 +20,7 @@ import AddressModal from "./NavbarFeatures/AddressModal";
 import FoodModal from "./Store/FoodModal";
 import SearchDropdown from "./NavbarFeatures/SearchDropdown";
 import Loading from "./Util/Loading";
+import { availableStores } from "../redux-store/storeSlice";
 
 function Navbar() {
   const searchRef = useRef(null);
@@ -61,13 +62,7 @@ function Navbar() {
         console.log("cart total", cartTotal);
         setCartTotal(cartTotal);
       });
-      // console.log("outside cart", cart);
-      // if (cart) {
-      //   for (let i = 0; i < cart.length; i++) {
-      //     cartTotal += cart[i].quantity;
-      //   }
-      // }
-      // console.log("response", res);
+      navigate("/");
       setLoading(false);
     }
     fetchData();
@@ -267,7 +262,7 @@ function Navbar() {
             )}
           </div>
         </div>
-        <div className="w-full h-[4rem] bg-white fixed z-20 border border-gray-2 flex md:justify-between px-4 lg:px-[3.9rem] items-center">
+        <div className="w-screen h-[4rem] bg-white fixed z-20 border border-gray-2 flex md:justify-between px-4 lg:px-[3.9rem] items-center">
           <div
             className={`${
               searchDropdown ? "md:flex hidden" : "flex"
@@ -355,7 +350,7 @@ function Navbar() {
         </div>
         <div
           className="w-screen absolute mt-[1rem] h-[7rem] pt-[3rem] justify-center
-     text-black bg-white border border-gray-200 flex items-center md:hidden"
+     text-black bg-white border border-gray-200 flex items-center md:hidden z-10"
         >
           <button
             onClick={() => setAddressModal(true)}

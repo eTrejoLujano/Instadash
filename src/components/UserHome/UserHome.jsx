@@ -26,9 +26,9 @@ const UserHome = () => {
   let [typeStores, setTypeStores] = useState([]);
   const [loading, setLoading] = useState();
   const restaurants = useSelector((state) => state.store.store);
-  const savedStores = useSelector((state) => state.store.savedStores);
+  // const savedStores = useSelector((state) => state.store.savedStores);
   const currentAddress = useSelector((state) => state.auth.location);
-  const auth = useSelector((state) => state.auth);
+  // const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
     async function fetchData() {
@@ -44,7 +44,7 @@ const UserHome = () => {
           longitude: currentAddress.longitude,
         })
       ).unwrap();
-      await dispatch(getSavedStores({ user_id: auth.user.user_id }));
+      // await dispatch(getSavedStores({ user_id: auth.user.user_id }));
       setLoading(false);
     }
     fetchData();

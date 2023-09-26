@@ -28,7 +28,7 @@ const Login = () => {
     "border h-[2.8rem] w-[26rem] rounded-md bg-gray-50 border-none focus:border-solid focus:border-2 focus:border-black focus:outline-none px-4";
 
   return (
-    <div className="h-full w-full pt-20">
+    <div className="h-full w-full pt-20 md:pb-[6rem]">
       <div className="flex flex-col h-full items-center justify-center relative space-y-[1.8rem]">
         <div className="flex flex-col items-center space-y-[2rem]">
           <div className="font-bold text-2xl">Login</div>

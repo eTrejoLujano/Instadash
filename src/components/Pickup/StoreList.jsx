@@ -11,6 +11,8 @@ export const StoreList = ({ storeView, itemModal }) => {
   const store = useSelector((state) => state.store.store);
   const buttonStyling =
     "w-1/2 h-[2.9rem] font-medium text-sm rounded-full flex justify-center items-center border border-gray-200 hover:bg-gray-200";
+  useEffect(() => {}, [store]);
+
   return (
     <div className="md:py-7 pt-7 pb-12 md:pb-0 h-full w-full overflow-y-scroll overscroll-y-contain container-snap ">
       <div className="text-xl font-bold px-7">All Stores</div>

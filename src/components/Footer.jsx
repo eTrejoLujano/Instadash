@@ -102,11 +102,14 @@ const Footer = () => {
         pathname === "/category" && "top-[2rem]"
       } ${pathname === "/account" && "top-[3rem]"} ${
         pathname === "/orders" || (pathname === "/" && "top-[1rem]")
+      } ${
+        pathname === "/account/change-password" &&
+        "md:bottom-[1rem] bottom-[8.95rem]"
       }`}
     >
       <div className="w-full h-[.05rem] rounded bg-gray-200 relative top-4" />
       <div className="flex flex-col items-center w-full h-full relative pt-6 space-y-3">
-        <div className="flex space-x-[2rem] items-center">
+        <div className="flex space-x-[1.3rem] sm:space-x-[2rem] items-center">
           {links.map(({ id, child, href, style, download }) => (
             <li
               key={id}

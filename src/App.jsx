@@ -20,6 +20,7 @@ import CheckoutView from "./components/Checkout/CheckoutView";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import ReceiptMap from "./components/Orders/ReceiptMap";
 import Footer from "./components/Footer";
+import PasswordChange from "./components/Account/PasswordChange";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -65,7 +66,24 @@ function App() {
           path="/"
           element={
             <PrivateRoute>
-              <UserHome />
+              {auth.location ? (
+                <UserHome />
+              ) : (
+                <div className="h-screen w-screen flex items-center justify-center text-red-600">
+                  <div>
+                    <div className="flex justify-center text-4xl">
+                      Thank you for visiting Dashed Eats!
+                    </div>
+                    <div className="flex justify-center text-2xl">
+                      Please enter any address to begin
+                    </div>
+                    <div className="flex justify-center text-xl">
+                      **All addresses and receipts can be deleted to manage any
+                      information stored in the database**
+                    </div>
+                  </div>
+                </div>
+              )}
             </PrivateRoute>
           }
         />
@@ -116,6 +134,14 @@ function App() {
           element={
             <PrivateRoute>
               <AccountInfo />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/account/change-password"
+          element={
+            <PrivateRoute>
+              <PasswordChange />
             </PrivateRoute>
           }
         />
