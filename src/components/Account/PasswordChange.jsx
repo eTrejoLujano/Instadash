@@ -11,13 +11,6 @@ const PasswordChange = () => {
     "border h-[2.8rem] w-[20rem] rounded-md bg-gray-50 border-none focus:border-solid focus:border-2 focus:border-black focus:outline-none px-4";
   const updatePassword = async (e) => {
     e.preventDefault();
-    console.log(
-      "change password values",
-      e.target.old_password.value,
-      e.target.password.value,
-      e.target.password2.value,
-      auth.token.access
-    );
     const passwordChange = await axios.put(
       `${URL}/api/changepassword/${auth.user.user_id}/`,
       {

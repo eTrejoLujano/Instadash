@@ -52,7 +52,7 @@ const StoreModal = ({
       >
         <div className="flex px-5">
           <div className="text-black text-base font-medium">{name}</div>
-          <div>Heart</div>
+          <div></div>
         </div>
         <div className="text-gray-500 text-xs px-5">
           {rating} ({totalRatings}) •{" "}
