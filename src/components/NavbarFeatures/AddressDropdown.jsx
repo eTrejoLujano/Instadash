@@ -8,7 +8,7 @@ import {
   locate,
 } from "../../redux-store/authSlice";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { formatAddress } from "../Util/helperFunctions";
+import { formatAddress, gmapsAddress } from "../Util/helperFunctions";
 
 const AddressDropdown = ({ dropdownRef, inputStyling }) => {
   const dispatch = useDispatch();
@@ -37,16 +37,17 @@ const AddressDropdown = ({ dropdownRef, inputStyling }) => {
       options
     );
     autocomplete.setFields(["place_id", "geometry", "name"]);
-    autocomplete.addListener("place_changed", () => {
+    autocomplete.addListener("place_changed", async () => {
       const place = autocomplete.getPlace();
       console.log("place", place);
+      const coordinates = await locationAPI.getAddressCoordinates({
+        address: gmapsAddress(place.formatted_address),
+      });
       dispatch(
         locate({
           address: place.formatted_address,
-          latitude:
-            (place.geometry.viewport.cb.lo + place.geometry.viewport.cb.hi) / 2,
-          longitude:
-            (place.geometry.viewport.La.lo + place.geometry.viewport.La.hi) / 2,
+          latitude: coordinates.results[0].geometry.location.lat,
+          longitude: coordinates.results[0].geometry.location.lng,
           user_id: user_id,
         })
       );

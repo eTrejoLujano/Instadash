@@ -47,6 +47,7 @@ const StoreView = () => {
         const fetchPlaceDetails = await pickupAPI.getPlaceDetails({
           place_id: location.state.place_id,
         });
+        console.log("travel ferch details", travel, fetchPlaceDetails);
         setStore(fetchStore);
         setFoodItems(fetchStore[0].store_items);
         setOriginalItems(fetchStore[0].store_items);
@@ -119,7 +120,7 @@ const StoreView = () => {
     var lowerCase = e.target.value.toLowerCase();
     setInputText(lowerCase);
   };
-  console.log("place details", placeDetails);
+  console.log("place details", placeDetails, location.state);
   if (!store && loading) return <Loading />;
   else if (store)
     return (
@@ -159,7 +160,7 @@ const StoreView = () => {
                       </span>
                       <p className="text-gray-600 text-sm flex space-x-[.4rem]">
                         <div className="flex items-center space-x-[.2rem]">
-                          <div>{placeDetails.rating}</div>
+                          <div>{placeDetails?.rating}</div>
                           <FaStar className="fill-gray-600" />
                           {totalRatings && (
                             <div className="flex space-x-[.2rem]">

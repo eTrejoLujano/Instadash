@@ -3,12 +3,26 @@ import { REQ_URL } from "../components/Util/constants";
 
 const URL = REQ_URL;
 
-export const getAllAddresses = async (query) => {
+export const getAllAddresses = async ({ user_id }) => {
   let output = [];
   await axios
     .get(`${URL}/api/alladdresses/`, {
       params: {
-        user_id: query.user_id,
+        user_id,
+      },
+    })
+    .then((res) => {
+      output = res.data;
+    });
+  return output;
+};
+
+export const getAddressCoordinates = async ({ address }) => {
+  let output = [];
+  await axios
+    .get(`${URL}/api/addresscoordinates/`, {
+      params: {
+        address,
       },
     })
     .then((res) => {

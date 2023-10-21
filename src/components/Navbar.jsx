@@ -344,9 +344,11 @@ function Navbar() {
             </div>
             <button onClick={() => setCartMenu(!cartMenu)} ref={cartRef}>
               <BsCart3 size={24} />
-              <div className="absolute flex items-center justify-center rounded-full w-[1.1rem] h-[1.1rem] bg-red-500 right-[.5rem] lg:right-[3.4rem] bottom-[2rem]">
-                <div className="text-xs text-white">{cartTotal}</div>
-              </div>
+              {cartTotal > 0 && (
+                <div className="absolute flex items-center justify-center rounded-full w-[1.1rem] h-[1.1rem] bg-red-500 right-[.5rem] lg:right-[3.4rem] bottom-[2rem]">
+                  <div className="text-xs text-white">{cartTotal}</div>
+                </div>
+              )}
             </button>
           </div>
         </div>
