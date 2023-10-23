@@ -136,7 +136,7 @@ const StoreView = () => {
             <div className="flex flex-col items-center w-[56rem]">
               <div className="">
                 <img
-                  src={`../../../${store[0].image}`}
+                  src={store[0].image}
                   className="sm:rounded-[20px] object-cover h-[15.7rem] w-[56rem]"
                 />
                 <div className="relative bottom-6 sm:bottom-0">

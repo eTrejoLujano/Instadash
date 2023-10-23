@@ -62,7 +62,7 @@ const SearchDropdown = ({ ref, input, storeView }) => {
                       {" "}
                       <img
                         alt=""
-                        src={`../../../${logo}`}
+                        src={logo}
                         className="object-contain max-h-fit max-w-fit w-[3rem] h-[3rem] bg-gray-100 border rounded-full"
                       />
                     </div>

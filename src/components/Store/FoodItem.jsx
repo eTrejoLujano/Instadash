@@ -25,7 +25,7 @@ const FoodItem = ({
         </div>
         <div className="max-h-fit w-[8rem] md:w-[9rem] flex flex-col justify-center bg-white md:rounded-r-md md:rounded-l-none rounded-md">
           <img
-            src={`../../..${image}`}
+            src={image}
             className="max-w-fit h-[8rem] md:h-[9rem] md:border-t md:border-b md:rounded-r-md rounded-md md:rounded-l-none object-cover"
           />
           <div className="flex flex-col items-end w-full h-full relative bottom-[2.6rem] right-[.6rem]">

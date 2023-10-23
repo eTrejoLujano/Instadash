@@ -33,7 +33,7 @@ const FoodModal = ({
               {description}
             </div>
             <div className="flex justify-center">
-              <img src={`../../..${image}`} className="w-[20rem] max-h-fit" />
+              <img src={image} className="w-[20rem] max-h-fit" />
             </div>
           </div>
           <div className="space-y-3">

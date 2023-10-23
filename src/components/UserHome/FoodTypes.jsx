@@ -73,7 +73,7 @@ const FoodTypes = () => {
              space-y-2 py-4 pr-[.5rem] cursor-pointer"
             >
               <div className="w-9 h-9">
-                <img className="relative" src={`../../../${image}`} />
+                <img className="relative" src={image} />
               </div>
               <div className="truncate text-sm top-[.5rem] relative items-center ">
                 {name}

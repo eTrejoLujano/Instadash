@@ -99,7 +99,7 @@ export const StoreList = ({ storeView, itemModal }) => {
                         <div className="max-h-fit w-[8rem] flex justify-center">
                           <img
                             alt=""
-                            src={`../../../${image}`}
+                            src={image}
                             className="rounded-md relative w-[7rem] h-[7rem] object-cover"
                           />
                         </div>

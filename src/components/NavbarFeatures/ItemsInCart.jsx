@@ -37,7 +37,7 @@ const ItemsInCart = ({ id, item, cartMenuClose, handleFoodModal }) => {
           }}
         >
           <img
-            src={`../../..${item.image}`}
+            src={item.image}
             className=" w-[5rem] h-[5rem] object-cover max-h-full"
           />
           <div className="flex flex-col justify-center">

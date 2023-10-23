@@ -97,7 +97,7 @@ const SeeAll = () => {
                     <div className="h-[12rem] flex flex-col justify-center">
                       <img
                         alt=""
-                        src={`../../../${image}`}
+                        src={image}
                         className="rounded-md object-cover relative w-full h-full"
                       />
                     </div>

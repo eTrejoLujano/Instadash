@@ -32,7 +32,7 @@ const FoodTypePick = ({ stores }) => {
                 <div className="h-[12rem] flex flex-col justify-center">
                   <img
                     alt=""
-                    src={`../../../${store.stores_info.image}`}
+                    src={store.stores_info.image}
                     className="rounded-md object-cover relative w-full h-full"
                   />
                 </div>

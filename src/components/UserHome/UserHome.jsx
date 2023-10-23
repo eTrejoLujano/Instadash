@@ -173,10 +173,7 @@ const UserHome = () => {
                       foodPick == name && "bg-red-400"
                     } rounded-full flex items-center justify-center `}
                   >
-                    <img
-                      className="relative w-9 h-9"
-                      src={`../../../${image}`}
-                    />
+                    <img className="relative w-9 h-9" src={image} />
                   </div>
                   <div className="truncate text-sm top-[.5rem] relative items-center ">
                     {name}
@@ -246,7 +243,7 @@ const UserHome = () => {
                       <div className="h-[12rem] flex flex-col justify-center">
                         <img
                           alt=""
-                          src={`../../../${store.image}`}
+                          src={store.image}
                           className="rounded-md object-cover relative w-full h-full"
                         />
                       </div>

@@ -181,7 +181,7 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
                 <div className="h-[14rem] w-[24.5rem]">
                   <img
                     alt=""
-                    src={`../../../${store.image}`}
+                    src={store.image}
                     className="rounded-md relative w-[30rem] h-[12rem]"
                   />
                 </div>

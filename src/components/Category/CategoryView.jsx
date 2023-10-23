@@ -114,7 +114,7 @@ const CategoryView = () => {
                         <div className="flex items-center justify-start h-full space-x-2">
                           <img
                             alt=""
-                            src={`../../../${logo}`}
+                            src={logo}
                             className="object-contain w-[3.4rem] h-[3.4rem] bg-gray-100 border rounded-full"
                           />
                           <div>

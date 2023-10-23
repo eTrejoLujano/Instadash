@@ -87,7 +87,7 @@ const StoreModal = ({
                   <div className="max-h-fit w-full">
                     <img
                       alt=""
-                      src={`../../../${image}`}
+                      src={image}
                       className="rounded-md relative w-[7rem] h-[7rem] object-cover"
                     />
                   </div>

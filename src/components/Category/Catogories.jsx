@@ -35,7 +35,7 @@ const Categories = () => {
             >
               <div className="rounded-full h-9 w-9 bg-sky-100 ">
                 <div className="w-9">
-                  <img src={`../../../${image}`} />
+                  <img src={image} />
                 </div>
               </div>
               <div className="pt-1.5 text-md">{name}</div>
