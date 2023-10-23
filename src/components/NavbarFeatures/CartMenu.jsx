@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as pickupAPI from "../../Api/pickup";
 import { CgClose } from "react-icons/cg";
-import PlateIcon from "../../assets/icons/plateicon.png";
+import PlateIcon from "/assets/icons/plateicon.png";
 import { currencyFormat, formatAddress } from "../Util/helperFunctions";
 import Loading from "../Util/Loading";
 import ItemsInCart from "./ItemsInCart";

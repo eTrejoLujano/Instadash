@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import Krispy from "../../assets/ads/krispykreme.jpg";
-import Tacobell from "../../assets/ads/tacobell.jpeg";
-import Coke from "../../assets/ads/cokecola.png";
-import Extra from "../../assets/ads/extra.jpg";
+import Krispy from "/assets/ads/krispykreme.jpg";
+import Tacobell from "/assets/ads/tacobell.jpeg";
+import Coke from "/assets/ads/cokecola.png";
+import Extra from "/assets/ads/extra.jpg";
 import * as adsAPI from "../../Api/ads";
 
 const Ads = () => {

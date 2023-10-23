@@ -1,7 +1,7 @@
 import { HiChevronDown } from "react-icons/hi";
-import BlackDoor from "../../assets/icons/blackDoor.png";
-import BlackTag from "../../assets/icons/blackTag.png";
-import BlackStar from "../../assets/icons/blackStar.png";
+import BlackDoor from "/assets/icons/blackDoor.png";
+import BlackTag from "/assets/icons/blackTag.png";
+import BlackStar from "/assets/icons/blackStar.png";
 
 const Filterbar = () => {
   const filters = [

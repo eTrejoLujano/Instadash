@@ -1,5 +1,5 @@
 import React from "react";
-import Instadash from "../../assets/icons/instadash.png";
+import Instadash from "/assets/icons/instadash.png";
 
 const AuthBar = () => {
   return (

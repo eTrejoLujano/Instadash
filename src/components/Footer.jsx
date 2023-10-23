@@ -4,7 +4,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { CgWebsite } from "react-icons/cg";
-import Instacart from "../assets/icons/instadash.png";
+import Instacart from "/assets/icons/instadash.png";
 import picture from "/personalphoto.jpeg";
 
 const Footer = () => {

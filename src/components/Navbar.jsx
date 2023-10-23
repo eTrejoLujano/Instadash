@@ -5,7 +5,7 @@ import { logout } from "../redux-store/authSlice";
 import { getCart } from "../redux-store/cartSlice";
 import { formatAddress } from "./Util/helperFunctions";
 import CartMenu from "./NavbarFeatures/CartMenu";
-import Instacart from "../assets/icons/instadash.png";
+import Instacart from "/assets/icons/instadash.png";
 import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
 import { FiArrowLeft } from "react-icons/fi";
 import { HiOutlinePencil } from "react-icons/hi";

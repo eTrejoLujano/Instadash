@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import DashedEats from "../../assets/icons/instadash.png";
+import DashedEats from "/assets/icons/instadash.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import * as pickupAPI from "../../Api/pickup";
