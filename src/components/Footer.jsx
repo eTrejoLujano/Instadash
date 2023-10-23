@@ -97,7 +97,7 @@ const Footer = () => {
   ];
   return (
     <div
-      className={`w-screen h-full md:pt-[0rem] pt-[8rem] pb-2
+      className={`w-screen h-full md:pt-[0rem] top-[8rem] pb-2 z-0
       relative ${pathname === "/store" && "top-[6rem]"} ${
         pathname === "/category" && "top-[2rem]"
       } ${pathname === "/account" && "top-[3rem]"} ${
