@@ -26,12 +26,10 @@ const CategoryView = () => {
       const categoryPick = await categoriesAPI.getCategoryPick({
         category_id: location.state.id,
       });
-      console.log(categoryPick);
       setCategory(categoryPick);
       let sortedStores = categoryPick[0]?.store_category.sort((a, b) =>
         a.stores_info.name.localeCompare(b.stores_info.name)
       );
-      console.log("sorted stores", sortedStores, categoryPick);
       if (restaurants) {
         let storeIndex = 0;
         let restaurantIndex = 0;
@@ -76,9 +74,6 @@ const CategoryView = () => {
       },
     });
   };
-  console.log("categoryStores", categoryStores);
-
-  console.log(category);
   if (loading) return <Loading />;
   else
     return (
@@ -148,10 +143,7 @@ const CategoryView = () => {
                           </div>
                         </div>
 
-                        <button
-                          className="pr-1"
-                          onClick={() => console.log("hello")}
-                        >
+                        <button className="pr-1">
                           {/* <TbHeart
                             size={26}
 

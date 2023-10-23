@@ -18,7 +18,6 @@ const FoodModal = ({
   const [itemQuantity, setItemQuantity] = useState(quantity ? quantity : 1);
   const dispatch = useDispatch();
   const user_id = useSelector((state) => state.auth.user.user_id);
-  console.log("placeId", place_id);
   return (
     <div className="">
       <div className="justify-center items-center flex fixed h-full w-screen z-50">

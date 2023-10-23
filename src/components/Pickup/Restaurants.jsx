@@ -11,7 +11,6 @@ const Restaurants = ({ map, storeView, itemModal }) => {
   const [pick, setPick] = useState(null);
   const location = useSelector((state) => state.auth.location);
   const restaurants = useSelector((state) => state.store.store);
-  console.log("location", location);
   if (location)
     return (
       <div>

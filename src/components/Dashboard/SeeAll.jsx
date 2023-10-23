@@ -47,13 +47,11 @@ const SeeAll = () => {
           }
         }
       }
-      console.log("see all stores", seeAllStores);
       setSeeAllStores(seeAllStores);
     }
     setLoading(false);
   }, []);
   const storeView = ({ id, destinations, place_id, totalRatings }) => {
-    console.log("PLACE ID", place_id);
     navigate("/store", {
       state: {
         id,

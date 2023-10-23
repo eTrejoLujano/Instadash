@@ -58,7 +58,6 @@ export const addOneCart = createAsyncThunk(
           cart_id,
         },
       });
-      console.log("response data", response.data);
       return thunkAPI.dispatch(setCart(response.data));
     } catch (authError) {
       console.error(authError);

@@ -29,7 +29,6 @@ const StoreModal = ({
     }
     fetchData();
   }, []);
-  console.log("placedetails>>>>>>", placeDetails);
   const buttonStyling =
     "w-[9.5rem] h-[2.9rem] font-medium text-sm rounded-full flex justify-center items-center border border-gray-200 hover:bg-gray-200";
 

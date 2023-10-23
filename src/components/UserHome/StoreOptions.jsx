@@ -52,7 +52,6 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
           }
         }
       }
-      console.log("MAPPED STORES>>>", mappedStores);
       setMappedStores(mappedStores.sort(() => Math.random() - 0.5));
       setLoading(false);
     }
@@ -87,7 +86,6 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
     }
   };
   const storeView = (id, destinations, place_id, totalRatings) => {
-    console.log("PLACE ID", place_id);
     navigate("/store", {
       state: {
         id,
@@ -167,99 +165,50 @@ const StoreOptions = ({ stores, name, currentAddress }) => {
             ref={ref}
             onScroll={handleScroll}
           >
-            {mappedStores.map((store) => {
-              // console.log(
-              //   "console.log",
-              //   savedStoreCheck(savedStores, store.id)
-              // );
-              return (
-                <div
-                  key={store.id}
-                  className="rounded-lg flex flex-col space-y-[-1rem] cursor-pointer"
-                  onClick={() =>
-                    storeView(
-                      store.id,
-                      store.formatted_address,
-                      store.place_id,
-                      store.user_ratings_total
-                    )
-                  }
-                >
-                  <div className="h-[14rem] w-[24.5rem]">
-                    <img
-                      alt=""
-                      src={`../../../${store.image}`}
-                      className="rounded-md relative w-[30rem] h-[12rem]"
-                    />
-                  </div>
-                  <div className="w-full flex justify-between">
-                    <div>
-                      <div className="font-semibold text-base">
-                        {store.name}
-                      </div>
-                      <div className="text-sm text-gray-600">
-                        {formatAddress(store.formatted_address)[0]}
-                      </div>
-                      <div className="flex space-x-1">
-                        <div className="flex items-center">
-                          <div className="text-gray-600 text-sm">
-                            {store.rating}
-                          </div>
-                          <div>
-                            <FaStar size={14} className={"fill-gray-600"} />
-                          </div>
-                        </div>
-                        <div className="text-gray-600 text-sm">
-                          ({store.user_ratings_total}+ ratings)
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                    // onClick={(e) => {
-                    //   // console.log(
-                    //   //   "console.log",
-                    //   //   savedStoreCheck(savedStores, store.id)
-                    //   // );
-                    //   if (savedStoreCheck(savedStores, store.id).length == 0)
-                    //     dispatch(
-                    //       saveStore({
-                    //         user_id: auth.user.user_id,
-                    //         store_id: store.id,
-                    //       })
-                    //     );
-                    //   else if (
-                    //     savedStoreCheck(savedStores, store.id).length > 0
-                    //   ) {
-                    //     dispatch(
-                    //       deleteSaveStore({
-                    //         user_id: auth.user.user_id,
-                    //         store_id: store.id,
-                    //       })
-                    //     );
-                    //   }
-                    //   e.stopPropagation();
-                    // }}
-                    >
-                      {" "}
-                      {/* <TbHeart
-                        size={26}
-                        className={`${
-                          savedStoreCheck(savedStores, store.id).length > 0
-                            ? "fill-red-400"
-                            : ""
-                        } z-40`}
-                      /> */}
-                    </div>
-                  </div>
-
-                  {/* <div className="text-sm pt-[1rem] text-gray-600 relative flex flex-row">
-                {store.distance} • {store.time} • {store.fee}
-              </div> */}
-
-                  {/* <FaStar className="top-[.2rem] relative fill-gray-600" /> */}
+            {mappedStores.map((store) => (
+              <div
+                key={store.id}
+                className="rounded-lg flex flex-col space-y-[-1rem] cursor-pointer"
+                onClick={() =>
+                  storeView(
+                    store.id,
+                    store.formatted_address,
+                    store.place_id,
+                    store.user_ratings_total
+                  )
+                }
+              >
+                <div className="h-[14rem] w-[24.5rem]">
+                  <img
+                    alt=""
+                    src={`../../../${store.image}`}
+                    className="rounded-md relative w-[30rem] h-[12rem]"
+                  />
                 </div>
-              );
-            })}
+                <div className="w-full flex justify-between">
+                  <div>
+                    <div className="font-semibold text-base">{store.name}</div>
+                    <div className="text-sm text-gray-600">
+                      {formatAddress(store.formatted_address)[0]}
+                    </div>
+                    <div className="flex space-x-1">
+                      <div className="flex items-center">
+                        <div className="text-gray-600 text-sm">
+                          {store.rating}
+                        </div>
+                        <div>
+                          <FaStar size={14} className={"fill-gray-600"} />
+                        </div>
+                      </div>
+                      <div className="text-gray-600 text-sm">
+                        ({store.user_ratings_total}+ ratings)
+                      </div>
+                    </div>
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

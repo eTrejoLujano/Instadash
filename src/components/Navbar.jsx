@@ -53,13 +53,9 @@ function Navbar() {
     async function fetchData() {
       setLoading(true);
       await dispatch(getCart({ user_id })).then((res) => {
-        console.log("res", res);
-
-        console.log("inside if");
         for (let i = 0; i < res.payload.payload.length; i++) {
           cartTotal += res.payload.payload[i].quantity;
         }
-        console.log("cart total", cartTotal);
         setCartTotal(cartTotal);
       });
       navigate("/");
@@ -70,11 +66,9 @@ function Navbar() {
   useEffect(() => {
     if (cart) {
       cartTotal = 0;
-      console.log("inside if");
       for (let i = 0; i < cart.length; i++) {
         cartTotal += cart[i].quantity;
       }
-      console.log("cart total", cartTotal);
       setCartTotal(cartTotal);
     }
   }, [cart]);
@@ -157,7 +151,6 @@ function Navbar() {
     // { id: 5, name: "Saved Stores", icon: TbHeart, click: savedClick },
     { id: 6, name: "Sign Out", icon: CgCloseO, click: signoutClick },
   ];
-  console.log("current address", currentAddress);
   const handleClose = () => {
     setAddressModal(false);
   };

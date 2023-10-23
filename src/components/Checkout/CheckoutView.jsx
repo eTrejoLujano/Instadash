@@ -40,7 +40,6 @@ const CheckoutView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("cartInfo", location.state.cartInfo);
     async function fetchData() {
       if (auth.location) {
         subtotalAmount = 0;
@@ -69,13 +68,10 @@ const CheckoutView = () => {
         );
         // setTaxesAndFees(subtotalAmount * 0.0975 + (isDelivery ? 3 : 0));
         setItems(location.state.cartInfo.items);
-        console.log("travelInfo: ", travelInfo);
-        console.log("storeInfo: ", storeInfo);
       }
     }
     fetchData();
   }, [isDelivery, dispatch, cart, tipChoice]);
-  console.log("subtotal Amount", subtotalAmount);
 
   const checkout = async ({
     origin,

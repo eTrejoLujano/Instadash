@@ -20,7 +20,6 @@ const Receipt = ({ receiptInfo }) => {
     setSubtotal(subtotal);
   }, []);
 
-  console.log("state", receiptInfo);
   if (auth.user)
     return (
       <div className="px-7 md:py-7 pt-7 pb-12 md:pb-0 divide-y-[.1rem] h-full w-full divide-gray-200 overflow-y-scroll overscroll-y-contain container-snap">

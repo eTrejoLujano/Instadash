@@ -61,7 +61,6 @@ const CartMenu = ({
     }
     fetchData();
   }, [cart]);
-  console.log("mapped cart ", mappedCart);
   if (loading) return <Loading />;
   else
     return (

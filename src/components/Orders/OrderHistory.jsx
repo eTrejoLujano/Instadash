@@ -21,9 +21,7 @@ const OrderHistory = () => {
         user_id: auth.user.user_id,
       });
       setOrderHistory(orders);
-      console.log(orders);
       setLoading(false);
-      console.log(orderDateFormat(new Date(orders[0].date).toString()));
     }
     fetchData();
   }, []);

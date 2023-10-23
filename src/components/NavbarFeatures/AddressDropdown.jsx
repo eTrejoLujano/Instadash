@@ -39,7 +39,6 @@ const AddressDropdown = ({ dropdownRef, inputStyling }) => {
     autocomplete.setFields(["place_id", "geometry", "name"]);
     autocomplete.addListener("place_changed", async () => {
       const place = autocomplete.getPlace();
-      console.log("place", place);
       const coordinates = await locationAPI.getAddressCoordinates({
         address: gmapsAddress(place.formatted_address),
       });

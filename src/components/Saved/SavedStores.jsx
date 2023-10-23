@@ -18,11 +18,9 @@ const SavedStores = () => {
     const filteredStores = restaurants
       .map(({ users }) => users.filter((userId) => userId == auth.user.user_id))
       .filter((a) => a.length);
-    console.log("filteredStores", filteredStores);
     setLoading(false);
   }, []);
   const storeView = ({ id, destinations, place_id, totalRatings }) => {
-    console.log("PLACE ID", place_id);
     navigate("/store", {
       state: {
         id,

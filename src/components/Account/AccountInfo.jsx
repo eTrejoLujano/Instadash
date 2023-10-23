@@ -16,7 +16,6 @@ const AccountInfo = () => {
       ? user.last_name
       : e.target.lastName.value;
     let email = !e.target.email.value ? user.email : e.target.email.value;
-    console.log("account info", first_name, last_name, email, user.email);
     await accountAPI.updateAccount({
       user_id: user.user_id,
       first_name,

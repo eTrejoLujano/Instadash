@@ -36,7 +36,6 @@ const StoreView = () => {
     async function fetchData() {
       if (location.state.id) {
         setLoading(true);
-        console.log("location", location.state.id);
         const fetchStore = await storeAPI.getStoreById({
           store_id: location.state.id,
         });
@@ -47,7 +46,6 @@ const StoreView = () => {
         const fetchPlaceDetails = await pickupAPI.getPlaceDetails({
           place_id: location.state.place_id,
         });
-        console.log("travel ferch details", travel, fetchPlaceDetails);
         setStore(fetchStore);
         setFoodItems(fetchStore[0].store_items);
         setOriginalItems(fetchStore[0].store_items);
@@ -78,14 +76,12 @@ const StoreView = () => {
       document.removeEventListener("click", handleClickOutside, false);
     };
   }, [location.state.id]);
-  console.log(foodItems);
   useEffect(() => {
     setFoodItems(() =>
       foodItems?.filter(({ name }) => {
         if (inputText === "") {
           return setFoodItems([...originalItems]);
         } else {
-          console.log(name.toLowerCase().includes(inputText));
           return name.toLowerCase().includes(inputText);
         }
       })
@@ -120,7 +116,6 @@ const StoreView = () => {
     var lowerCase = e.target.value.toLowerCase();
     setInputText(lowerCase);
   };
-  console.log("place details", placeDetails, location.state);
   if (!store && loading) return <Loading />;
   else if (store)
     return (

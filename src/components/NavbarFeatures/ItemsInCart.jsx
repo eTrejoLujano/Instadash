@@ -18,9 +18,7 @@ const ItemsInCart = ({ id, item, cartMenuClose, handleFoodModal }) => {
   useEffect(() => {
     const itemCheck = cart.filter((cart) => cart.id == id);
     setFilteredItem(itemCheck[0]);
-    // console.log("itemcheck", itemCheck[0]);
   }, [cart]);
-  // console.log("filtered item", filteredItem);
   if (filteredItem)
     return (
       <div className="flex px-4 pt-4 space-x-2 justify-between items-center w-full h-[5rem] rounded-md z-10 cursor-pointer">

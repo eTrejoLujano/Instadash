@@ -13,14 +13,12 @@ export const me = createAsyncThunk("auth/me", async (_, thunkAPI) => {
     if (response.status === 200) {
       window.localStorage.setItem("token", JSON.stringify(response.data));
       const decoded = jwt_decode(response.data.access);
-      console.log("decoded", decoded);
       const userInfo = await axios.get(`${URL}/api/getuser/`, {
         params: {
           user_id: decoded.user_id,
         },
       });
       const fetchedInfo = userInfo.data[0];
-      console.log("userInfo", userInfo);
       thunkAPI.dispatch(setToken(response.data));
       thunkAPI.dispatch(
         setUser({
@@ -116,9 +114,7 @@ export const authenticate = createAsyncThunk(
   "auth/authenticate",
   async (formVals, thunkAPI) => {
     try {
-      console.log("auth", formVals);
       const response = await axios.post(`${URL}/api/token/`, formVals);
-      console.log("res auth", response);
       if (response.status === 200) {
         window.localStorage.setItem("token", JSON.stringify(response.data));
         thunkAPI.dispatch(setToken(response.data));
