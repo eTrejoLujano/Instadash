@@ -111,7 +111,7 @@ const Footer = () => {
       } ${
         pathname === "/account/change-password" &&
         "md:bottom-[1rem] bottom-[8.95rem]"
-      }`}
+      } ${pathname === "/dashboard" && "top-[10rem]"}`}
     >
       <div className="w-full h-[.05rem] rounded bg-gray-200 relative top-4" />
       <div className="flex flex-col items-center w-full h-full relative pt-6 space-y-3">
