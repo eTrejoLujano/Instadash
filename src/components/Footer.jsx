@@ -80,14 +80,20 @@ const Footer = () => {
     {
       id: 4,
       child: (
-        <div className="group text-red-200">
+        <a
+          className="group text-red-200"
+          download={true}
+          href="/ErikTrejo_Resume.pdf"
+          target="_blank"
+          rel="noreferrer"
+        >
           <div className="group-hover:text-blue-400">
             <BsFillPersonLinesFill size={30} />
           </div>
           <div className="hidden group-hover:text-blue-400 group-hover:flex w-full h-full relative top-2 items-center justify-center">
             <div className="absolute">Resume</div>
           </div>
-        </div>
+        </a>
       ),
       href: "/Erik_TrejoLujano_Resume.pdf",
       style:
