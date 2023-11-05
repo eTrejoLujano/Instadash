@@ -11,4 +11,4 @@ A food delivery web application built with Javascript and Python that gives user
 
 ### Project Structure 
 The project's codebase is organized as follows:
-- **src/**
+- `src/`
