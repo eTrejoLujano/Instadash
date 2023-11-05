@@ -46,4 +46,4 @@ Order History
 
 Order Receipt with Map
 
-Edit Account Information Page
+Edit Account Info. Page
