@@ -12,9 +12,9 @@ A food delivery web application built with Javascript and Python that gives user
 ### Project Structure 
 The project's codebase is organized as follows:
 - `src/`: This directory contains the source code for the project
-  - `Api`: The several different requests used to interact with the Django API.
+  - `Api`: Several different requests used to interact with the Django API.
   - `components`: Various components used in the project.
-  - `redux-store`: Holds the slices for redux state management.
+  - `redux-store`: The slices for redux toolkit's state management.
   - `App.js`: The main application component.
   - `main.js`: The entry point of the application.
 
