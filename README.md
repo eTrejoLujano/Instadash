@@ -1,1 +1,3 @@
-# dashed-eats-react
+# Dashed Eats
+
+## Dashed Eats
