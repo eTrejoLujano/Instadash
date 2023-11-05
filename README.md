@@ -26,3 +26,24 @@ To run this project locally, follow these steps:
 4. Start the development server with `npm start`.
 
 This will launch the application locally for testing and development.
+
+## Functionality of the App
+Home Page
+
+See All feature for Dashboards
+
+Pickup Feature
+
+Interactful Map Nodes
+
+Store Page with cart opened
+
+Item Details
+
+Checkout
+
+Order History
+
+Order Receipt with Map
+
+Edit Account Information Page
