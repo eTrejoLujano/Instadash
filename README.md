@@ -66,3 +66,9 @@ This will launch the application locally for testing and development.
 <img width="1440" alt="Screenshot 2023-11-05 at 9 25 13 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/3594eb82-0aa4-447c-af31-d85e139ca75a">
 
 <img width="1440" alt="Screenshot 2023-11-05 at 9 25 30 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/7e5416d5-c5ef-4061-b913-bd6e2df0b53e">
+
+## Google API Key
+To obtain a Google API Key for this project, follow these steps:
+  1. Go to the Google Developer Console (https://console.developers.google.com).
+  2.
+  3.
