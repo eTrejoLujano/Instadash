@@ -29,6 +29,7 @@ This will launch the application locally for testing and development.
 
 ## Functionality of the App
 Home Page
+![Uploading Screenshot 2023-10-05 at 11.55.42 PM.png…]()
 
 See All feature for Dashboards
 
