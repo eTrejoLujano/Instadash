@@ -1,19 +1,19 @@
 # Dashed Eats
 A food delivery web application built with Javascript and Python that gives users the power to conveniently order groceries and meals from any location via the Google Maps API.
 
-[Backend Repository](https://github.com/eTrejoLujano/dashed-eats-django)
+[Back end Repository](https://github.com/eTrejoLujano/dashed-eats-django)
 
 ## Project Overview
 ### Technologies Used
-- React: The primary frontend library.
+- React: The primary front end library.
 - Redux Toolkit: For state management.
 - Django: The primary backend framework. 
 - Tailwind CSS: Used to design the responsive user interface (UI).
 - Amazon Web Services: Used for the deployment of the backend infrastructure.
 
-### Project's Frontend Structure 
+### Project's Front End Structure 
 The project's codebase is organized as follows:
-- `src/`: This directory contains the source code for the project
+- `src/`: This directory contains the source code for the project.
   - `Api`: Holds several different requests used to interact with the Django API.
   - `components`: Various components used in the project.
   - `redux-store`: The slices for redux toolkit's state management.
@@ -30,6 +30,8 @@ To run this project locally, follow these steps:
 6. Start the development server with `npm run dev`.
 
 This will launch the application locally for testing and development.
+
+The application is set to interact with the deployed back end web server by default. If you wish to use the application while locally running the Django API on your machine, go the [back end repository](https://github.com/eTrejoLujano/dashed-eats-django) and follow the ReadMe file. Then go to the `components` folder then to `Util` and in the `constants` file comment out line 2 and comment in line 1. This will make it so the front end code is making requests to your locally runned back end.  
 
 ## Functionality of the App
 ### Home Page
