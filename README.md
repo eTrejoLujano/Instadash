@@ -71,7 +71,7 @@ This will launch the application locally for testing and development.
 
 ## Google Maps API Key
 To obtain a Google Maps API Key for this project, follow these steps:
-  1. Go to the Google Developer Console (https://console.developers.google.com).
+  1. Go to the [Google Developer Console](https://console.developers.google.com).
   2. Create a new project.
   3. Manage API's and enable the following required Google Maps Platform APIs for this project:
      - Maps JavaScript API
@@ -83,7 +83,7 @@ To obtain a Google Maps API Key for this project, follow these steps:
 
 ## Google Map ID
 To obtain a Google Map ID for this project, follow these steps:
-  1. Go to the Google Developer Console (https://console.developers.google.com).
+  1. Go to the [Google Developer Console](https://console.developers.google.com).
   2. Click the sidebar menu then go to Google Maps Platform then to Map Management.
   3. Click on Create Map ID.
   4. Give it a name and set the map type to Javascript as a Vector.
