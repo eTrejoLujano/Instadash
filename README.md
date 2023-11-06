@@ -26,7 +26,7 @@ To run this project locally, follow these steps:
 2. Navigate to the project directory.
 3. Install the required dependies using `npm install`.
 4. Obtain a [Google Map API Key](#Google-Maps-API-Key) and [Google Map ID](#Google-Map-ID).
-5. Create an `.env` file with `VITE_GOOGLE_KEY` set to the Google Map API Key and `VITE_MAP_ID` as the Google Map ID.
+5. Create an `.env` file with variables `VITE_GOOGLE_KEY` set to the Google Map API Key and `VITE_MAP_ID` as the Google Map ID.
 6. Start the development server with `npm run dev`.
 
 This will launch the application locally for testing and development.
