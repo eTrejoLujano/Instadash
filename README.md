@@ -3,10 +3,10 @@ A food delivery web application built with Javascript and Python that gives user
 
 ## Project Overview
 ### Technlogies Used
-- React: Used as the primary front-end library.
+- React: Used as the primary frontend library.
 - Redux Toolkit: For state management.
-- Django:
-- Tailwind CSS:
+- Django: Used as the primary backend framework. 
+- Tailwind CSS: Used to design the responsive user interface (UI).
 - Amazon Web Services: Used for deployment of the backend infrastructure 
 
 ### Project Structure 
@@ -23,9 +23,9 @@ To run this project locally, follow these steps:
 1. Clone the repository to your local machine.
 2. Navigate to the project directory.
 3. Install the required dependies using `npm install`.
-4. Obtain a [Google Map API Key](#Google-Maps-API-Key) and a Google Map ID.
-5. Create an `.env` file with `VITE_GOOGLE_KEY` as the Google Map API Key and `VITE_MAP_ID` as the Google Map ID.
-6. Start the development server with `npm start`.
+4. Obtain a [Google Map API Key](#Google-Maps-API-Key) and a [Google Map ID](#Google-Map-ID).
+5. Create an `.env` file with `VITE_GOOGLE_KEY` set to the Google Map API Key and `VITE_MAP_ID` as the Google Map ID.
+6. Start the development server with `npm run dev`.
 
 This will launch the application locally for testing and development.
 
