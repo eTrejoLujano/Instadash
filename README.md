@@ -9,7 +9,7 @@ A food delivery web application built with Javascript and Python that gives user
 - Redux Toolkit: For state management.
 - Django: The primary back end framework. 
 - Tailwind CSS: Used to design the responsive user interface (UI).
-- Amazon Web Services: Used for the deployment of the backend infrastructure.
+- Amazon Web Services: Used for the deployment of the back end infrastructure.
 
 ### Project's Front End Structure 
 The project's codebase is organized as follows:
