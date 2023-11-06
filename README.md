@@ -4,7 +4,7 @@ A food delivery web application built with Javascript and Python that gives user
 [Backend Repository](https://github.com/eTrejoLujano/dashed-eats-django)
 
 ## Project Overview
-### Technlogies Used
+### Technologies Used
 - React: Used as the primary frontend library.
 - Redux Toolkit: For state management.
 - Django: Used as the primary backend framework. 
