@@ -77,7 +77,7 @@ The application is set to interact with the deployed back end web server by defa
 To obtain a Google Maps API Key for this project, follow these steps:
   1. Go to the [Google Developer Console](https://console.developers.google.com).
   2. Create a new project.
-  3. Manage API's and enable the following required Google Maps Platform APIs for this project:
+  3. Manage API's and enable the following required Google Maps Platform API's for this project:
      - Maps JavaScript API
      - Address Validation API
      - Geocoding API
