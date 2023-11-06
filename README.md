@@ -28,23 +28,24 @@ To run this project locally, follow these steps:
 This will launch the application locally for testing and development.
 
 ## Functionality of the App
-Home Page
+###Home Page
+
 <img width="1440" alt="Screenshot 2023-10-05 at 11 55 42 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/a3a3b65d-0670-42cc-9ac9-cef6d164931d">
 
-See All feature for Dashboards
+###See All feature for Dashboards
 
-Pickup Feature
+###Pickup Feature
 
-Interactful Map Nodes
+###Interactful Map Nodes
 
-Store Page with cart opened
+###Store Page with cart opened
 
-Item Details
+###Item Details
 
-Checkout
+###Checkout
 
-Order History
+###Order History
 
-Order Receipt with Map
+###Order Receipt with Map
 
-Edit Account Info. Page
+###Edit Account Info. Page
