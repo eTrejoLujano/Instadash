@@ -1,7 +1,7 @@
 # Dashed Eats
 A food delivery web application built with Javascript and Python that gives users the power to conveniently order groceries and meals from any location via the Google Maps API.
 
-[Back end Repository](https://github.com/eTrejoLujano/dashed-eats-django)
+[Back End Repository](https://github.com/eTrejoLujano/dashed-eats-django)
 
 ## Project Overview
 ### Technologies Used
