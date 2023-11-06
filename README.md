@@ -34,18 +34,35 @@ This will launch the application locally for testing and development.
 
 ### See All feature for Dashboards
 
-### Pickup Feature
+![Screenshot 2023-10-05 at 11 55 42 PM (2)](https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/e9aef3c1-e520-471c-a0b1-2c430324d274)
 
-### Interactful Map Nodes
+### Pickup Feature with Map Node
 
-### Store Page with cart opened
+<img width="1440" alt="Screenshot 2023-11-05 at 9 27 00 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/14e80f93-551a-41d1-98c9-46311916cc4c">
 
-### Item Details
+
+### Store Page with Cart
+
+<img width="1440" alt="Screenshot 2023-10-05 at 11 59 13 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/5320518b-0067-4c29-aa61-feee12ba183e">
+
+### Item Selection
+
+<img width="1440" alt="Screenshot 2023-11-05 at 9 24 42 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/1661fd84-1e96-4156-806d-ca1bd30f48d6">
 
 ### Checkout
 
+<img width="1440" alt="Screenshot 2023-10-05 at 11 59 38 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/9cefdcd5-dcba-461f-b117-ca33e0a1abe5">
+
 ### Order History
 
-### Order Receipt with Map
+<img width="1440" alt="Screenshot 2023-10-06 at 12 04 59 AM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/22cb75e5-8b99-44b6-9b99-d96fba26fce7">
 
-### Edit Account Info. Page
+### Order Receipt
+
+<img width="1440" alt="Screenshot 2023-10-06 at 12 05 47 AM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/537fd77f-f7f9-4a2c-89ff-9d3de8d99afb">
+
+### Edit Account Info.
+
+<img width="1440" alt="Screenshot 2023-11-05 at 9 25 13 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/3594eb82-0aa4-447c-af31-d85e139ca75a">
+
+<img width="1440" alt="Screenshot 2023-11-05 at 9 25 30 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/7e5416d5-c5ef-4061-b913-bd6e2df0b53e">
