@@ -23,7 +23,9 @@ To run this project locally, follow these steps:
 1. Clone the repository to your local machine.
 2. Navigate to the project directory.
 3. Install the required dependies using `npm install`.
-4. Start the development server with `npm start`.
+4. Obtain a Google Map API Key and a Google Map ID.
+5. Create an `.env` file with `VITE_GOOGLE_KEY` as the Google Map API Key and `VITE_MAP_ID` as the Google Map ID.
+6. Start the development server with `npm start`.
 
 This will launch the application locally for testing and development.
 
@@ -67,8 +69,21 @@ This will launch the application locally for testing and development.
 
 <img width="1440" alt="Screenshot 2023-11-05 at 9 25 30 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/7e5416d5-c5ef-4061-b913-bd6e2df0b53e">
 
-## Google API Key
-To obtain a Google API Key for this project, follow these steps:
+## Google Maps API Key
+To obtain a Google Maps API Key for this project, follow these steps:
   1. Go to the Google Developer Console (https://console.developers.google.com).
-  2.
-  3.
+  2. Create a new project.
+  3. Manage API's and enable the following required Google Maps Platform APIs for this project:
+     - Maps JavaScript API
+     - Address Validation API
+     - Geocoding API
+     - Places API
+     - Distance Matrix API
+  4. Create credentials to obtain the Maps API key.
+
+## Google Map ID
+To obtain a Google Map ID for this project, follow these steps:
+  1. Go to the Google Developer Console (https://console.developers.google.com).
+  2. Click the sidebar menu then go to Google Maps Platform then to Map Management.
+  3. Click on Create Map ID.
+  4. Give it a name and set the map type to Javascript as a Vector.
