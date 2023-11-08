@@ -11,7 +11,7 @@ A food delivery web application built with Javascript and Python that gives user
 - Tailwind CSS: Used to design the responsive user interface (UI).
 - Amazon Web Services: Used for the deployment of the back end infrastructure.
 
-### Project's Front End Structure 
+### Front End Structure 
 The project's codebase is organized as follows:
 - `src/`: This directory contains the source code for the project.
   - `Api`: Holds several different requests used to interact with the Django API.
