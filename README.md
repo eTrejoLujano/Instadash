@@ -1,19 +1,19 @@
 # Dashed Eats
 A food delivery web application built with Javascript and Python that gives users the power to conveniently order groceries and meals from any location via the Google Maps API.
 
-[Backend Repository](https://github.com/eTrejoLujano/dashed-eats-django)
+[Back End Repository](https://github.com/eTrejoLujano/dashed-eats-django)
 
 ## Project Overview
 ### Technologies Used
-- React: Used as the primary frontend library.
+- React: The primary front end library.
 - Redux Toolkit: For state management.
-- Django: Used as the primary backend framework. 
+- Django: The primary back end framework. 
 - Tailwind CSS: Used to design the responsive user interface (UI).
-- Amazon Web Services: Used for deployment of the backend infrastructure 
+- Amazon Web Services: Used for the deployment of the back end infrastructure.
 
-### Project's Frontend Structure 
+### Front End Structure 
 The project's codebase is organized as follows:
-- `src/`: This directory contains the source code for the project
+- `src/`: This directory contains the source code for the project.
   - `Api`: Holds several different requests used to interact with the Django API.
   - `components`: Various components used in the project.
   - `redux-store`: The slices for redux toolkit's state management.
@@ -24,12 +24,14 @@ The project's codebase is organized as follows:
 To run this project locally, follow these steps:
 1. Clone the repository to your local machine.
 2. Navigate to the project directory.
-3. Install the required dependies using `npm install`.
+3. Install the required dependencies using `npm install`.
 4. Obtain a [Google Map API Key](#Google-Maps-API-Key) and [Google Map ID](#Google-Map-ID).
-5. Create an `.env` file with `VITE_GOOGLE_KEY` set to the Google Map API Key and `VITE_MAP_ID` as the Google Map ID.
+5. Create an `.env` file with variables `VITE_GOOGLE_KEY` set to the Google Map API Key and `VITE_MAP_ID` as the Google Map ID.
 6. Start the development server with `npm run dev`.
 
 This will launch the application locally for testing and development.
+
+The application is set to interact with the deployed back end web server by default. If you wish to use the application while locally running the Django API on your machine, go the [back end repository](https://github.com/eTrejoLujano/dashed-eats-django) and follow the ReadMe file. Then go to the `components` folder then to `Util` and in the `constants` file comment out line 2 and comment in line 1. This will make it so the front end code is making requests to your locally runned back end.  
 
 ## Functionality of the App
 ### Home Page
@@ -75,7 +77,7 @@ This will launch the application locally for testing and development.
 To obtain a Google Maps API Key for this project, follow these steps:
   1. Go to the [Google Developer Console](https://console.developers.google.com).
   2. Create a new project.
-  3. Manage API's and enable the following required Google Maps Platform APIs for this project:
+  3. Manage API's and enable the following required Google Maps Platform API's for this project:
      - Maps JavaScript API
      - Address Validation API
      - Geocoding API
