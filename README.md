@@ -47,7 +47,7 @@ The application is set to interact with the deployed back end web server by defa
 <img width="1440" alt="Screenshot 2023-11-05 at 9 27 00 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/14e80f93-551a-41d1-98c9-46311916cc4c">
 
 
-### Store Page with Cart
+### Store Page with the Cart Menu
 
 <img width="1440" alt="Screenshot 2023-10-05 at 11 59 13 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/5320518b-0067-4c29-aa61-feee12ba183e">
 
