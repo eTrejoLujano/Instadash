@@ -42,7 +42,7 @@ The application is set to interact with the deployed back end web server by defa
 
 ![Screenshot 2023-10-05 at 11 55 42 PM (2)](https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/e9aef3c1-e520-471c-a0b1-2c430324d274)
 
-### Pickup Feature with Map Node
+### Pickup Feature with a Map Node
 
 <img width="1440" alt="Screenshot 2023-11-05 at 9 27 00 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/14e80f93-551a-41d1-98c9-46311916cc4c">
 
