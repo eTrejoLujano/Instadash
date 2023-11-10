@@ -31,7 +31,7 @@ To run this project locally, follow these steps:
 
 This will launch the application locally for testing and development.
 
-The application is set to interact with the deployed back end web server by default. If you wish to use the application while locally running the Django API on your machine, go the [back end repository](https://github.com/eTrejoLujano/dashed-eats-django) and follow the ReadMe file. Then go to the `components` folder then to `Util` and in the `constants` file comment out line 2 and comment in line 1. This will make it so the front end code is making requests to your locally runned back end.  
+The application is set to interact with the deployed back end web server by default. If you wish to use the application while locally running the Django API on your machine, go to the [back end repository](https://github.com/eTrejoLujano/dashed-eats-django) and follow the ReadMe file. Then go to the `components` folder then to `Util` and in the `constants` file comment out line 2 and comment in line 1. This will make it so the front end code is making requests to your locally runned back end.  
 
 ## Functionality of the App
 ### Home Page
