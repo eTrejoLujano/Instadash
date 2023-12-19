@@ -31,7 +31,7 @@ To run this project locally, follow these steps:
 
 This will launch the application locally for testing and development.
 
-The application is set to interact with the deployed back end web server by default. If you wish to use the application while locally running the Django API on your machine, go the [back end repository](https://github.com/eTrejoLujano/dashed-eats-django) and follow the ReadMe file. Then go to the `components` folder then to `Util` and in the `constants` file comment out line 2 and comment in line 1. This will make it so the front end code is making requests to your locally runned back end.  
+The application is set to interact with the deployed back end web server by default. If you wish to use the application while locally running the Django API on your machine, go to the [back end repository](https://github.com/eTrejoLujano/dashed-eats-django) and follow the ReadMe file. Then go to the `components` folder then to `Util` and in the `constants` file comment out line 2 and comment in line 1. This will make it so the front end code is making requests to your locally runned back end.  
 
 ## Functionality of the App
 ### Home Page
@@ -42,12 +42,12 @@ The application is set to interact with the deployed back end web server by defa
 
 ![Screenshot 2023-10-05 at 11 55 42 PM (2)](https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/e9aef3c1-e520-471c-a0b1-2c430324d274)
 
-### Pickup Feature with Map Node
+### Pickup Feature with a Map Node
 
 <img width="1440" alt="Screenshot 2023-11-05 at 9 27 00 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/14e80f93-551a-41d1-98c9-46311916cc4c">
 
 
-### Store Page with Cart
+### Store Page with the Cart Menu
 
 <img width="1440" alt="Screenshot 2023-10-05 at 11 59 13 PM" src="https://github.com/eTrejoLujano/dashed-eats-react/assets/85711028/5320518b-0067-4c29-aa61-feee12ba183e">
 
